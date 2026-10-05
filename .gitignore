@@ -1,4 +1,5 @@
 __pycache__/
 *.pyc
 test.html
+_site/
 .claude/settings.local.json
