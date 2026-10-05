@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Wipe Wars</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
+<style>/*CSS*/</style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+</head>
+<body data-nav="1">
+<div id="app">
+<div id="title"></div>
+
+<section class="screen on" id="home" data-title="Home">
+  <div class="homebg"></div><div class="vig"></div>
+  <div class="htop">
+    <div class="lvl"><div class="lvring" id="lvring"><span id="plvn">1</span></div></div>
+    <div class="xpw"><div class="pname">Wipe Wars</div><div class="xpbar"><i id="xpf"></i></div><div class="xpt" id="xpt"></div></div>
+    <button class="rb sm" id="cfg" aria-label="Settings"><img class="ic" alt="" src="" id="cfgi"></button>
+  </div>
+  <div class="hcur2">
+    <div class="pill" data-go="shop:gold"><img class="ic" alt="" data-ic="gold"><b data-cur="gold"></b></div>
+    <div class="pill" data-go="shop:gems"><img class="ic" alt="" data-ic="gem"><b data-cur="gems"></b><i class="plus">+</i></div>
+    <div class="pill" data-go="recruit"><img class="ic" alt="" data-ic="ticket"><b data-cur="tix"></b></div>
+    <div class="pill keys" data-go="shop:chests"><img class="ic s" alt="" data-ic="key_bronze"><b data-cur="b"></b><img class="ic s" alt="" data-ic="key_silver"><b data-cur="s"></b><img class="ic s" alt="" data-ic="key_gold"><b data-cur="g"></b></div>
+  </div>
+  <div class="side L" id="iconsL"></div><div class="side R" id="iconsR"></div>
+  <div class="arena"><div class="col" id="bgH"></div><div class="col" id="bgM"></div></div>
+  <div class="hbot">
+    <div class="hint" id="hint">Tap Battle to begin!</div><button class="btn primary bigbtn" id="go"><span>Battle</span><small id="goSub"></small></button>
+    <div class="panel idle">
+      <img id="idleChest" class="ic xl" alt="">
+      <div class="idi"><div class="idt">Idle Rewards</div><div class="idg"><img class="ic s" alt="" data-ic="gold"><b id="rw">0</b><small id="rrate"></small></div><div class="ibar"><i id="rbar"></i></div><small id="rt"></small></div>
+      <button class="btn primary" id="claim">Claim</button>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="campaign" data-title="Campaign"><div class="scroll" id="campBody"></div></section>
+
+<section class="screen" id="prep">
+  <div class="hdr"><button class="btn sm back" id="prepBack">&#8249; Back</button><div class="htitle plq" id="prepTitle"></div></div>
+  <div class="scroll">
+    <div class="sub center" id="prepHint"></div>
+    <div class="panel"><div id="prepGrid"></div></div>
+    <div class="panel"><div class="sect">Team <small id="prepTeamN"></small></div><div id="prepRoster"></div></div>
+    <div class="panel"><div class="sect">Enemies</div><div id="prepEnemies"></div></div>
+    <div class="panel"><div class="sect" id="prepRwLabel">Rewards</div><div class="chips" id="prepRewards"></div></div>
+    <button class="btn primary wide bigbtn flat" id="prepGo">Start battle</button>
+  </div>
+</section>
+
+<section class="screen" id="fight" data-title="Battle">
+  <div class="hdr fhdr"><button class="btn sm" id="back">Flee</button><div class="htitle plq" id="fplq"></div><button class="btn sm" id="spd">x1</button></div>
+  <div class="field" id="field"><div class="fbg" id="fbg"></div><div id="fHeroes"></div><div id="fMons"></div></div>
+  <div id="ultbar"><div id="ults"></div><div class="autorow"><button class="btn sm" id="autoU">Auto ultimates: Off</button></div>
+    <div class="panel einfo"><div class="sect">Enemies <small id="ecount"></small></div><div id="elist"></div></div></div>
+  <div id="result"></div>
+</section>
+
+<section class="screen" id="recruit" data-title="Recruit"><div class="scroll" id="recruitBody"></div></section>
+<section class="screen" id="heroes" data-title="Heroes"><div class="scroll" id="heroBody"></div></section>
+<section class="screen" id="bag" data-title="Bag"><div class="scroll" id="bagBody"></div></section>
+<section class="screen" id="shop" data-title="Shop"><div class="scroll" id="shopBody"></div></section>
+<section class="screen" id="tasks" data-title="Daily Tasks"><div class="scroll" id="taskBody"></div></section>
+<section class="screen" id="cal" data-title="Daily Login"><div class="scroll" id="calBody"></div></section>
+<section class="screen" id="mail" data-title="Mail"><div class="scroll" id="mailBody"></div></section>
+<section class="screen" id="guild" data-title="Guild"><div class="scroll"></div></section>
+<section class="screen" id="friends" data-title="Friends"><div class="scroll"></div></section>
+<section class="screen" id="settings" data-title="Settings"><div class="scroll" id="setBody"></div></section>
+
+<nav id="nav"></nav>
+</div>
+<div id="modal"><div id="mbox"></div></div>
+<div id="toast"></div>
+<script>/*JS*/</script>
+</body></html>

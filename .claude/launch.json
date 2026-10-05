@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "wipe-wars",
+      "runtimeExecutable": "C:\\Users\\diogo\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "runtimeArgs": ["-m", "http.server", "8734"],
+      "port": 8734
+    }
+  ]
+}
