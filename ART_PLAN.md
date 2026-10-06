@@ -30,7 +30,24 @@ Panels for the 5 chapter intros (4-6 panels each), boss-defeat panels, ending pa
 ## Future-proofing (generated now so we never pay again)
 Roster slots for 4-6 more heroes (free silhouettes + 2 finished), chapter 6-8 monsters (3 sets), alternate hero skins (1 per hero), seasonal event kit (holiday icons, banner, 2 monsters), boss-rush arena, guild emblem set (16), avatar frames (8), friend stickers/emotes (16), app icon + favicon + social preview card, store/key art + promo banner, tutorial Julia extra poses, equipment visuals on heroes (optional), pet/companion ideas.
 
-## Budget (estimates; verify use.ai limits first)
+## MEASURED LIMIT (2026-10-06) - this replaces the estimate table below
+use.ai Trial, "Premium models" daily allowance, resets every 24h. One image costs ~4% of the daily allowance (89% -> 85%), so about **25 images per day, about 170 images before the trial ends (2026-10-12/13)**. The 450-generation table below is therefore too big; use this instead:
+
+| Block | How | Tries | Images |
+|---|---|---|---|
+| Heroes | sheets of 4 same-role heroes (also gives roster symmetry for free) + single fix-ups | 3 | ~22 |
+| Portraits | bust sheets of 6 | 2 | ~6 |
+| Monsters | sheets of 3 per chapter + Big Head stages sheet | 3 | ~30 |
+| Julia | 1 sheet of 4 expressions | 3 | ~3 |
+| Backgrounds | 5 chapters + home wide/tall + title, one per image | 2 | ~16 |
+| Icons | 16-per-sheet | 2 | ~16 |
+| UI kit | sheets | 2 | ~8 |
+| Cutscenes | one 4-panel page per chapter | 2 | ~10 |
+| Future (heroes, ch6-8, skins, event, emblems, promo) | sheets | 2 | ~20 |
+| **Total** | | | **~131 (+ ~35 buffer)** |
+Rules to save quota: never use the site's Background Removal / Enhancer tools (they cost quota, do it in code); fix flaws in code instead of regenerating whenever Jacquin says FIXABLE_IN_CODE; spend each day's allowance fully (it does not roll over), so the run is spread over the week.
+
+## (Old) Budget estimate, superseded
 | Block | Pieces | Tries each | Generations |
 |---|---|---|---|
 | Hero sprites | 13 | ~4 | 52 |

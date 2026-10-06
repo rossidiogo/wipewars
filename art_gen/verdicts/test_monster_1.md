@@ -1,0 +1,15 @@
+```
+JACQUIN VERDICT: REJECTED   (REGENERATE, with FIXABLE_IN_CODE items listed)
+Asset: test_monster (green armored turtle-ogre tank with energy-drink can)   Type: monster (calibration test, not a final)   Attempt: 1
+Scores: pixel 62 | silhouette 84 | color 68 | anatomy 82 | design 80 | symmetry 50 (no STYLE_BIBLE.md / approved/ anchors exist yet, cannot be judged, scored as unproven) | ready 52 | brief 85   => overall 70
+What works: Excellent chibi-brute read (head ~1/3 of height, huge fists, wide stance), clear tank silhouette with horns and shoulder spikes, material separation (scales vs riveted plate vs leather straps), the can with lime "Z" is a strong readable prop and the one saturated accent in the image.
+Defects (most severe first):
+ 1. Fake pixel art. The image is a ~5-6 px logical grid (roughly 115x150 logical pixels for the figure) but with JPEG ringing around every edge, soft gradients inside blocks (belly, shoulders) and sub-pixel texture noise in the scale patches. Not usable until grid-snapped and quantized. Count of distinct colors is in the thousands; a clean version should land at 20-28.
+ 2. Background is a gray vignette/gradient (lighter at the top-left, darker at the edges) and not a flat key color. Gray is also close to the stone/steel tones of the armor, so tolerance flood-fill will eat outline pixels and leave a halo.
+ 3. Contrast against the game's dark UI is poor. The whole body is dark green-on-green (belly, arms, legs are nearly one value), outline is dark green-black, so on a near-black panel the figure collapses into a blob. There is no rim light and no value separation between limbs and torso.
+ 4. Detail density versus the target size. At about 150 logical px tall, scaling to 112 px display (1.3x down) turns eyes, rivets, claws and the can logo into mush. Eyes are 2-3 logical px, mouth/fangs 1-2 px: at 112 px they vanish and the monster loses its smiling-brute personality.
+ 5. Lighting is flat and ambiguous: top-left highlights exist on the shoulders but the belly is lit from the front, left forearm plate is lit from the right. Not a single consistent light direction.
+ 6. Feet: no ground contact cue (no contact shadow, which is fine since we draw our own) but the feet are cut into 3 claws each at 1-px gaps that will alias. Left-leg/right-leg armor plates are not mirror-consistent (decor differs), acceptable for a monster but note for heroes.
+ 7. Minor: the left-hand fist and the right-hand can are different sizes (can-hand ~15% smaller), the can has pseudo-text "Z" plus a smaller glyph on the ring pull (text artifacts, fine as a logo but never ask for readable text).
+Fix: REGENERATE with style-lock text (see style_calibration.md), flat #FF00FF background, "bold simplified shapes, max 24 colors, no fine texture, lighter belly/chest value than limbs, cool rim light on the right edge, 2-px eyes with white highlight". Then run the cleanup pipeline (denoise -> grid detect/snap -> palette quantize -> outline normalize -> key out). Re-submit the cleaned PNG, not the JPEG, for the next review.
+```
