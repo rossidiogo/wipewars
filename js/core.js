@@ -100,8 +100,7 @@ const HEROES={
   samuel:{n:'Samuel',role:'Hacker Assassin',sub:'Melee DPS',cls:'dps',hp:80,atk:36,iv:.8},
   rubens:{n:'Rubens',role:'Smoke Medic',sub:'Support',cls:'sup',heal:1,hp:120,atk:14,iv:1.4},
   ze:{n:'Zé',role:'Fanfarra Drummer',sub:'Support',cls:'sup',hp:130,atk:12,iv:1.3},
-  donnie:{n:'Donnie',role:'Curse Shaman',sub:'Support',cls:'sup',rng:1,hp:110,atk:16,iv:1.3},
-  sup:{n:'Flávio',role:'Barista Medic (placeholder)',sub:'Support',cls:'sup',heal:1,nopool:1,hp:120,atk:14,iv:1.4}
+  donnie:{n:'Donnie',role:'Curse Shaman',sub:'Support',cls:'sup',rng:1,hp:110,atk:16,iv:1.3}
 };
 const ULT={
   tank:{n:'Hold the Line',mana:40,d:'Gain a shield worth 40% of max health.'},
@@ -115,12 +114,19 @@ const ULT={
   samuel:{n:'Root Access',mana:70,d:'Freezes every enemy for 3s and deals 5.5x damage to the weakest in the back.'},
   rubens:{n:'Smoke Session',mana:60,d:'A cloud of smoke heals every ally for a large amount.'},
   ze:{n:'Fanfarra!',mana:60,d:'Drums rally the team: +35% attack and +25% speed for 10s. Passive: allies hit 8% harder.'},
-  donnie:{n:'Hex of Ruin',mana:60,d:'Curses all enemies for 10s: -35% attack and +25% damage taken. Passive: his hits curse (+12% damage taken).'},
-  sup:{n:'Fresh Brew',mana:60,d:'Brew a pot of coffee and heal every ally for a large amount.'}
+  donnie:{n:'Hex of Ruin',mana:60,d:'Curses all enemies for 10s: -35% attack and +25% damage taken. Passive: his hits curse (+12% damage taken).'}
 };
 const HIDS=Object.keys(HEROES);
 const MAXTEAM=4;
 const isOwned=k=>!!(save.own[k]||save.digas);
+// Flavio ('sup') left the game: his healer role is Rubens. Strip him from old/cloud saves (his gear goes back to the bag).
+function purgeFlavio(d){
+  if(d.own&&d.own.sup)d.own.rubens=1;
+  if(Array.isArray(d.team)){d.team=d.team.map(k=>k==='sup'?'rubens':k).filter((k,i,a)=>HEROES[k]&&a.indexOf(k)===i);if(!d.team.length)d.team=['tank','dps','rubens'];}
+  ['own','lv','eq','form','stars','shards'].forEach(f=>{if(d[f])delete d[f].sup;});
+  if(Array.isArray(d.wish))d.wish=d.wish.filter(k=>HEROES[k]);
+  return d;
+}
 
 /* ---------- save ---------- */
 const DEF=()=>({ver:2,name:'',music:true,tut:{},gold:300,gems:0,keys:{b:0,s:0,g:0},cleared:0,last:Date.now(),skip:0,
@@ -135,9 +141,10 @@ try{
     const d=DEF();
     for(const k in d){if(s[k]!==undefined)d[k]=(d[k]&&typeof d[k]==='object'&&!Array.isArray(d[k]))?Object.assign(d[k],s[k]):s[k];}
     if(s.xp===undefined)d.xp=40*(s.cleared||0);
-    if(s.team===undefined)d.team=['tank','dps','sup'];
-    if(s.own===undefined)d.own={tank:1,dps:1,sup:1,rubens:1};
+    if(s.team===undefined)d.team=['tank','dps','rubens'];
+    if(s.own===undefined)d.own={tank:1,dps:1,rubens:1};
     if(!s.ver){d.gems=0;} // v1 saves: keep everything, fresh premium currency
+    purgeFlavio(d);
     save=d;
   }
 }catch(e){}

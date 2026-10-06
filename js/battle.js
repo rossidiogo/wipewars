@@ -1,6 +1,6 @@
 /* ================= battle ================= */
 let stage=1,units=[],over=false,speed=1,pendingStage=1,selSlot=null,FS=1;
-const VT={tank:6,dps:14,sup:8,tp:12,clorox:46};
+const VT={tank:6,dps:14,tp:12,clorox:46};
 const LANE_Y=[66,77,88];
 const KINDS={
   tp:{n:'Toilet Paper',r:0,hp:60,atk:8,iv:1.1,key:'tp',m:1,pr:0},
@@ -165,16 +165,7 @@ const ULTFX={
   samuel:u=>{alive('m').forEach(m=>addFx(m,'stun',1,3));const ms=alive('m').sort((a,b)=>(b.row-a.row)||(a.hp-b.hp));if(ms[0])hitFor(u,ms[0],5.5,250);flash('#6aff8a');},
   rubens:u=>{const h=Math.round(20+A(u)*2.5),host=$('field');flash('#8aa870');cloud(host,['#e8e8e0','#b8c8a8','#9ae070'],9,500);setTimeout(()=>{if(!over)healAll(h);},700);},
   ze:u=>{alive('h').forEach(a=>{addFx(a,'atk',1.35,10,'fan');addFx(a,'spd',1.25,10,'fan');});flash('#ffd84a');cloud($('field'),['#ffd84a','#ff8aa8','#fff6c0'],6,0);},
-  donnie:u=>{alive('m').forEach(m=>{addFx(m,'atk',.65,10,'hex');addFx(m,'in',1.25,10,'hex');});flash('#b050ff');},
-  sup:u=>{
-    const h=Math.round(20+A(u)*2.5),host=$('field');
-    flash('#c08850');
-    const pot=document.createElement('img');pot.className='cpot';pot.src=AVA.coffee0;host.appendChild(pot);
-    let f=0;const iv=setInterval(()=>{f=(f+1)%3;pot.src=AVA['coffee'+f];},140);
-    setTimeout(()=>{clearInterval(iv);pot.remove();},1250);
-    cloud(host,['#6a3a24','#a0683c','#e0b078','#9ae070'],7,900);
-    setTimeout(()=>{if(over)return;healAll(h);flash('#6ad07a');},900);
-  }
+  donnie:u=>{alive('m').forEach(m=>{addFx(m,'atk',.65,10,'hex');addFx(m,'in',1.25,10,'hex');});flash('#b050ff');}
 };
 function castUlt(u){
   if(over||u.hp<=0||u.mana<u.mmax)return;

@@ -470,8 +470,6 @@ body[data-nav="1"] #nav{display:flex}
 #tip .jt{min-height:44px}
 @keyframes jin{from{transform:translateX(60%);opacity:0}}
 
-.cpot{position:absolute;left:50%;top:22%;width:96px;height:96px;margin-left:-48px;image-rendering:pixelated;z-index:700;pointer-events:none;animation:cpot 1.25s ease-out forwards}
-@keyframes cpot{0%{opacity:0;transform:translateY(30px) scale(.4)}20%{opacity:1;transform:translateY(0) scale(1.1)}35%{transform:scale(1) rotate(-6deg)}50%{transform:rotate(6deg)}65%{transform:rotate(-6deg)}80%{opacity:1;transform:scale(1)}100%{opacity:0;transform:translateY(-12px) scale(1.15)}}
 
 /* roster + status fx */
 .htabs{grid-template-columns:repeat(4,1fr);gap:6px}

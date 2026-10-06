@@ -17,7 +17,7 @@
       '<img class="tlogo" src="'+LOGO+'" alt="Wipe Wars"><div class="ttag">Idle Auto-Battler</div>'+
       '<div class="theroes" id="tHeroes"></div><div class="tpanel" id="tPanel"></div><div class="tver">Prototype v20</div>';
     const H=$('tHeroes');
-    [['tank',1.05],['dps',1.05],['sup',1.05],['clorox',.62]].forEach(([k,m],i)=>{
+    [['tank',1.05],['dps',1.05],['rubens',1.05],['clorox',.62]].forEach(([k,m],i)=>{
       const d=el('div','tu t'+i);const sp=el('div');spriteArt(sp,k,m,true);d.appendChild(sp);H.appendChild(d);
     });
     const P=$('tPanel');

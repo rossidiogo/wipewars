@@ -1,7 +1,7 @@
 const SP={};
 function mkImg(u){const i=new Image();i.src=u;return i;}
 for(const k in SPD){const o=SPD[k];SP[k]={w:o.w,h:o.h,ax:o.ax,ay:o.ay,top:o.top,s:o.s||1,idle:o.idle.map(mkImg),atk:o.atk.map(mkImg)};}
-const SHW={tank:34,dps:30,sup:30,tp:34,clorox:44,boss:64};
+const SHW={tank:34,dps:30,tp:34,clorox:44,boss:64};
 function drawFrame(c,img){if(!img||!img.complete)return;const g=c.getContext('2d');g.clearRect(0,0,c.width,c.height);g.imageSmoothingEnabled=false;g.drawImage(img,0,0);}
 /* m = css px per sprite pixel. box=true -> normal sized box (menus); else zero-size anchor at the feet (battle) */
 function spriteArt(el,key,m,box){
@@ -22,7 +22,7 @@ setInterval(()=>{fi++;document.querySelectorAll('canvas.monc').forEach(c=>{if(c.
 /* attack timeline: [frame, ms, dx(px in sprite units), sx, sy] */
 const HERO_ST=[[0,100,-2,1,1],[1,90,5,1,1],[2,150,9,1,1],[3,130,2,1,1]];
 const STEPS={clorox:[[0,110,0,1.03,.95],[1,100,0,1,1],[2,130,0,.97,1.05],[3,130,0,1,1]],
-  tp:[[0,110,0,1.03,.95],[1,110,-4,1,1],[2,150,-8,1,1],[3,130,-2,1,1]],tank:[[0,100,-4,1,1],[1,90,10,1,1],[2,150,18,1,1],[3,130,4,1,1]],dps:HERO_ST,sup:HERO_ST,
+  tp:[[0,110,0,1.03,.95],[1,110,-4,1,1],[2,150,-8,1,1],[3,130,-2,1,1]],tank:[[0,100,-4,1,1],[1,90,10,1,1],[2,150,18,1,1],[3,130,4,1,1]],dps:HERO_ST,
   boss:[[0,130,0,1.03,.95],[1,110,0,1,1],[2,150,0,.97,1.05],[3,150,0,1,1]]};
 STEPS.bottle=STEPS.clorox;STEPS.bossx=STEPS.boss;SHW.bottle=44;SHW.bossx=64;
 STEPS.pzburnt=STEPS.tp;STEPS.pzmessy=STEPS.tp;SHW.pzburnt=34;SHW.pzmessy=40;STEPS.belt=STEPS.tp;STEPS.machine=STEPS.tp;SHW.belt=34;SHW.machine=44;for(let i=1;i<=5;i++){STEPS['bh'+i]=STEPS.boss;SHW['bh'+i]=50;}
