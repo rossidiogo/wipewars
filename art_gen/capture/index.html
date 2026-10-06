@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wipe Wars - Estudio de Fotos</title>
+<style>
+:root{--bg:#14110e;--panel:#1d1813;--line:#3a2f22;--gold:#e0c57a;--txt:#efe6d2;--dim:#9c8f78;--ok:#6fcf7a;--bad:#e5645a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.4 system-ui,Segoe UI,sans-serif}
+header{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 14px;background:var(--panel);border-bottom:1px solid var(--line)}
+h1{font-size:17px;margin:0 10px 0 0;color:var(--gold)}
+select,input[type=text],button{background:#2a2218;color:var(--txt);border:1px solid var(--line);border-radius:6px;padding:7px 11px;font:inherit}
+button{cursor:pointer}button:hover{border-color:var(--gold)}
+button.main{background:#7a5c18;border-color:var(--gold);font-weight:700}
+button:disabled{opacity:.4;cursor:default}
+main{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:12px;padding:12px;height:calc(100vh - 62px)}
+#stage{position:relative;background:#000;border-radius:10px;overflow:hidden;min-height:300px}
+video,#fakec{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transform:scaleX(-1)}
+#fakec{display:none}
+#oval{position:absolute;left:50%;top:44%;width:30%;aspect-ratio:3/4;transform:translate(-50%,-50%);border:3px dashed rgba(224,197,122,.55);border-radius:50%;pointer-events:none}
+#oval.body{width:22%;aspect-ratio:1/3;border-radius:40% 40% 10% 10%;top:50%}
+#overlay{position:absolute;left:0;right:0;bottom:0;padding:16px 20px;background:linear-gradient(transparent,rgba(0,0,0,.88) 35%)}
+#step{font-size:13px;color:var(--gold);letter-spacing:.08em;text-transform:uppercase}
+#title{font-size:30px;font-weight:800;margin:2px 0}
+#inst{font-size:20px;max-width:900px}
+#big{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-size:190px;font-weight:900;color:#fff;text-shadow:0 0 30px #000,0 0 8px #000;pointer-events:none}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;transition:opacity .35s}
+#bar{height:6px;background:#2a2218;margin-top:8px;border-radius:3px;overflow:hidden}#bar i{display:block;height:100%;width:0;background:var(--gold)}
+#msg{position:absolute;top:12px;left:12px;right:12px;display:flex;flex-direction:column;gap:6px}
+.pill{align-self:flex-start;background:rgba(0,0,0,.75);border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-size:14px}
+.pill.bad{border-color:var(--bad);color:#ffb3ac}.pill.ok{border-color:var(--ok);color:#b9f0bf}.pill.claude{border-color:var(--gold);color:var(--gold)}
+aside{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:auto;padding:8px}
+.shot{display:grid;grid-template-columns:44px 1fr auto;gap:8px;align-items:center;padding:5px;border-radius:6px;border:1px solid transparent}
+.shot.cur{border-color:var(--gold);background:#2a2218}
+.shot img{width:44px;height:44px;object-fit:cover;border-radius:4px;background:#000}
+.shot .ph{width:44px;height:44px;border-radius:4px;background:#0c0a08;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:11px}
+.shot b{font-size:13px;display:block}.shot small{color:var(--dim)}
+.shot button{padding:3px 8px;font-size:12px}
+.done b{color:var(--ok)}.warn b{color:#f0c060}
+#ctl{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px}
+@media(max-width:900px){main{grid-template-columns:1fr;height:auto}#stage{height:60vh}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Wipe Wars &middot; Estudio de Fotos</h1>
+  <select id="prof">
+    <option value="bighead">Big Head (Diogo) - 31 fotos</option>
+    <option value="julia">Julia - 16 fotos</option>
+    <option value="amigo">Amigo / her&oacute;i - 12 fotos</option>
+  </select>
+  <input id="friend" type="text" placeholder="nome do amigo (ex.: rafinha)" style="display:none;width:200px">
+  <label><input id="voice" type="checkbox" checked> voz</label>
+  <label><input id="auto" type="checkbox" checked> corrigir sozinho</label>
+  <button id="start" class="main">Iniciar sess&atilde;o</button>
+  <button id="pause" disabled>Pausar</button>
+  <button id="now" disabled>Tirar agora (Espa&ccedil;o)</button>
+  <button id="skip" disabled>Pular</button>
+  <span id="status" style="color:var(--dim)"></span>
+</header>
+<main>
+  <div id="stage">
+    <video id="v" autoplay playsinline muted></video><canvas id="fakec" width="1280" height="720"></canvas>
+    <div id="oval"></div>
+    <div id="msg"></div>
+    <div id="big"></div>
+    <div id="flash"></div>
+    <div id="overlay"><div id="step">Pronto?</div><div id="title">Clique em "Iniciar sess&atilde;o"</div><div id="inst">Eu vou falar e mostrar cada pose. Fique em frente &agrave; c&acirc;mera, com boa luz no rosto.</div><div id="bar"><i></i></div></div>
+  </div>
+  <aside><div id="ctl"><button id="redo-last">Refazer a &uacute;ltima</button><button id="redo-all">Refazer todas</button></div><div id="list"></div></aside>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const Q=new URLSearchParams(location.search), FAKE=Q.has('fake'), FAST=Q.has('fast');
+/* shot: [file, title, instruction, holdSeconds, kind]  kind: f=face check, a=angle(no face check), b=body */
+const BIGHEAD=[
+['01_frente_neutra','Frente, neutro','Olhe direto para a câmera, rosto relaxado, boca fechada, sem sorrir.',3,'f'],
+['02_tres_quartos_esquerda','Três quartos, esquerda','Vire o rosto uns quarenta e cinco graus para o seu lado esquerdo. Boca fechada, expressão neutra. Tente olhar de lado para a câmera.',4,'a'],
+['03_tres_quartos_direita','Três quartos, direita','Agora vire o rosto uns quarenta e cinco graus para o seu lado direito. Boca fechada, neutro.',4,'a'],
+['04_perfil_esquerda','Perfil esquerdo','Vire a cabeça noventa graus para o seu lado esquerdo: a câmera vê o seu perfil e a orelha. Queixo reto.',4,'a'],
+['05_perfil_direita','Perfil direito','Vire a cabeça noventa graus para o seu lado direito, mostrando o outro perfil e a orelha.',4,'a'],
+['06_de_baixo','De baixo (chefão)','Levante o queixo bem alto e olhe para a câmera por cima do nariz, como um chefe gigante olhando para baixo.',4,'a'],
+['07_de_cima','De cima','Abaixe o queixo e incline a testa para a câmera, olhando para cima com os olhos.',4,'a'],
+['08_topo_da_cabeca','Topo da cabeça','Incline a cabeça bem para frente, mostrando o topo da cabeça para a câmera. Cabelo para trás se puder.',4,'a'],
+['09_nuca','Nuca (de costas)','Vire de costas para a câmera, mostrando a nuca e a parte de trás da cabeça. Fique reto.',7,'a'],
+['10_sorriso_malvado','Sorriso malvado','Sorriso de vilão de filme, uma sobrancelha levantada, olhar de quem tem um plano.',3,'f'],
+['10b_sorriso_malvado_34','Sorriso malvado, três quartos','Mesmo sorriso de vilão, mas com o rosto virado quarenta e cinco graus para o seu lado esquerdo.',4,'a'],
+['11_gargalhada','Gargalhada','Ria de boca aberta, de verdade, olhos apertando. Pense numa piada boa.',3,'f'],
+['11b_gargalhada_34','Gargalhada, três quartos','Gargalhada de novo, com o rosto virado para o seu lado esquerdo.',4,'a'],
+['12_furia_gritando','Fúria gritando','Grite de raiva, boca bem aberta, dentes à mostra, sobrancelhas para baixo. Sem som se os vizinhos dormem.',3,'f'],
+['12b_furia_gritando_34','Fúria gritando, três quartos','Grite de raiva de novo, com o rosto virado para o seu lado esquerdo.',4,'a'],
+['13_raiva_fechada','Raiva de dentes cerrados','Cara brava, dentes cerrados, olhar pesado, como se fosse brigar.',3,'f'],
+['14_surpresa','Surpresa','Olhos e boca bem abertos, sobrancelhas lá em cima, como se levasse um susto.',3,'f'],
+['15_dor','Dor','Aperte os olhos, faça careta, como se tivesse levado um golpe forte.',3,'f'],
+['16_deboche','Deboche','Um canto da boca levantado, olho meio fechado, ar de superioridade.',3,'f'],
+['17_lingua_para_fora','Língua para fora','Mostre a língua, bem para fora, com cara de bobo.',3,'f'],
+['18_olhos_fechados','Olhos fechados','Feche os olhos com força e mantenha. Rosto neutro. É para a animação de piscar.',3,'f'],
+['19_nocaute','Nocaute','Cabeça caindo para o lado, olhos meio fechados, boca aberta e mole, como se tivesse perdido a luta.',3,'a'],
+['20_louco_cerebro','Olhos arregalados, louco','Olhos arregalados, sorriso nervoso, cara de maluco com o cérebro fora de controle.',3,'f'],
+['21_triste_choro','Triste, chorando','Cara de choro, sobrancelhas para cima no meio, lábio tremendo.',3,'f'],
+['22_corpo_frente','Corpo inteiro, frente','Afaste-se até aparecer da cabeça aos pés. Fique em pé, braços relaxados ao lado do corpo, olhando para a câmera.',9,'b'],
+['23_corpo_lado','Corpo inteiro, lado','Fique de lado para a câmera, em pé, braços relaxados. Cabeça da cabeça aos pés no quadro.',7,'b'],
+['24_corpo_costas','Corpo inteiro, costas','Fique de costas para a câmera, em pé, braços relaxados.',7,'b'],
+['25_flexao_biceps_frente','Dois bíceps, frente','Mostre os dois bíceps ao mesmo tempo, braços dobrados, punhos para cima, cara de força total.',7,'b'],
+['26_flexao_lado','Bíceps, de lado','De lado para a câmera, mostre o bíceps do braço mais próximo da câmera, bem inflado.',7,'b'],
+['27_punho_e_mao_aberta','Punho e mão aberta','Aproxime as mãos da câmera: um punho fechado e a outra mão bem aberta, dedos separados.',5,'a'],
+['28_apontando','Apontando','Aponte o dedo direto para a câmera com o braço esticado, olhar sério.',5,'a']
+];
+const JULIA=[
+['01_frente_neutra','Frente, neutra','Olhe direto para a câmera, boca fechada, rosto relaxado. Com os óculos e o piercing que você usa normalmente.',3,'f'],
+['02_sorriso','Sorriso','Sorriso natural, olhando para a câmera.',3,'f'],
+['03_falando','Falando','Boca meio aberta, como se estivesse explicando algo para alguém, olhando para a câmera.',3,'f'],
+['04_piscando','Olhos fechados','Feche os olhos e mantenha. É para a animação de piscar.',3,'f'],
+['05_tres_quartos_esquerda','Três quartos, esquerda','Vire o rosto uns quarenta e cinco graus para o seu lado esquerdo.',4,'a'],
+['06_tres_quartos_direita','Três quartos, direita','Vire o rosto uns quarenta e cinco graus para o seu lado direito.',4,'a'],
+['07_perfil_esquerda','Perfil esquerdo','Perfil esquerdo, noventa graus.',4,'a'],
+['08_perfil_direita','Perfil direito','Perfil direito, noventa graus.',4,'a'],
+['09_gargalhada','Gargalhada','Ria de verdade, de boca aberta.',3,'f'],
+['10_surpresa','Surpresa','Olhos e boca abertos, sobrancelhas para cima.',3,'f'],
+['11_pensando','Pensando','Olhe para cima e para o lado, dedo no queixo, como se estivesse pensando.',4,'a'],
+['12_dando_tchau','Dando tchau','Levante a mão aberta ao lado do rosto e acene, sorrindo para a câmera.',4,'f'],
+['13_cabelo_solto_costas','Cabelo, de costas','Vire de costas para a câmera para eu ver o comprimento e as ondas do cabelo.',7,'a'],
+['14_colar_e_ombros','Colar e ombros','Afaste um pouco a câmera ou o corpo até aparecerem o rosto, o colar e os ombros. Olhe para a câmera.',5,'f'],
+['15_corpo_frente','Corpo inteiro, frente','Afaste-se até aparecer da cabeça aos pés, em pé, braços relaxados.',9,'b'],
+['16_corpo_lado','Corpo inteiro, lado','Fique de lado para a câmera, em pé, braços relaxados.',7,'b']
+];
+const AMIGO=[
+['01_frente_neutra','Frente, neutro','Olhe direto para a câmera, rosto relaxado, boca fechada.',3,'f'],
+['02_tres_quartos_esquerda','Três quartos, esquerda','Vire o rosto uns quarenta e cinco graus para o seu lado esquerdo.',4,'a'],
+['03_tres_quartos_direita','Três quartos, direita','Vire o rosto uns quarenta e cinco graus para o seu lado direito.',4,'a'],
+['04_perfil_esquerda','Perfil esquerdo','Perfil esquerdo, noventa graus.',4,'a'],
+['05_perfil_direita','Perfil direito','Perfil direito, noventa graus.',4,'a'],
+['06_sorriso','Sorriso','Sorriso natural.',3,'f'],
+['07_serio_bravo','Sério, bravo','Cara séria e brava, de lutador.',3,'f'],
+['08_gargalhada','Gargalhada','Ria de verdade, de boca aberta.',3,'f'],
+['09_surpresa','Surpresa','Olhos e boca bem abertos.',3,'f'],
+['10_cabelo_atras','Cabelo para trás','Se tiver cabelo, prenda ou jogue para trás para eu ver o formato da cabeça. Olhe para a câmera.',4,'f'],
+['11_corpo_frente','Corpo inteiro, frente','Afaste-se até aparecer da cabeça aos pés, em pé, braços relaxados. Com a roupa que o personagem usa, se puder.',9,'b'],
+['12_corpo_lado','Corpo inteiro, lado','Fique de lado para a câmera, em pé.',7,'b']
+];
+const LISTS={bighead:BIGHEAD,julia:JULIA,amigo:AMIGO};
+let profile='bighead',shots=BIGHEAD,done={},cur=-1,running=false,paused=false,stopFlag=false,skipFlag=false,nowFlag=false,queue=[],claudeNotes={};
+const v=$('v'),fc=$('fakec');
+function slug(s){return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40)}
+function prof(){return profile==='amigo'?('amigo-'+(slug($('friend').value)||'sem-nome')):profile}
+function pill(t,c){const d=document.createElement('div');d.className='pill '+(c||'');d.textContent=t;$('msg').appendChild(d);setTimeout(()=>d.remove(),c==='claude'?14000:6000)}
+function beep(f,ms){try{const a=beep.c||(beep.c=new AudioContext());const o=a.createOscillator(),g=a.createGain();o.frequency.value=f;g.gain.value=.12;o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+ms/1000)}catch(e){}}
+function speak(t){return new Promise(res=>{if(!$('voice').checked||!window.speechSynthesis||FAST)return res();let fin=false;const end=()=>{if(!fin){fin=true;res()}};try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='pt-BR';u.rate=1.02;const vs=speechSynthesis.getVoices().filter(x=>/pt[-_]BR/i.test(x.lang));if(vs.length)u.voice=vs[0];u.onend=end;u.onerror=end;speechSynthesis.speak(u);setTimeout(end,t.length*110+4000)}catch(e){res()}})}
+async function sleep(ms,bar){const t0=performance.now();ms=FAST?Math.min(ms,150):ms;while(performance.now()-t0<ms){if(stopFlag||skipFlag||nowFlag)return;if(paused){await new Promise(r=>setTimeout(r,150));continue}if(bar)document.querySelector('#bar i').style.width=Math.min(100,(performance.now()-t0)/ms*100)+'%';await new Promise(r=>setTimeout(r,80))}}
+async function initCam(){
+  if(FAKE){let n=0;const c=fc.getContext('2d');setInterval(()=>{n++;c.fillStyle='#35506b';c.fillRect(0,0,1280,720);c.fillStyle='#e8c9a0';c.beginPath();c.ellipse(640,330,170+Math.sin(n/9)*6,220,0,0,7);c.fill();c.fillStyle='#222';c.fillRect(560,300,30,14);c.fillRect(690,300,30,14);c.fillRect(600,420,80,10);for(let i=0;i<400;i++){c.fillStyle='rgba(255,255,255,.08)';c.fillRect(Math.random()*1280,Math.random()*720,2,2)}},50);v.srcObject=fc.captureStream(20);fc.style.display='none';return}
+  try{const s=await navigator.mediaDevices.getUserMedia({video:{width:{ideal:1920},height:{ideal:1080},facingMode:'user'},audio:false});v.srcObject=s;await v.play().catch(()=>{});$('status').textContent='câmera '+(s.getVideoTracks()[0].getSettings().width||'?')+'x'+(s.getVideoTracks()[0].getSettings().height||'?')}
+  catch(e){$('status').textContent='';pill('Não consegui abrir a câmera: '+e.message+'. Permita o uso da câmera no navegador e recarregue.','bad');throw e}
+}
+async function api(p,o){return fetch(p,o)}
+async function refreshList(){const r=await api('/list?profile='+prof());const names=await r.json();done={};names.forEach(n=>{const k=n.replace(/\.(jpg|png)$/,'');done[k]=1});drawList()}
+function drawList(){const L=$('list');L.innerHTML='';shots.forEach((s,i)=>{const d=document.createElement('div');d.className='shot'+(i===cur?' cur':'')+(done[s[0]]?' done':'');const ok=done[s[0]];d.innerHTML=(ok?'<img src="/file?profile='+prof()+'&name='+s[0]+'.jpg&t='+(done[s[0]]===1?'':done[s[0]])+'">':'<div class="ph">'+(i+1)+'</div>')+'<div><b>'+s[1]+'</b><small>'+s[0]+'</small></div><button data-i="'+i+'">'+(ok?'refazer':'fazer')+'</button>';L.appendChild(d)});L.querySelectorAll('button').forEach(b=>b.onclick=()=>{queue=[+b.dataset.i];if(!running)run(true)})}
+function analyze(canvas){const w=160,h=Math.round(canvas.height*w/canvas.width),c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');x.drawImage(canvas,0,0,w,h);const d=x.getImageData(0,0,w,h).data;const g=new Float32Array(w*h);let m=0;for(let i=0;i<w*h;i++){g[i]=.3*d[i*4]+.59*d[i*4+1]+.11*d[i*4+2];m+=g[i]}m/=w*h;let s=0,n=0;for(let y=1;y<h-1;y++)for(let xx=1;xx<w-1;xx++){const i=y*w+xx;const l=4*g[i]-g[i-1]-g[i+1]-g[i-w]-g[i+w];s+=l*l;n++}return{mean:m,sharp:s/n}}
+async function check(canvas,kind){const a=analyze(canvas);const issues=[];if(a.mean<55)issues.push('A imagem está escura. Chegue mais perto de uma janela ou acenda uma luz de frente para o rosto.');if(a.mean>205)issues.push('A imagem está clara demais. Evite luz forte atrás ou em cima do rosto.');if(a.sharp<12&&!FAKE)issues.push('A foto saiu tremida ou fora de foco. Fique parado e firme.');
+  if(kind==='f'&&window.FaceDetector&&!FAKE){try{const fd=new FaceDetector({fastMode:true,maxDetectedFaces:2});const f=await fd.detect(canvas);if(!f.length)issues.push('Não encontrei o seu rosto. Fique de frente e centralizado no quadro.');else{const b=f[0].boundingBox,r=b.width/canvas.width,cx=(b.x+b.width/2)/canvas.width;if(r<.14)issues.push('Chegue mais perto da câmera, o rosto está pequeno.');else if(r>.6)issues.push('Afaste-se um pouco, o rosto está grande demais.');if(cx<.3||cx>.7)issues.push('Centralize o rosto no quadro.')}}catch(e){}}
+  return issues}
+function toBlob(c){return new Promise(r=>c.toBlob(r,'image/jpeg',.95))}
+async function shoot(i,note){
+  const s=shots[i];cur=i;drawList();
+  $('oval').className=s[4]==='b'?'body':'';
+  $('step').textContent='Foto '+(i+1)+' de '+shots.length+(note?'  ·  pedido do Claude':'');$('title').textContent=s[1];$('inst').textContent=(note?note+' ':'')+s[2];
+  document.querySelector('#bar i').style.width='0';
+  let attempts=0;
+  while(attempts<3&&!stopFlag){
+    attempts++;skipFlag=false;nowFlag=false;
+    await speak((attempts>1?'Vamos de novo. ':'')+s[1]+'. '+s[2]);
+    if(stopFlag)return false;
+    await sleep(s[3]*1000,true);
+    if(stopFlag)return false;if(skipFlag){skipFlag=false;return null}
+    if(!nowFlag){for(let n=3;n>=1;n--){$('big').style.display='flex';$('big').textContent=n;beep(n===1?880:660,120);await sleep(900);if(stopFlag||skipFlag||nowFlag)break}$('big').style.display='none'}
+    if(stopFlag)return false;if(skipFlag){skipFlag=false;return null}
+    nowFlag=false;
+    const c=document.createElement('canvas');c.width=v.videoWidth||1280;c.height=v.videoHeight||720;
+    // saved image is NOT mirrored: the preview is mirrored only on screen
+    c.getContext('2d').drawImage(v,0,0,c.width,c.height);
+    $('flash').style.opacity=.9;setTimeout(()=>$('flash').style.opacity=0,60);beep(1200,60);
+    const issues=await check(c,s[4]);
+    if(issues.length&&$('auto').checked&&attempts<3){pill(issues[0],'bad');await speak(issues[0]);continue}
+    const blob=await toBlob(c);
+    const r=await api('/save?profile='+prof()+'&name='+s[0]+'.jpg',{method:'POST',body:blob});
+    if(r.ok){done[s[0]]=Date.now();pill(s[1]+(issues.length?' (salva, mas revise: '+issues[0]+')':' ✔ salva'),issues.length?'bad':'ok');drawList();if(note)api('/retake_done?profile='+prof()+'&name='+s[0],{method:'POST'});return true}
+    pill('Erro ao salvar. O servidor está rodando?','bad');return false
+  }
+  return false}
+async function pollRetakes(){try{const r=await api('/retakes?profile='+prof());const items=await r.json();for(const it of items){const k=it.name.replace(/\.(jpg|png)$/,'');const i=shots.findIndex(s=>s[0]===k);if(i>=0&&!claudeNotes[k]){claudeNotes[k]=it.note||'Preciso que refaça esta foto.';pill('Claude pediu para refazer "'+shots[i][1]+'": '+claudeNotes[k],'claude');queue.push(i);if(!running&&$('start').dataset.armed)run(true)}}}catch(e){}}
+async function run(onlyQueue){
+  if(running)return;running=true;stopFlag=false;paused=false;
+  ['pause','now','skip'].forEach(x=>$(x).disabled=false);$('start').disabled=true;
+  try{await initCamOnce();await refreshList();
+    if(!onlyQueue)for(let i=0;i<shots.length;i++)if(!done[shots[i][0]])queue.push(i);
+    while(queue.length&&!stopFlag){const i=queue.shift();const k=shots[i][0];const note=claudeNotes[k];delete claudeNotes[k];await shoot(i,note)}
+    if(!stopFlag){cur=-1;$('step').textContent='Pronto!';$('title').textContent='Sessão concluída';$('inst').textContent='Todas as fotos foram salvas. Pode fechar esta janela. Se eu pedir algum retake, ele aparece aqui sozinho.';await speak('Sessão concluída. Obrigado!');drawList()}
+  }catch(e){console.error(e)}
+  running=false;$('start').disabled=false;['pause','now','skip'].forEach(x=>$(x).disabled=true);$('start').dataset.armed='1'}
+let camOk=false;async function initCamOnce(){if(!camOk){await initCam();camOk=true}}
+$('prof').onchange=()=>{profile=$('prof').value;shots=LISTS[profile];$('friend').style.display=profile==='amigo'?'':'none';cur=-1;queue=[];claudeNotes={};refreshList()};
+$('friend').oninput=()=>refreshList();
+$('start').onclick=()=>run(false);
+$('pause').onclick=()=>{paused=!paused;$('pause').textContent=paused?'Continuar':'Pausar';if(paused&&window.speechSynthesis)speechSynthesis.pause();else if(window.speechSynthesis)speechSynthesis.resume()};
+$('now').onclick=()=>{nowFlag=true};$('skip').onclick=()=>{skipFlag=true};
+$('redo-last').onclick=()=>{const last=[...shots.keys()].reverse().find(i=>done[shots[i][0]]);if(last!==undefined){queue=[last];if(!running)run(true)}};
+$('redo-all').onclick=()=>{if(confirm('Refazer TODAS as fotos deste perfil?')){queue=[...shots.keys()];if(!running)run(true)}};
+document.addEventListener('keydown',e=>{if(e.code==='Space'&&running&&e.target.tagName!=='INPUT'){e.preventDefault();nowFlag=true}});
+setInterval(pollRetakes,4000);refreshList();
+if(window.speechSynthesis)speechSynthesis.getVoices();
+</script>
+</body>
+</html>
