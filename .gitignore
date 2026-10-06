@@ -2,4 +2,6 @@ __pycache__/
 *.pyc
 test.html
 _site/
+.env
+art_gen/out/
 .claude/settings.local.json
