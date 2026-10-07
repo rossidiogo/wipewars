@@ -71,3 +71,5 @@
 - 2026-10-07: Teste cego (sonnet) dos retocados: cerebro lido com 85-92% nas fases 4 e 5; orc reconhecido (92%), presas 80%. Ressalva: o anel branco do cranio le como faixa/coroa (nao osso) e as bolinhas do anel da fase 5 como contas, nao caveiras. Se o Diogo quiser mais fiel: refazer o anel como casca de ovo quebrada.
 
 - 2026-10-07: Cenario da casa/tela de titulo novo (sala de estar a noite, lampada ambar, janela com lua; 320x693) no jogo. Falta o Jacquin julgar.
+
+- 2026-10-07: Cenario da casa/titulo retocado conforme o Jacquin (lua e estrelas frias, luar do chao suavizado, 47 cores). Nota dele antes do retoque: 85; falta nova avaliacao.
