@@ -16,7 +16,7 @@ logo=base64.b64encode(open(R+'assets/logo.png','rb').read()).decode()
 import glob,os
 ava={os.path.basename(f)[4:-4]:'data:image/png;base64,'+base64.b64encode(open(f,'rb').read()).decode() for f in glob.glob(os.path.join(os.path.dirname(os.path.abspath(__file__)),'assets','ava_*.png'))}
 js='const AVA='+json.dumps(ava)+';\nconst LOGO="data:image/png;base64,'+logo+'";\nconst BGCH='+json.dumps([bgch[str(i)] for i in range(5)])+';\nconst ICO='+json.dumps(ico)+';\nconst SPD='+json.dumps(spr)+';\n'
-for f in ['core','lang','art','battle','ui','recruit','cuts','account','guild','music','title']:
+for f in ['core','lang','art','battle','ui','recruit','cuts','net','account','guild','music','title']:
     js+=open(R+'js/%s.js'%f).read()+'\n'
 html=open(R+'index.html').read().replace('/*CSS*/',css).replace('/*JS*/',js)
 out=sys.argv[1] if len(sys.argv)>1 else R+'test.html'

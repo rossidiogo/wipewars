@@ -40,6 +40,9 @@ STEPS['pzmessy']=STEPS.tp;SHW['pzmessy']=40;
 STEPS['tank']=HERO_ST;SHW['tank']=34;
 STEPS['dps']=HERO_ST;SHW['dps']=30;
 STEPS['ze']=HERO_ST;SHW['ze']=32;
+STEPS['donnie']=HERO_ST;SHW['donnie']=32;
+STEPS['chavoso']=HERO_ST;SHW['chavoso']=30;
+STEPS['rafinha']=HERO_ST;SHW['rafinha']=34;
 /*END-GENART*/
 function atkEl(el){
   const c=el.querySelector('canvas.monc');if(!c||c.dataset.busy)return;

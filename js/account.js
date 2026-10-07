@@ -5,13 +5,15 @@ window.Acct=(function(){
   const tag=id=>(id||'').replace(/[^A-Za-z0-9]/g,'').slice(-4).toUpperCase();
   A.tag=tag;A.today=today;
   const myProfile=()=>({name:save.name||'Wiper',name_l:(save.name||'wiper').toLowerCase(),lvl:plv(),stage:save.cleared||0,t:Date.now()});
+  const hasClaude=typeof claude!=='undefined'&&!!claude&&!!claude.use;A.mock=!hasClaude; // no claude.ai runtime (e.g. GitHub Pages): use the local Net mock
+  const use=n=>hasClaude?claude.use(n):Net.use(n);
   A.ready=(async()=>{
     try{
-      const [db,user]=await Promise.all([claude.use('db'),claude.use('user')]);
+      const [db,user]=await Promise.all([use('db'),use('user')]);
       if(!db||!user)return A;
       const id=await user.id();if(!id)return A;
       A.db=db;A.id=id;A.online=true;
-      try{const s=await db.doc('data/users/'+id+'/cloud').get();if(s.exists)A.cloud=s.data();}catch(e){}
+      if(!A.mock)try{const s=await db.doc('data/users/'+id+'/cloud').get();if(s.exists)A.cloud=s.data();}catch(e){}
     }catch(e){}
     return A;
   })();
@@ -21,7 +23,7 @@ window.Acct=(function(){
   async function push(){
     if(!A.online||!dirty||busy)return;busy=true;dirty=false;
     try{
-      await A.db.doc('data/users/'+A.id+'/cloud').set({j:JSON.stringify(save),mod:save.mod||Date.now()});
+      if(!A.mock)await A.db.doc('data/users/'+A.id+'/cloud').set({j:JSON.stringify(save),mod:save.mod||Date.now()});
       await A.db.doc('profiles/'+A.id).set(myProfile());
     }catch(e){dirty=true;}
     busy=false;
@@ -65,10 +67,13 @@ window.Acct=(function(){
   };
   A.accept=r=>A.db.doc('reqs/'+key(r.from,r.to)).update({st:'ok'});
   A.remove=async r=>{await A.db.doc('reqs/'+key(r.from,r.to)).delete();delete A.reqs[key(r.from,r.to)];};
+  const gk='ww_gifts_'+today();
+  try{A.sentToday=JSON.parse(localStorage.getItem(gk)||'{}');}catch(e){A.sentToday={};}
   A.canGift=id=>!(A.sentToday||{})[id];
   A.sendGift=async function(to){
     await A.db.doc('gifts/'+key(A.id,to)).set({from:A.id,to,day:today(),claimed:false});
     (A.sentToday=A.sentToday||{})[to]=1;
+    try{localStorage.setItem(gk,JSON.stringify(A.sentToday));}catch(e){}
   };
   A.pendingGifts=()=>A.gifts.filter(g=>!g.claimed);
   A.claimGift=async g=>{await A.db.doc('gifts/'+key(g.from,g.to)).update({claimed:true});g.claimed=true;};

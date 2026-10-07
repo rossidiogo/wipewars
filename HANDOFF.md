@@ -7,18 +7,18 @@
 - Privacidade: repo PUBLICO. Nunca commitar `art_gen/refs/`, `.env`, `art_gen/out/`, fotos pessoais, chaves.
 
 ## Estado (VERIFICADO nesta sessao)
-- 5 cenarios de capitulo aprovados e JA NO JOGO (assets/bg_ch.json; verificado no navegador cap.1, cap.2 e cap.5; filtro antigo do cap.2 removido em js/battle.js). Commit 056d5e0 enviado ao GitHub.
-- Herois: Jack APROVADO; Daniel APROVADO (orbe verde por codigo); arquivos em `art_gen/approved/heroes/`. Ze Vitor: corrigido por codigo (pele + sola), `ze_PENDING_REJUDGE.png`, aguarda re-julgamento.
-- Refeitos no Gemini (rodada 2) e enviados ao Jacquin: Donnie (`out/clean/hero_donnie_gem2_0`), Chavoso (`hero_chavoso_gem2_0`), Rafinha (`hero_rafinha_gem2f_0`, versao com --floor 45). Veredito vai para `art_gen/verdicts/HEROES_BATCH2.md` (agente Jacquin a274dec941c317835 rodando em background; se sumiu, rode de novo).
-- 8 monstros dos caps 1-4 ja no jogo. Monstros do cap.5 gerados mas SEM veredito do Jacquin.
+- 5 cenarios de capitulo aprovados e NO JOGO (assets/bg_ch.json; verificado no navegador). Filtro antigo do cap.2 removido em js/battle.js.
+- 6 herois NO JOGO com arte nova (sprites2.json + avatares assets/ava_*.png, ids do jogo: tank=Jack, dps=Daniel, ze, donnie, chavoso, rafinha): Jack, Daniel, Ze aprovados pelo Jacquin. Donnie, Chavoso e Rafinha entraram PROVISORIOS (Jacquin rodada 3: notas 87-90 < 92, so retoques finos pendentes: ver art_gen/verdicts/HEROES_BATCH3.md). Rafinha agora e baixinho (sc:1 em core.js); orc ainda e filtro CSS (falta sprite `rafinha_orc`).
+- js/net.js (NOVO): camada online plugavel com banco local de mentira (bots de treino). Sem o runtime do claude.ai, Acct usa Net (Acct.mock=true; nuvem de save desligada no mock). Testado: busca, pedido de amizade, bot aceita, lista de amigos. Guilda usa a mesma API (nao testada ainda na tela). Para ficar online de verdade: Net.setBackend({use:async nome=>...}) com a mesma API (Supabase/Firebase) quando o Diogo criar o projeto gratis.
+- Presentes: limite diario agora salvo em localStorage (antes dava para fazer farm recarregando).
+- 8 monstros dos caps 1-4 no jogo. Monstros do cap.5 gerados mas SEM veredito do Jacquin.
 
 ## Proximos passos (ordem)
-1. Ler `art_gen/verdicts/HEROES_BATCH2.md`; aplicar correcoes; copiar aprovados para `art_gen/approved/heroes/<nome>.png`.
-2. Exportar herois aprovados para `assets/sprites2.json` com `art_gen/tools/export_sprite.py` (canvas ~112, chave = id do heroi; precisa de STEPS/SHW em js/art.js, bloco `/*GENART*/`). Rafinha precisa tambem de `rafinha_orc` (orc estilo WoW). Testar no navegador (som mudo) e commitar.
-3. Jacquin nos monstros do cap.5 e no cenario `approved/bg/ch5_pc_monitor.png` (fundo de baixo e gradiente suave, talvez pedir pixelizar).
-4. Big Head (chefe, 5 fases, 31 fotos em refs/bighead), cutscenes a partir de LORE.md, Julia corrompida (chefe da Torre).
-5. Codigo (arquivos novos, sem mexer nos grandes): tower.js, pvp.js, net.js (adaptador pluggable, mock local), colecao, pets, pesca, eventos, sistema de itens STR/DEX/INT (ver FEATURES_ROADMAP.md).
-
+1. Jacquin: monstros do cap.5 e cenario ch5_pc_monitor (fundo de baixo e gradiente suave). Retoques finos de Donnie/Chavoso/Rafinha se sobrar tempo.
+2. Sprite `rafinha_orc` (orc estilo WoW) via Gemini; chave rafinha_orc em sprites2.json (o jogo troca sozinho).
+3. Big Head (chefe, 5 fases, 31 fotos em refs/bighead), cutscenes a partir de LORE.md, Julia corrompida (chefe da Torre).
+4. Codigo em arquivos novos: tower.js, pvp.js (usa Net.ghosts()), colecao, pets, pesca, eventos, itens STR/DEX/INT. Testar tela de Guilda com o mock.
+5. Herois restantes quando chegarem fotos: Lucao, Copello, Malaguti, Glem, Samuel, Rubens (refs em art_gen/refs/<nome>/).
 ## Armadilhas conhecidas
 - Python real: `C:\Users\diogo\AppData\Local\Programs\Python\Python313\python.exe` (o `python` do PATH e atalho da Store e NAO funciona).
 - Gemini (aba do navegador embutido, `https://gemini.google.com/app`): digitar o prompt + Return; a tela so atualiza depois de um screenshot/scroll (nao clicar no botao enviar, ele vira "parar"); baixar com o botao "Download full size image" (find) e rodar `art_gen/tools/gemget.ps1 -Name <nome> -Expect 1 -Colors 24 [-Floor N]`. Cenarios: `tools/scene.py IN.jpg OUT.png --colors 48 --aspect 320:293 --top 0`.

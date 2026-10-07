@@ -38,7 +38,7 @@
   Acct.ready.then(()=>{
     const P=$('tPanel');if(!P)return;
     const st=el('div','tacc');
-    if(!Acct.online){st.textContent='Offline guest \u00b7 progress saved on this device only';P.appendChild(st);return;}
+    if(!Acct.online||Acct.mock){st.textContent='Offline guest \u00b7 progress saved on this device only';P.appendChild(st);return;}
     st.textContent='Signed in with claude.ai \u00b7 cloud save on';P.appendChild(st);
     if(Acct.cloud&&(!nm()||Acct.cloudNewer())){if(Acct.applyCloud()){build();applyName();$('tPanel').appendChild(st);}}
     Acct.markDirty();Acct.pushNow();

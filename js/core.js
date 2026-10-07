@@ -90,7 +90,7 @@ const stageLabel=n=>(chapOf(n)+1)+'-'+stageIn(n);
 
 const HEROES={
   tank:{n:'Jack',role:'Cowboy Tank',sub:'Tank',cls:'tank',hp:220,atk:12,iv:1.2},
-  rafinha:{n:'Rafinha',role:'Energy Drink Tank',sub:'Tank',cls:'tank',hp:300,atk:9,iv:1.3,sc:1.12},
+  rafinha:{n:'Rafinha',role:'Energy Drink Tank',sub:'Tank',cls:'tank',hp:300,atk:9,iv:1.3,sc:1},
   lucao:{n:'Lucão',role:'Fisherman Tank',sub:'Tank',cls:'tank',hp:210,atk:13,iv:1.2,sc:1.05},
   dps:{n:'Daniel',role:'Necromancer Summoner',sub:'Ranged DPS',cls:'dps',rng:1,hp:100,atk:30,iv:1.0},
   chavoso:{n:'Chavoso',role:'Deadeye Archer',sub:'Ranged DPS',cls:'dps',rng:1,hp:90,atk:26,iv:.85},

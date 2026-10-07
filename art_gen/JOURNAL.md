@@ -51,3 +51,5 @@
 - 2026-10-07: Instalei protecao global (~/.claude): hook que avisa em 200k/350k/600k tokens para fazer handoff, skills handoff + session-health, regras anti-invencao no CLAUDE.md. LORE.md atualizado: tudo acontece dentro da cabeca do Diogo; cada capitulo = uma memoria. Jacquin HEROES_BATCH1: Jack aprovado; Daniel e Ze corrigir (cor); Donnie, Chavoso, Rafinha regenerar.
 
 - 2026-10-07: Jack e Daniel (aprovados pelo Jacquin) ja estao no jogo com a arte nova; Donnie/Chavoso/Rafinha refeitos e em julgamento (rodada 2); cenario do cap. 5 (dentro do monitor) gerado; cinco cenarios novos ligados no jogo. HANDOFF.md atualizado (historico antigo preservado embaixo).
+
+- 2026-10-07: Ze Vitor aprovado. Donnie, Chavoso e Rafinha refeitos/retocados e ja no jogo como PROVISORIOS (Jacquin deu 87-90, falta retoque fino). Avatares novos dos 6 herois. Novo js/net.js: amigos/guilda funcionam offline com bots de treino (troca por servidor real depois). Rafinha agora baixinho de verdade.
