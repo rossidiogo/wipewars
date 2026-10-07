@@ -39,6 +39,7 @@ STEPS['pzburnt']=STEPS.tp;SHW['pzburnt']=34;
 STEPS['pzmessy']=STEPS.tp;SHW['pzmessy']=40;
 STEPS['tank']=HERO_ST;SHW['tank']=34;
 STEPS['dps']=HERO_ST;SHW['dps']=30;
+STEPS['ze']=HERO_ST;SHW['ze']=32;
 /*END-GENART*/
 function atkEl(el){
   const c=el.querySelector('canvas.monc');if(!c||c.dataset.busy)return;
