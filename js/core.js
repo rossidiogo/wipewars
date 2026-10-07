@@ -91,7 +91,7 @@ const stageLabel=n=>(chapOf(n)+1)+'-'+stageIn(n);
 const HEROES={
   tank:{n:'Jack',role:'Cowboy Tank',sub:'Tank',cls:'tank',hp:220,atk:12,iv:1.2},
   rafinha:{n:'Rafinha',role:'Energy Drink Tank',sub:'Tank',cls:'tank',hp:300,atk:9,iv:1.3,sc:1.12},
-  lucao:{n:'Lucão',role:'Tank (skills TBD)',sub:'Tank',cls:'tank',hp:210,atk:13,iv:1.2,sc:1.05},
+  lucao:{n:'Lucão',role:'Fisherman Tank',sub:'Tank',cls:'tank',hp:210,atk:13,iv:1.2,sc:1.05},
   dps:{n:'Daniel',role:'Bird Summoner',sub:'Ranged DPS',cls:'dps',rng:1,hp:100,atk:30,iv:1.0},
   chavoso:{n:'Chavoso',role:'Deadeye Archer',sub:'Ranged DPS',cls:'dps',rng:1,hp:90,atk:26,iv:.85},
   copello:{n:'Copello',role:'Mango Sharpshooter',sub:'Ranged DPS',cls:'dps',rng:1,hp:95,atk:33,iv:1.15},
@@ -105,7 +105,7 @@ const HEROES={
 const ULT={
   tank:{n:'Hold the Line',mana:40,d:'Gain a shield worth 40% of max health.'},
   rafinha:{n:'Energy Overload',mana:50,d:'Drinks a can: grows huge, heals 30%, gains a 30% shield and +60% attack for 8s.'},
-  lucao:{n:'Guard Up',mana:50,d:'Placeholder: shields the whole team for 20% of his max health.'},
+  lucao:{n:'Big Catch',mana:50,d:'Reels in a huge fish and spins like a top, whipping it into every enemy 4 times for 1x attack each, and gains a shield worth 15% of max health.'},
   dps:{n:'Summon Cockatiel',mana:80,d:'His cockatiel dives in for 5x attack damage to one enemy.'},
   chavoso:{n:'Deadeye Volley',mana:70,d:'Fires 4 arrows at random enemies for 1.7x attack each.'},
   copello:{n:'Mango Barrage',mana:80,d:'Hurls a mango for 4.5x damage to one enemy, splashing 1.2x on the rest.'},

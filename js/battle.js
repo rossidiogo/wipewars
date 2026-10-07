@@ -156,7 +156,13 @@ function cloud(host,cols,n,delay){
 const ULTFX={
   tank:u=>{u.shield=(u.shield||0)+Math.round(u.max*.4);refresh(u);flash('#6ad0ff');},
   rafinha:u=>{const h=Math.round(u.max*.3);u.hp=Math.min(u.max,u.hp+h);pop(u,'+'+h,'heal');u.shield=(u.shield||0)+Math.round(u.max*.3);addFx(u,'atk',1.6,8);addFx(u,'grow',1.3,8);refresh(u);flash('#6aff3a');},
-  lucao:u=>{alive('h').forEach(a=>{a.shield=(a.shield||0)+Math.round(u.max*.2);refresh(a);});flash('#6ad0ff');},
+  lucao:u=>{
+    const sp=u.el.querySelector('.msp,.spr'),fish=document.createElement('span');
+    if(sp)sp.classList.add('spintop');fish.className='bigfish';fish.textContent='\u{1F41F}';u.el.appendChild(fish);
+    setTimeout(()=>{if(sp)sp.classList.remove('spintop');fish.remove();},1300);
+    for(let i=0;i<4;i++)alive('m').forEach(m=>hitFor(u,m,1,200+i*230));
+    u.shield=(u.shield||0)+Math.round(u.max*.15);refresh(u);flash('#6ad0ff');
+  },
   dps:u=>{const t=pickTarget(u);if(t){const d=Math.round(A(u)*5*(.9+Math.random()*.2));flash('#ff6a4a');setTimeout(()=>{slash(t);dealDamage(t,d,u,'strikes');},180);}},
   chavoso:u=>{const ms=alive('m');if(!ms.length)return;flash('#9ae070');for(let i=0;i<4;i++)hitFor(u,ms[rnd(ms.length)],1.7,i*160);},
   copello:u=>{const t=pickTarget(u);flash('#f0a020');hitFor(u,t,4.5,200);alive('m').forEach(m=>{if(m!==t)hitFor(u,m,1.2,330);});},
