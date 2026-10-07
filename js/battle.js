@@ -15,7 +15,7 @@ const CHAPMON=[
   {n:['fcondom','pcondom','bighead2'],names:['Frozen Condom','Permafrost Prophylactic','Big Head'],k:['fcondom','pcondom','bh2'],m:[1,1,.8]},
   {n:['belt','sander','bighead3'],names:['Sandpaper','Belt Sander','Big Head'],k:['belt','machine','bh3'],m:[1,1,.72]},
   {n:['pzburnt','pzmessy','bighead4'],names:['Burnt Mini Pizza','Dropped Pizza','Big Head'],k:['pzburnt','pzmessy','bh4'],m:[1,1,.62]},
-  {n:['cobweb','mold','bighead5'],names:['Cobweb Roll','Mold Spray','Big Head'],f:['hue-rotate(260deg) saturate(.9) brightness(.8)','hue-rotate(110deg) saturate(1.5) brightness(.85)',''],k:[null,null,'bh5'],m:[null,null,.6]}
+  {n:['ch5clone','ch5deluxe','bighead5'],names:['Silicone Clone','Deluxe Clone','Big Head'],k:['ch5clone','ch5deluxe','bh5'],m:[1,1,.6]}
 ];
 CHAPMON.forEach((c,ci)=>{if(ci===0)return;const base=['tp','bottle','bossx'];c.n.forEach((id,i)=>{const b=KINDS[base[i]];KINDS[id]=Object.assign({},b,{n:c.names[i],f:c.f&&c.f[i],key:(c.k&&c.k[i])||b.key,m:(c.m&&c.m[i])||b.m,hp:Math.round(b.hp*(1+.35*ci)),atk:Math.round(b.atk*(1+.3*ci))});});});
 const RC=['#d8d4c8','#8c8cff','#ffe96a','#c8742a'],RN=['Normal','Magic','Rare','Legendary'];

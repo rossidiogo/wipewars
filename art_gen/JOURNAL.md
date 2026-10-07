@@ -55,3 +55,5 @@
 - 2026-10-07: Ze Vitor aprovado. Donnie, Chavoso e Rafinha refeitos/retocados e ja no jogo como PROVISORIOS (Jacquin deu 87-90, falta retoque fino). Avatares novos dos 6 herois. Novo js/net.js: amigos/guilda funcionam offline com bots de treino (troca por servidor real depois). Rafinha agora baixinho de verdade.
 
 - 2026-10-07: Chefe Big Head gerado nos 5 estagios a partir das suas fotos (azul calmo; cachecol gelado; cabeca rachada + avental laranja; cranio aberto com cerebro; final musculoso com cerebro gigante e capa roxa): conjunto muito consistente, em julgamento do Jacquin. Monstros do cap. 5: o normal (rosa) aprovado apos limpeza de pixels; o elite (verde) refeito e em julgamento. Teste cego: leu como brinquedo/condom (a piada do capitulo).
+
+- 2026-10-07: Monstros do cap. 5 (normal rosa + elite verde com faixa dourada e olhos laranja) prontos e NO JOGO; testado sem erros. Falta: Jacquin no chefe Big Head (5 estagios) e depois exportar. Cap. 5 ainda se chama 'The Basement' no jogo (o lore diz que e o PC): renomear quando o Diogo quiser.
