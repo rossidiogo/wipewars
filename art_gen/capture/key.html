@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wipe Wars - Guardar chave</title>
+<style>
+body{margin:0;background:#14110e;color:#efe6d2;font:17px/1.5 system-ui,Segoe UI,sans-serif;padding:24px;max-width:760px;margin:auto}
+h1{color:#e0c57a;font-size:22px}li{margin:8px 0}a{color:#e0c57a}
+input{width:100%;padding:12px;background:#2a2218;color:#efe6d2;border:1px solid #3a2f22;border-radius:8px;font:inherit;margin:8px 0}
+button{padding:12px 20px;background:#7a5c18;color:#efe6d2;border:1px solid #e0c57a;border-radius:8px;font:inherit;font-weight:700;cursor:pointer}
+#r{margin-top:14px;font-weight:700}.ok{color:#6fcf7a}.bad{color:#e5645a}small{color:#9c8f78}
+</style></head><body>
+<h1>Guardar a chave do Google (fica s&oacute; neste computador)</h1>
+<ol>
+<li>Abra <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a> no seu Chrome (j&aacute; logado na sua conta Google).</li>
+<li>Clique em <b>Create API key</b>. Se pedir um projeto, escolha <b>Create project</b> (ou "Create API key in new project").</li>
+<li>Copie a chave (come&ccedil;a com <code>AIza</code>) e cole abaixo.</li>
+</ol>
+<input id="k" type="password" placeholder="Cole a chave aqui" autocomplete="off">
+<button id="b">Guardar e testar</button>
+<div id="r"></div>
+<small>A chave &eacute; salva no arquivo .env deste projeto, que n&atilde;o vai para o GitHub.</small>
+<script>
+document.getElementById('b').onclick=async()=>{
+  const r=document.getElementById('r');r.className='';r.textContent='Testando...';
+  try{const x=await fetch('/setkey',{method:'POST',body:JSON.stringify({key:document.getElementById('k').value.trim()})});
+    const j=await x.json();r.className=j.ok?'ok':'bad';r.textContent=j.msg;if(j.ok)document.getElementById('k').value='';}
+  catch(e){r.className='bad';r.textContent='Erro: '+e}
+};
+</script></body></html>

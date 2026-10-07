@@ -5,10 +5,10 @@ Trava: `art_gen/.lock` (timestamp). Se o arquivo tem menos de 15 min, outra sess
 
 ## A. Arte (usa cota da use.ai: ver `fetch('/v1/limits')`; ~4% por imagem; usar a janela inteira antes de resetar)
 Prioridade: 1) Clorox + rolo de papel (cap.1) aprovados pelo Jacquin  2) itens (bases PoE): corpo OK, elmos OK, luvas OK, botas OK -> faltam escudos, armas (STR/DEX/INT), joias, 3) icones de moeda/chave/bau/navegacao  4) monstros cap.2-4 (+cap.5 dildos)  5) herois (fotos em `art_gen/refs/<id>/`; so Big Head recebido) 6) cenarios 7) UI kit 8) cutscenes 9) futuro.
-Status: ver JOURNAL.
+Status: ver JOURNAL. Pendente itens: ver ultimas linhas do JOURNAL (fixes de codigo + diadema + luva roxa).
 
 ## B. Sem cota (fazer quando a cota acabar)
-1. `tools/export_sprite.py`: transforma um PNG aprovado em entrada de `sprites2.json` (idle[4]/atk[4] procedurais, ancora, escala) + gera STEPS/SHW.
+1. (FEITO e testado no jogo) `tools/export_sprite.py KEY idle.png [--atk atk.png] --target-h N --steps hero|tank|tp|boss --shw N`.
 2. `tools/export_icons.py`: coloca icones aprovados em `icons2.json` (canvas 40, chaves item_<slot>_<base>).
 3. Sistema de atributos STR/DEX/INT no jogo (core.js): atributo principal por heroi (tabela em STYLE_BIBLE), bases de itens por atributo, requisitos, UI, traducao PT.
 4. Recriar testes (Playwright: monkey/play/multi) e rodar; reescrever `sim.py`/`sim2.py` para times de 4 + gacha + estrelas; passada de balanceamento (meta: cap.1 ~2h, jogo todo 3-4 semanas).

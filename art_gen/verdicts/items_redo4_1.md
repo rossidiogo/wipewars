@@ -1,0 +1,24 @@
+```
+JACQUIN VERDICT: REJECTED sheet   (0 bow REGENERATE; 1 staff REGENERATE; 2 amulet FIXABLE_IN_CODE then re-check; 3 ring APPROVED)
+Asset: items_redo4_1 (0 wooden bow, 1 blue orb staff, 2 emerald amulet, 3 ruby ring)   Type: item icons 40x40   Attempt: 1
+Per icon:
+ 0 bow     : pixel 86 | silhouette 70 | color 74 | anatomy 72 | design 70 | symmetry 78 | ready 78 | brief 72 | likeness N/A => 75  REJECTED (REGENERATE)
+ 1 staff   : pixel 90 | silhouette 84 | color 86 | anatomy 90 | design 80 | symmetry 76 | ready 88 | brief 90 | likeness N/A => 86  REJECTED (REGENERATE)
+ 2 amulet  : pixel 90 | silhouette 92 | color 92 | anatomy 92 | design 91 | symmetry 92 | ready 84 | brief 94 | likeness N/A => 91  REJECTED (FIXABLE_IN_CODE)
+ 3 ring    : pixel 92 | silhouette 93 | color 93 | anatomy 93 | design 92 | symmetry 92 | ready 92 | brief 94 | likeness N/A => 93  APPROVED
+Likeness check: N/A (items)
+What works: Amulet and ring are the best jewelry so far: warm gold ramp with cooler brown shadows, top-left light, a clear gem with a specular pixel, 22 colours, violet-dark outline that matches the approved weapons. The ring reads as a ring at 32 px with a proper inner band showing depth.
+Defects (most severe first):
+ 1. Bow is not a bow. It is a twisted, knotted branch (41x43 logical) with no bowstring: there are only 2-3 pale pink pixels at each tip and no line connecting them. At 40 px and on the #1a1612 panel it reads as a dead stick. Value is too dark: the plum-brown body ramp sits within contrast of the panel on 12.5% of its pixels (siblings 0-2.7%), the lit edge has no top-left highlight, and there is no grip wrap, nock, or gold/metal accent that every approved weapon has (sword guard, wand ferrule, staff head). The hue is the same violet-brown as the rejected jerkin, not wood.
+ 2. Bow canvas overflow 41x43 > 40x40: the _c40 had to be non-integer scaled or cropped, breaking the integer-rescale rule.
+ 3. Staff orientation breaks the weapon-slot contract: approved weapon_staff_ruby_int, weapon_wand_int and weapon_sword_str are all drawn diagonally (bottom-left to top-right, about 45 deg). This staff is vertical, 14x40, so it fills only 35% of the cell width and sits next to the approved ruby staff as a different set. A 45 deg rotation cannot be done cleanly in code. The shaft is a 3-4 px dark plum rod with no ramp beyond 2 values and no grip/ferrule detail; the orb is good (blue, top-left highlight) but the claw holding it is mush at 1x.
+ 4. Amulet is 34x42 logical, 2 px over the 40 px cell height. Everything else about it passes.
+ 5. Ring (minor, not blocking): the ruby facet pattern is busy (4-5 reds in a 9x7 area); at 32 px it reads as a single orange-red blob, acceptable.
+Fix:
+ 0 Bow (REGENERATE; code cannot add a missing string, re-hue wood and repaint the shape without it being a paint-over): prompt delta: "a recurve longbow drawn diagonally from bottom-left to top-right like the other weapon icons, the same 45 degree angle as the sword and staff, warm honey-brown polished wood (light #b07a40, mid #7a4a26, shadow #3e2416 cooler toward violet), a clearly visible straight pale bowstring (#e8dcc0) running tip to tip, a dark leather grip wrap with a small gold band at the centre, small gold tip caps, bright top-left highlight along the outer curve, thick limbs at least 4 px wide at 40 px, not a branch, no knots, no leaves". Target bounding box about 36x36 logical. Reject the result if low_contrast_vs_panel_pct > 3.
+ 1 Staff (REGENERATE): prompt delta: "a mage staff drawn diagonally from bottom-left to top-right at 45 degrees, the same angle and length as the ruby staff and wand icons, a large glowing sapphire-blue orb (about 9x9 px at 40 px) held by three silver prongs, shaft in warm dark wood with a lighter top-left edge, a silver ferrule at the bottom and a wrapped grip in the middle". Use weapon_staff_ruby_int.png as the composition reference so the two staves are siblings.
+ 2 Amulet (FIXABLE_IN_CODE): remove 2 rows from the vertical runs of the chain (1 row from each side, where the chain is straight on the left and right, roughly the middle third of its height), rejoin the link pattern and redraw the 1 px outline. No resampling. Output 34x40, bottom-centred in 40x40. Resubmit for a quick re-check; expected 92.
+ 3 Ring: APPROVED as-is. Copy items_redo4_1_3_c40.png to approved/items/jewel_ring_ruby.png (confirm the c40 is a 1:1 crop of the 34x31 object with no resample).
+ Every regeneration: repeat the full STYLE_BIBLE style-lock text, 4 icons per image, flat magenta cell backgrounds, same scale and angle as siblings, integer-only rescale, nothing larger than 40x40.
+Note: no Python shell was available to this review session, so sizes, colour counts and contrast numbers come from items_redo4_1_report.json; angle, value and detail judgements come from the 1x, c40, x4 renders and the approved items.
+```

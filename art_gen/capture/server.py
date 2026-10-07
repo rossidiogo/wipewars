@@ -51,6 +51,9 @@ class H(BaseHTTPRequestHandler):
         if u.path in ('/', '/index.html'):
             with open(os.path.join(HERE, 'index.html'), 'rb') as f:
                 return self.send(200, f.read(), 'text/html; charset=utf-8')
+        if u.path == '/key':
+            with open(os.path.join(HERE, 'key.html'), 'rb') as f:
+                return self.send(200, f.read(), 'text/html; charset=utf-8')
         if u.path == '/upload':
             with open(os.path.join(HERE, 'upload.html'), 'rb') as f:
                 return self.send(200, f.read(), 'text/html; charset=utf-8')
@@ -81,6 +84,27 @@ class H(BaseHTTPRequestHandler):
         q = {k: v[0] for k, v in parse_qs(u.query).items()}
         n = int(self.headers.get('Content-Length', 0))
         data = self.rfile.read(n) if n else b''
+        if u.path == '/setkey':
+            import urllib.request, urllib.error
+            try:
+                key = json.loads(data.decode('utf-8')).get('key', '')
+            except Exception:
+                key = ''
+            if not re.match(r'^[A-Za-z0-9_\-]{20,120}$', key):
+                return self.send(200, {'ok': False, 'msg': 'Isso nao parece uma chave. Copie de novo (comeca com AIza).'})
+            try:
+                urllib.request.urlopen('https://generativelanguage.googleapis.com/v1beta/models?key=' + key, timeout=20).read()
+            except urllib.error.HTTPError as e:
+                return self.send(200, {'ok': False, 'msg': 'O Google recusou a chave (erro %s). Confira se copiou inteira.' % e.code})
+            except Exception as e:
+                return self.send(200, {'ok': False, 'msg': 'Nao consegui falar com o Google: %s' % e})
+            envp = os.path.abspath(os.path.join(HERE, '..', '..', '.env'))
+            lines = []
+            if os.path.exists(envp):
+                lines = [l for l in open(envp, encoding='utf-8').read().splitlines() if not l.startswith('GEMINI_API_KEY=')]
+            lines.append('GEMINI_API_KEY=' + key)
+            open(envp, 'w', encoding='utf-8').write('\n'.join(lines) + '\n')
+            return self.send(200, {'ok': True, 'msg': 'Chave valida e guardada! Pode fechar esta pagina.'})
         d = pdir(q.get('profile'), create=(u.path == '/save'))
         if not d:
             return self.send(400, {'error': 'bad profile'})
