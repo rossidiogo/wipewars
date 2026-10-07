@@ -74,7 +74,7 @@ function setup(){
   stageBanner();
   const s=stage-1;fixForm();$('result').classList.remove('on');
   FS=($('field').clientWidth||360)/320;
-  $('fbg').style.filter=chapOf(stage)===1?'saturate(.55) brightness(1.18) hue-rotate(-8deg)':'none';$('fbg').style.backgroundImage='url('+BGCH[chapOf(stage)]+')';
+  $('fbg').style.filter='none';$('fbg').style.backgroundImage='url('+BGCH[chapOf(stage)]+')';
   units=save.team.map(r=>{const H=HEROES[r],st=heroStats(r);const u=mk('h',H.n,H.cls,st.hp,st.atk,H.iv,r);u.kind=r;u.m=H.sc||1;u.rng=H.rng;u.heal=H.heal;u.slot=save.form[r];u.mmax=ULT[r].mana;u.mana=0;u.shield=0;return u;});
   const list=stageList(stage),slots=placeMonsters(list);
   list.forEach((kd,i)=>{const k=KINDS[kd];const u=mk('m',k.n,'mon',Math.round(k.hp*(1+.25*s)*Math.pow(ECON.monsterGrowth,s)),Math.round(k.atk*(1+.2*s)*Math.pow(ECON.monsterGrowth,s)),k.iv,k.key);u.kind=kd;u.m=k.m;u.rar=k.r;u.slot=slots[i];units.push(u);});

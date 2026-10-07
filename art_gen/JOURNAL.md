@@ -43,3 +43,9 @@
 - PROBLEMA ENCONTRADO: depois do ultimo commit (23:42) nada novo foi feito durante a noite. A tarefa automatica ficou TRAVADA desde as 21:33 esperando uma permissao do navegador que ninguem aprovou, e uma execucao travada impede as proximas. Corrigido: sessao travada encerrada e tarefa reiniciada; falta voce aprovar as permissoes dela uma vez (veja a barra lateral).
 
 - 07/10 manha: monstros do cap. 5 gerados no Gemini (silicone cor de pele e versao deluxe verde-azulada), cartoon sem nada explicito; aguardando Jacquin. Tarefa agendada agora so faz codigo (sem navegador, para nao travar); esta sessao ganhou um lembrete a cada 20 min para continuar a arte.
+
+- Torre definida por voce: a Julia corrompida vira vilã e chefe da Torre (nos pontos de parada, aparencia muda); a Torre abre quando o tutorial dela terminar (quase tudo liberado). Plano mestre em FEATURES_ROADMAP.md.
+
+- Historia (LORE.md): premissa sua + capitulos, cutscenes e epilogo da Torre escritos por mim; lacunas marcadas com [?] para voce revisar.
+
+- 2026-10-07: Instalei protecao global (~/.claude): hook que avisa em 200k/350k/600k tokens para fazer handoff, skills handoff + session-health, regras anti-invencao no CLAUDE.md. LORE.md atualizado: tudo acontece dentro da cabeca do Diogo; cada capitulo = uma memoria. Jacquin HEROES_BATCH1: Jack aprovado; Daniel e Ze corrigir (cor); Donnie, Chavoso, Rafinha regenerar.
