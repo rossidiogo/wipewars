@@ -65,3 +65,5 @@
 - 2026-10-07: Orc do Rafinha (estilo World of Warcraft, barba preta mantida) desenhado e NO JOGO: a ultimate Modo Orc troca o sprite (testado, sem erros); falta o Jacquin julgar o orc. Cenario do cap. 5 retocado pelo Jacquin (moldura suavizada, textura no chao) e atualizado no jogo.
 
 - 2026-10-07: Chefe final (Big Head fase 5) refeito: cerebro realmente gigante, sem chifres, capa e fivelas legiveis (no jogo; falta novo julgamento do Jacquin). Orc do Rafinha: presas em marfim conforme o Jacquin (22 cores), reexportado.
+
+- 2026-10-07: Retoques do Jacquin aplicados e no jogo: chefe fase 4 (borda do cranio, contorno unico), chefe fase 5 (fivelas e grampos dourados, capa mais clara, olhos), orc do Rafinha (verdes unidos, 17 cores). Notas dele ainda ~86-91 (abaixo de 94); crescimento da cabeca confirmado legivel com o multiplicador (44, 51, 56, 70, 78 px). Falta teste cego do orc e dos chefes 4/5.
