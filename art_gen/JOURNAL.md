@@ -69,3 +69,5 @@
 - 2026-10-07: Retoques do Jacquin aplicados e no jogo: chefe fase 4 (borda do cranio, contorno unico), chefe fase 5 (fivelas e grampos dourados, capa mais clara, olhos), orc do Rafinha (verdes unidos, 17 cores). Notas dele ainda ~86-91 (abaixo de 94); crescimento da cabeca confirmado legivel com o multiplicador (44, 51, 56, 70, 78 px). Falta teste cego do orc e dos chefes 4/5.
 
 - 2026-10-07: Teste cego (sonnet) dos retocados: cerebro lido com 85-92% nas fases 4 e 5; orc reconhecido (92%), presas 80%. Ressalva: o anel branco do cranio le como faixa/coroa (nao osso) e as bolinhas do anel da fase 5 como contas, nao caveiras. Se o Diogo quiser mais fiel: refazer o anel como casca de ovo quebrada.
+
+- 2026-10-07: Cenario da casa/tela de titulo novo (sala de estar a noite, lampada ambar, janela com lua; 320x693) no jogo. Falta o Jacquin julgar.

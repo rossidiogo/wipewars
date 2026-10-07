@@ -14,7 +14,7 @@
 - 8 monstros dos caps 1-4 no jogo. Monstros do cap.5 gerados mas SEM veredito do Jacquin.
 
 ## Proximos passos (ordem)
-1. Big Head esta NO JOGO (bh1..bh5, approved/bosses/). Provisorios (retocados pelo Jacquin, ~86-91, verdicts/BOSS_BIGHEAD_3.md; falta teste cego sonnet e o resto dos 'APPROVED' dele) bh4 e bh5 (v3; ver verdicts/BOSS_BIGHEAD_2.md: refazer bh5 com cerebro realmente gigante e sem pontas de chifre, dourar fivelas, clarear calca/capa; bh4 borda do cranio rente a testa). Retocar bh1-3 conforme 'What would make it APPROVED' (acento de cor, blind-ID). Cenario ch5_pc_monitor ainda sem veredito do Jacquin. Cap.5 se chama 'The Basement' no jogo (lore diz PC).
+1. Big Head esta NO JOGO (bh1..bh5, approved/bosses/). Provisorios (retocados pelo Jacquin, ~86-91, verdicts/BOSS_BIGHEAD_3.md; falta teste cego sonnet e o resto dos 'APPROVED' dele) bh4 e bh5 (v3; ver verdicts/BOSS_BIGHEAD_2.md: refazer bh5 com cerebro realmente gigante e sem pontas de chifre, dourar fivelas, clarear calca/capa; bh4 borda do cranio rente a testa). Retocar bh1-3 conforme 'What would make it APPROVED' (acento de cor, blind-ID). Cenario ch5_pc_monitor retocado e no jogo. Novo fundo da casa/titulo (approved/bg/home_livingroom.png, assets/bg2.json 'tall') no jogo, SEM Jacquin ainda. Cap.5 se chama 'The Basement' no jogo (lore diz PC).
 2. rafinha_orc JA NO JOGO (approved/heroes/rafinha_orc.png), so falta Jacquin julgar. Cenario ch5 retocado e no jogo (verdicts/bg_ch5_1.md).
 3. Big Head (chefe, 5 fases, 31 fotos em refs/bighead), cutscenes a partir de LORE.md, Julia corrompida (chefe da Torre).
 4. Codigo em arquivos novos: tower.js, pvp.js (usa Net.ghosts()), colecao, pets, pesca, eventos, itens STR/DEX/INT. Testar tela de Guilda com o mock.
