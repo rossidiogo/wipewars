@@ -7,3 +7,4 @@ art_gen/out/
 art_gen/refs/
 art_gen/HEROES_QUESTIONNAIRE.md
 .claude/settings.local.json
+art_gen/.lock

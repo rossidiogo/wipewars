@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wipe Wars - Enviar fotos</title>
+<style>
+:root{--bg:#14110e;--panel:#1d1813;--line:#3a2f22;--gold:#e0c57a;--txt:#efe6d2;--dim:#9c8f78;--ok:#6fcf7a;--bad:#e5645a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.45 system-ui,Segoe UI,sans-serif;padding:18px;max-width:980px;margin:auto}
+h1{color:var(--gold);font-size:22px;margin:0 0 4px}p{color:var(--dim);margin:4px 0 14px}
+select,button{background:#2a2218;color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:10px 14px;font:inherit}
+button.main{background:#7a5c18;border-color:var(--gold);font-weight:700;cursor:pointer}
+#drop{border:3px dashed var(--gold);border-radius:14px;padding:46px 20px;text-align:center;margin:14px 0;background:var(--panel);cursor:pointer}
+#drop.over{background:#2a2218}
+#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:12px}
+.t{background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:12px}
+.t img{width:100%;height:110px;object-fit:cover;display:block}.t div{padding:4px 6px}.ok{color:var(--ok)}.bad{color:var(--bad)}
+a{color:var(--gold)}
+</style></head><body>
+<h1>Enviar fotos de refer&ecirc;ncia</h1>
+<p>1) Escolha o personagem. 2) Arraste as fotos para o quadro (ou clique nele). Elas s&atilde;o salvas s&oacute; neste computador, na pasta certa. <a href="/">Voltar ao est&uacute;dio da webcam</a></p>
+<select id="who">
+<option value="jack">Jack</option><option value="rafinha">Rafinha</option><option value="lucao">Luc&atilde;o</option><option value="copello">Copello</option><option value="daniel">Daniel</option><option value="chavoso">Chavoso</option><option value="malaguti">Malaguti</option><option value="glem">Glem</option><option value="samuel">Samuel</option><option value="rubens">Rubens</option><option value="ze">Z&eacute; Vitor</option><option value="donnie">Donnie</option><option value="bighead">Big Head (Diogo)</option><option value="julia">Julia</option><option value="tigre">Tigre (refer&ecirc;ncia do Glem)</option><option value="cenarios">Cen&aacute;rios (refer&ecirc;ncias)</option><option value="outros">Outros</option>
+</select>
+<div id="drop">Arraste as fotos aqui<br><small>ou clique para escolher (JPG, PNG, WEBP)</small></div>
+<input id="file" type="file" accept="image/*" multiple hidden>
+<div id="sum" style="margin-top:10px;color:var(--dim)"></div>
+<div id="grid"></div>
+<script>
+const $=id=>document.getElementById(id);let n=0,okc=0;
+$('drop').onclick=()=>$('file').click();
+$('file').onchange=e=>go([...e.target.files]);
+['dragover','dragenter'].forEach(ev=>$('drop').addEventListener(ev,e=>{e.preventDefault();$('drop').classList.add('over')}));
+['dragleave','drop'].forEach(ev=>$('drop').addEventListener(ev,e=>{e.preventDefault();$('drop').classList.remove('over')}));
+$('drop').addEventListener('drop',e=>go([...e.dataTransfer.files]));
+function toJpg(file){return new Promise((res,rej)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=im.naturalWidth;c.height=im.naturalHeight;c.getContext('2d').drawImage(im,0,0);c.toBlob(b=>{URL.revokeObjectURL(u);b?res([b,u]):rej()},'image/jpeg',.95)};im.onerror=()=>rej(new Error('formato nao suportado'));im.src=u})}
+async function go(files){
+  const who=$('who').value;
+  for(const f of files){
+    const t=document.createElement('div');t.className='t';t.innerHTML='<div>'+f.name.slice(0,22)+'</div>';$('grid').prepend(t);
+    try{
+      let blob=f;if(!/jpe?g$/i.test(f.type)||f.size<1000)blob=(await toJpg(f))[0];
+      const name='foto_'+Date.now().toString(36)+'_'+(n++)+'.jpg';
+      const r=await fetch('/save?profile='+who+'&name='+name,{method:'POST',body:blob});
+      if(!r.ok)throw new Error('servidor recusou');
+      const im=document.createElement('img');im.src=URL.createObjectURL(blob);t.prepend(im);t.lastChild.className='ok';t.lastChild.textContent='✔ salva ('+name+')';okc++;
+    }catch(e){t.lastChild.className='bad';t.lastChild.textContent='erro: '+e.message+' (se for HEIC do iPhone, converta para JPG)'}
+    $('sum').textContent=okc+' foto(s) salva(s) na pasta de "'+$('who').selectedOptions[0].text+'".';
+  }
+}
+</script></body></html>

@@ -32,14 +32,27 @@ class H(BaseHTTPRequestHandler):
         self.send_header('Content-Type', ctype)
         self.send_header('Content-Length', str(len(body)))
         self.send_header('Cache-Control', 'no-store')
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Private-Network', 'true')
         self.end_headers()
         self.wfile.write(body)
+
+    def do_OPTIONS(self):
+        self.send_response(204)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', '*')
+        self.send_header('Access-Control-Allow-Private-Network', 'true')
+        self.end_headers()
 
     def do_GET(self):
         u = urlparse(self.path)
         q = {k: v[0] for k, v in parse_qs(u.query).items()}
         if u.path in ('/', '/index.html'):
             with open(os.path.join(HERE, 'index.html'), 'rb') as f:
+                return self.send(200, f.read(), 'text/html; charset=utf-8')
+        if u.path == '/upload':
+            with open(os.path.join(HERE, 'upload.html'), 'rb') as f:
                 return self.send(200, f.read(), 'text/html; charset=utf-8')
         d = pdir(q.get('profile'))
         if u.path == '/list':
