@@ -75,3 +75,5 @@
 - 2026-10-07: Cenario da casa/titulo retocado conforme o Jacquin (lua e estrelas frias, luar do chao suavizado, 47 cores). Nota dele antes do retoque: 85; falta nova avaliacao.
 
 - 2026-10-07: PAUSA a pedido do Diogo: tarefa agendada desativada e lembrete da sessao apagado; sem busca automatica de trabalho ate ele decidir sobre uso de tokens.
+
+- 2026-10-07: HANDOFF.md atualizado e conversa nova aberta automaticamente (tarefa unica). Teto diario 10%/dia combinado.

@@ -8,29 +8,33 @@
 - Todo asset de arte passa pelo Jacquin (agente critico, `.claude/agents/jacquin.md`) antes de entrar no jogo. Features aprovadas por ele: ver `FEATURES_ROADMAP.md`. Historia: `LORE.md` (tudo acontece DENTRO da cabeca do Diogo; cada capitulo = uma memoria).
 - Privacidade: repo PUBLICO. Nunca commitar `art_gen/refs/`, `.env`, `art_gen/out/`, fotos pessoais, chaves.
 
-## Estado (VERIFICADO nesta sessao)
-- 5 cenarios de capitulo aprovados e NO JOGO (assets/bg_ch.json; verificado no navegador). Filtro antigo do cap.2 removido em js/battle.js.
-- 6 herois NO JOGO com arte nova (sprites2.json + avatares assets/ava_*.png, ids do jogo: tank=Jack, dps=Daniel, ze, donnie, chavoso, rafinha): Jack, Daniel, Ze aprovados pelo Jacquin. Donnie, Chavoso e Rafinha entraram PROVISORIOS (Jacquin rodada 3: notas 87-90 < 92, so retoques finos pendentes: ver art_gen/verdicts/HEROES_BATCH3.md). Rafinha agora e baixinho (sc:1 em core.js); orc ainda e filtro CSS (falta sprite `rafinha_orc`).
-- js/net.js (NOVO): camada online plugavel com banco local de mentira (bots de treino). Sem o runtime do claude.ai, Acct usa Net (Acct.mock=true; nuvem de save desligada no mock). Testado: busca, pedido de amizade, bot aceita, lista de amigos. Guilda usa a mesma API (nao testada ainda na tela). Para ficar online de verdade: Net.setBackend({use:async nome=>...}) com a mesma API (Supabase/Firebase) quando o Diogo criar o projeto gratis.
-- Presentes: limite diario agora salvo em localStorage (antes dava para fazer farm recarregando).
-- 8 monstros dos caps 1-4 no jogo. Monstros do cap.5 gerados mas SEM veredito do Jacquin.
+## Estado (VERIFICADO em 07/10/2026, fim da sessao longa)
+- Cenarios NO JOGO: 5 de capitulo (assets/bg_ch.json) + casa/titulo novo (assets/bg2.json 'tall', approved/bg/home_livingroom.png). Cap.5 retocado (verdicts/bg_ch5_1.md) e casa retocada (verdicts/bg_home_1.md; nota 85 ANTES do retoque, sem novo julgamento).
+- Herois NO JOGO com arte nova (ids: tank=Jack, dps=Daniel, ze, donnie, chavoso, rafinha): Jack, Daniel, Ze APROVADOS. Donnie, Chavoso, Rafinha PROVISORIOS (Jacquin 87-90; ver verdicts/HEROES_BATCH3.md). Rafinha baixinho (sc:1) e orc `rafinha_orc` NO JOGO (retocado; Jacquin 91; teste cego 92%; ver verdicts/rafinha_orc_1.md e BOSS_BIGHEAD_3.md).
+- Monstros NO JOGO: caps 1-4 (8) + cap.5 normal (aprovado) e elite (retocado com faixa dourada/olhos laranja; sem novo julgamento).
+- Big Head bh1..bh5 NO JOGO (approved/bosses/), com retoques do Jacquin (~86-91, verdicts/BOSS_BIGHEAD_2.md e _3.md). Multiplicador de tamanho por capitulo m=[.9,1.0,1.1,1.2,1.35] (js/battle.js). Teste cego: cerebro lido 85-92%; o anel branco do cranio le como faixa/coroa (opcional refazer como casca de ovo quebrada); bh1-3 faltam acento de cor/blind-ID.
+- js/net.js: camada online plugavel com banco local de mentira (bots de treino); Acct.mock=true sem claude.ai; amigos testados (pedido->bot aceita). Guilda NAO testada na tela. Troca por servidor real: Net.setBackend(...) quando o Diogo criar projeto gratis.
+- Presentes: limite diario salvo em localStorage.
 
-## Proximos passos (ordem)
-1. Big Head esta NO JOGO (bh1..bh5, approved/bosses/). Provisorios (retocados pelo Jacquin, ~86-91, verdicts/BOSS_BIGHEAD_3.md; falta teste cego sonnet e o resto dos 'APPROVED' dele) bh4 e bh5 (v3; ver verdicts/BOSS_BIGHEAD_2.md: refazer bh5 com cerebro realmente gigante e sem pontas de chifre, dourar fivelas, clarear calca/capa; bh4 borda do cranio rente a testa). Retocar bh1-3 conforme 'What would make it APPROVED' (acento de cor, blind-ID). Cenario ch5_pc_monitor retocado e no jogo. Novo fundo da casa/titulo (approved/bg/home_livingroom.png, assets/bg2.json 'tall') no jogo, SEM Jacquin ainda. Cap.5 se chama 'The Basement' no jogo (lore diz PC).
-2. rafinha_orc JA NO JOGO (approved/heroes/rafinha_orc.png), so falta Jacquin julgar. Cenario ch5 retocado e no jogo (verdicts/bg_ch5_1.md).
-3. Big Head (chefe, 5 fases, 31 fotos em refs/bighead), cutscenes a partir de LORE.md, Julia corrompida (chefe da Torre).
-4. Codigo em arquivos novos: tower.js, pvp.js (usa Net.ghosts()), colecao, pets, pesca, eventos, itens STR/DEX/INT. Testar tela de Guilda com o mock.
-5. Herois restantes quando chegarem fotos: Lucao, Copello, Malaguti, Glem, Samuel, Rubens (refs em art_gen/refs/<nome>/).
+## Proximos passos (SO quando o Diogo pedir; nada em andamento agora)
+1. Mais baratos por token: codigo (cutscenes a partir de LORE.md, Torre/Julia corrompida, pvp.js com Net.ghosts(), colecao, pets, pesca, eventos, itens STR/DEX/INT; testar tela de Guilda).
+2. Arte (mais caro): 6 herois restantes quando houver fotos (Lucao, Copello, Malaguti, Glem, Samuel, Rubens; refs em art_gen/refs/<nome>/); opcionais: anel do cranio do Big Head, acentos bh1-3, Jacquin na casa e no elite cap.5.
+3. Cap.5 se chama 'The Basement' no jogo (lore diz PC): renomear se o Diogo quiser.
+
+## Como trabalhar (orcamento de uso: Pro, limite semanal)
+- Teto 10%/dia do semanal; ler get_usage no inicio e fim de cada lote e dizer o numero. Base de 07/10 = 31%.
+- Conversas curtas; nada de cadeias de esperas de 10s (Start-Sleep e bloqueado: usar run_in_background ou Monitor); uma revisao do Jacquin por lote, aceitar >=88; lotes de varias pecas.
+
 ## Armadilhas conhecidas
 - Python real: `C:\Users\diogo\AppData\Local\Programs\Python\Python313\python.exe` (o `python` do PATH e atalho da Store e NAO funciona).
-- Gemini (aba do navegador embutido, `https://gemini.google.com/app`): digitar o prompt + Return; a tela so atualiza depois de um screenshot/scroll (nao clicar no botao enviar, ele vira "parar"); baixar com o botao "Download full size image" (find) e rodar `art_gen/tools/gemget.ps1 -Name <nome> -Expect 1 -Colors 24 [-Floor N]`. Cenarios: `tools/scene.py IN.jpg OUT.png --colors 48 --aspect 320:293 --top 0`.
-- Servidor de teste: `python -m http.server 8734` escondido na pasta do projeto; matar depois. `startStage(n)` respeita progresso do save; para ver outro cenario, setar `#fbg` background com `BGCH[i]`.
+- Gemini (aba do navegador embutido, `https://gemini.google.com/app`): clicar na caixa, digitar o prompt + Return; a tela so atualiza depois de um screenshot/scroll (nao clicar no botao enviar, ele vira "parar"); se o screenshot der timeout, usar tabs_select e navegar de novo; baixar com o botao "Download full size image" (find) e rodar `art_gen/tools/gemget.ps1 -Name <nome> -Expect 1 -Colors 24 [-Floor N]`. Cenarios: `tools/scene.py IN.jpg OUT.png --colors 48 --aspect 320:293 --top 0`.
+- Servidor de teste: `python -m http.server 8734` escondido na pasta do projeto; matar depois. `startStage(n)` respeita progresso do save (setar save.cleared=49 para testar caps altos); `castUlt(unit)` dispara ultimate.
 - Animacoes de dano nao podem depender de WAAPI onfinish (usar setTimeout).
-- A tarefa agendada `wipewars-keep-working` e so de codigo (sem navegador). Nao reativar navegador nela.
+- Scripts de retoque do Jacquin: art_gen/tools/patch_*.py. Exportadores: tools/export_sprite.py, export_avatar.py.
+- Tarefa agendada `wipewars-keep-working` DESATIVADA (nao reativar sem o Diogo).
 
-## Protecao global instalada hoje (~/.claude): hook de saude da conversa (200k/350k/600k), skills `handoff` e `session-health`, regras no CLAUDE.md.
+## Protecao global (~/.claude): hook de saude da conversa (200k/350k/600k), skills `handoff` (inclui HANDOFF AUTOMATICO via tarefa agendada de uso unico) e `session-health`, regras no CLAUDE.md.
 ## Duvidas so do Diogo: fotos dos 6 herois restantes; lacunas [?] do LORE.md; aceitar cabeca ~2.3 corpos (em vez de 3) nos herois.
-
 ---
 # HISTORICO (notas antigas v19-v34, preservadas; o estado atual esta acima)
 
