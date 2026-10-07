@@ -19,3 +19,5 @@
 - Monstros dos cap. 2-4 gerados (6 criaturas, mesmo estilo). Jacquin: nenhum aprovado ainda; 3 se resolvem em codigo (anel permafrost, serra de fita, fatia de pizza) e 3 serao refeitos (anel congelado, lixa em anel, mini pizza queimada). +3 icones aprovados (couro, diadema, luva de prata): total 17 itens aprovados.
 
 - Monstros refeitos no Gemini gratis depois do seu aviso (lixa nao parecia lixa, rolo com folha ilogica): agora o Jacquin so aprova se um estranho reconhecer o objeto e se cada parte fizer sentido fisico. Aprovados: rolo de papel, lixa (com o 120 no verso), pizza queimada, condom congelado, condom permafrost (com saquinho de aluminio), lixadeira de cinta. Faltam: Clorox (retoques), chefes, cap. 5, herois (dependem das fotos).
+
+- 8 monstros novos ja estao DENTRO DO JOGO (caps. 1 a 4: rolo de papel, Clorox, condom congelado e permafrost, lixa, lixadeira, pizza queimada, fatia de pizza). Testado: carrega sem erros, aparece na batalha. Chefes Big Head e cap. 5 ainda com arte antiga.

@@ -28,6 +28,16 @@ STEPS.bottle=STEPS.clorox;STEPS.bossx=STEPS.boss;SHW.bottle=44;SHW.bossx=64;
 STEPS.pzburnt=STEPS.tp;STEPS.pzmessy=STEPS.tp;SHW.pzburnt=34;SHW.pzmessy=40;STEPS.belt=STEPS.tp;STEPS.machine=STEPS.tp;SHW.belt=34;SHW.machine=44;for(let i=1;i<=5;i++){STEPS['bh'+i]=STEPS.boss;SHW['bh'+i]=50;}
 STEPS.fcondom=STEPS.tp;STEPS.pcondom=STEPS.tp;STEPS.bh2=STEPS.boss;SHW.fcondom=34;SHW.pcondom=38;SHW.bh2=50;
 ['rafinha','lucao','copello','chavoso','glem','malaguti','samuel','rubens','ze','donnie'].forEach(k=>{STEPS[k]=HERO_ST;SHW[k]=30;});STEPS.rafinha=STEPS.tank;STEPS.lucao=STEPS.tank;STEPS.glem=STEPS.tank;STEPS.malaguti=STEPS.tank;SHW.rafinha=40;SHW.lucao=34;SHW.glem=34;
+/*GENART*/
+STEPS['tp']=STEPS.tp;SHW['tp']=34;
+STEPS['clorox']=STEPS.tp;SHW['clorox']=40;
+STEPS['fcondom']=STEPS.tp;SHW['fcondom']=34;
+STEPS['pcondom']=STEPS.tp;SHW['pcondom']=40;
+STEPS['belt']=STEPS.tp;SHW['belt']=34;
+STEPS['machine']=STEPS.tp;SHW['machine']=42;
+STEPS['pzburnt']=STEPS.tp;SHW['pzburnt']=34;
+STEPS['pzmessy']=STEPS.tp;SHW['pzmessy']=40;
+/*END-GENART*/
 function atkEl(el){
   const c=el.querySelector('canvas.monc');if(!c||c.dataset.busy)return;
   const k=c.dataset.k,m=+c.dataset.m,S=SP[k];c.dataset.busy=1;

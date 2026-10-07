@@ -4,7 +4,7 @@ const VT={tank:6,dps:14,tp:12,clorox:46};
 const LANE_Y=[66,77,88];
 const KINDS={
   tp:{n:'Toilet Paper',r:0,hp:60,atk:8,iv:1.1,key:'tp',m:1,pr:0},
-  clorox:{n:'Clorox Wipes',r:2,hp:130,atk:14,iv:1.3,key:'clorox',m:.8,pr:1},
+  clorox:{n:'Clorox Wipes',r:2,hp:130,atk:14,iv:1.3,key:'clorox',m:1,pr:1},
   boss:{n:'Big Head',r:3,hp:420,atk:20,iv:1.5,key:'bh1',m:.9,pr:1},
   bottle:{n:'Bottle',r:2,hp:130,atk:14,iv:1.3,key:'bottle',m:.8,pr:1},
   bossx:{n:'Boss',r:3,hp:420,atk:20,iv:1.5,key:'bossx',m:.66,pr:1}
@@ -12,9 +12,9 @@ const KINDS={
 /* themed monsters per chapter: recolored versions of the base art until real designs exist */
 const CHAPMON=[
   {n:['tp','clorox','boss']},
-  {n:['fcondom','pcondom','bighead2'],names:['Frozen Condom','Permafrost Prophylactic','Big Head'],k:['fcondom','pcondom','bh2'],m:[.8,.9,.8]},
-  {n:['belt','sander','bighead3'],names:['Sandpaper Belt','Belt Sander','Big Head'],k:['belt','machine','bh3'],m:[.8,1,.72]},
-  {n:['pzburnt','pzmessy','bighead4'],names:['Burnt Mini Pizza','Dropped Pizza','Big Head'],k:['pzburnt','pzmessy','bh4'],m:[.8,.9,.62]},
+  {n:['fcondom','pcondom','bighead2'],names:['Frozen Condom','Permafrost Prophylactic','Big Head'],k:['fcondom','pcondom','bh2'],m:[1,1,.8]},
+  {n:['belt','sander','bighead3'],names:['Sandpaper','Belt Sander','Big Head'],k:['belt','machine','bh3'],m:[1,1,.72]},
+  {n:['pzburnt','pzmessy','bighead4'],names:['Burnt Mini Pizza','Dropped Pizza','Big Head'],k:['pzburnt','pzmessy','bh4'],m:[1,1,.62]},
   {n:['cobweb','mold','bighead5'],names:['Cobweb Roll','Mold Spray','Big Head'],f:['hue-rotate(260deg) saturate(.9) brightness(.8)','hue-rotate(110deg) saturate(1.5) brightness(.85)',''],k:[null,null,'bh5'],m:[null,null,.6]}
 ];
 CHAPMON.forEach((c,ci)=>{if(ci===0)return;const base=['tp','bottle','bossx'];c.n.forEach((id,i)=>{const b=KINDS[base[i]];KINDS[id]=Object.assign({},b,{n:c.names[i],f:c.f&&c.f[i],key:(c.k&&c.k[i])||b.key,m:(c.m&&c.m[i])||b.m,hp:Math.round(b.hp*(1+.35*ci)),atk:Math.round(b.atk*(1+.3*ci))});});});
