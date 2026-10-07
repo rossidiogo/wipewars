@@ -1,8 +1,10 @@
 # HANDOFF - Wipe Wars (escrito 2026-10-07, para o proximo Claude)
 
+> PAUSA (2026-10-07, ordem do Diogo): a politica de 'nunca parar de trabalhar' esta PAUSADA. Tarefa agendada wipewars-keep-working DESATIVADA e cron da sessao apagado. Nao procurar trabalho sozinho nem agendar nada; so fazer o que o Diogo pedir. Ele quer reconversar sobre uso de tokens.
+
 ## Projeto e ordens permanentes do Diogo
 - Idle auto-battler HTML (arquivo unico gerado por `python build.py test.html`), amigos reais como herois, publicado no GitHub Pages (repo publico rossidiogo/wipewars). Diogo nao programa: linguagem simples, chat curto, tudo registrado em `art_gen/JOURNAL.md`.
-- Trabalhar SEM PARAR enquanto o PC estiver ligado, nunca perguntar, nao encher o chat. Avisar so quando os 12 herois estiverem prontos (faltam fotos de 6: Lucao, Copello, Malaguti, Glem, Samuel, Rubens).
+- (PAUSADO) Antes: trabalhar sem parar enquanto o PC estiver ligado. Agora: so fazer o que for pedido; chat curto. Avisar so quando os 12 herois estiverem prontos (faltam fotos de 6: Lucao, Copello, Malaguti, Glem, Samuel, Rubens).
 - Todo asset de arte passa pelo Jacquin (agente critico, `.claude/agents/jacquin.md`) antes de entrar no jogo. Features aprovadas por ele: ver `FEATURES_ROADMAP.md`. Historia: `LORE.md` (tudo acontece DENTRO da cabeca do Diogo; cada capitulo = uma memoria).
 - Privacidade: repo PUBLICO. Nunca commitar `art_gen/refs/`, `.env`, `art_gen/out/`, fotos pessoais, chaves.
 

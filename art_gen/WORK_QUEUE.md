@@ -1,3 +1,5 @@
+> PAUSADO 2026-10-07 (Diogo): nao rodar loops de 'procurar o que fazer'. Esta fila serve so de lista; trabalhar nela apenas quando ele pedir.
+
 # Fila de trabalho (sempre trabalhando - leia isto primeiro em toda retomada)
 
 Regra do Diogo: SEMPRE trabalhar enquanto o computador estiver ligado e houver algo util a fazer (nao so o que ele pediu: tudo que ajude os projetos dele). Se acabar a cota de uso (use.ai ou Claude), esperar e RETOMAR sozinho quando voltar. Nao parar para perguntar. Falar pouco no chat; registrar no `art_gen/JOURNAL.md` (so o que importa, em portugues simples).
