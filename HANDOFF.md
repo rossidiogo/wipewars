@@ -1,6 +1,6 @@
 # HANDOFF - Wipe Wars (escrito 2026-10-07, para o proximo Claude)
 
-> PAUSA (2026-10-07, ordem do Diogo): a politica de 'nunca parar de trabalhar' esta PAUSADA. Tarefa agendada wipewars-keep-working DESATIVADA e cron da sessao apagado. Nao procurar trabalho sozinho nem agendar nada; so fazer o que o Diogo pedir. Ele quer reconversar sobre uso de tokens.
+> PAUSA (2026-10-07, ordem do Diogo): a politica de 'nunca parar de trabalhar' esta PAUSADA. Tarefa agendada wipewars-keep-working DESATIVADA e cron da sessao apagado. Nao procurar trabalho sozinho nem agendar nada; so fazer o que o Diogo pedir. Teto diario acordado: 10% do limite semanal por dia (base de 07/10 = 31%, teto do dia 41%); checar get_usage no inicio e no fim de cada lote; handoff automatico via tarefa agendada de uso unico (ver skill handoff).
 
 ## Projeto e ordens permanentes do Diogo
 - Idle auto-battler HTML (arquivo unico gerado por `python build.py test.html`), amigos reais como herois, publicado no GitHub Pages (repo publico rossidiogo/wipewars). Diogo nao programa: linguagem simples, chat curto, tudo registrado em `art_gen/JOURNAL.md`.
