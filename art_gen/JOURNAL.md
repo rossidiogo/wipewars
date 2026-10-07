@@ -36,3 +36,5 @@
 - Referencias recebidas: Donnie (3 prints; so ele foi separado, as outras pessoas dos prints ficaram de fora). Tema: xama ocultista (quimbanda), preto e roxo, mago a distancia, caveira de boi. No jogo: ultimate abre um pentagrama vermelho num circulo embaixo de cada inimigo (testado). Faltam fotos de 8 herois.
 
 - Referencias recebidas: Chavoso (3 prints). Deadeye do PoE, flechas no ataque basico (agora voam ate o alvo). Ultimate nova 'Tiro Tornado': tornado de flechas acerta todo inimigo 2x e ele ganha +30% de velocidade por 8s (testado). Corrigido: dano de flecha/baqueta agora nao depende de animacao (nao trava se a aba ficar em segundo plano). Faltam fotos de 7 herois.
+
+- Referencias recebidas: Rafinha (foto recente do perfil + fotos antigas). Baixinho, barba preta cheia, veias verdes discretas. Ultimate 'Modo Orc': bebe lata de MONSTER (lata desenhada com o logo e o nome) e vira orc estilo WoW (por enquanto verde por filtro; sprite do orc entra quando eu desenhar: o jogo ja troca sozinho para rafinha_orc). Ataque basico do orc = soco pesado com onda de choque (testado). Faltam fotos de 6 herois: Lucao, Copello, Malaguti, Glem, Samuel, Rubens.

@@ -44,6 +44,10 @@ function fxVis(u){
   u.el.classList.toggle('fx-stun',has('stun'));
   const g=u.fx.filter(f=>f.k==='grow').reduce((a,f)=>Math.max(a,f.m),1),sp=u.el.querySelector('.msp,.spr'),hud=u.el.querySelector('.hud');
   sp.style.scale=g>1?g:'';if(hud&&u.hy!==undefined)hud.style.top=Math.round(u.hy*g-(u.side==='h'?20:16))+'px';
+  // orc form: swap to the '<key>_orc' sprite when it exists, otherwise tint the normal sprite green as a stand-in
+  if(u.side==='h'){const orc=has('orc'),want=(orc&&SP[u.kind+'_orc'])?u.kind+'_orc':u.kind;
+    if(SP[want]&&sp.dataset.cur!==want&&(want!==u.kind||sp.dataset.cur)){sp.dataset.cur=want;spriteArt(sp,want,u.m*FS,false);}
+    u.el.classList.toggle('fx-orc',orc&&!SP[u.kind+'_orc']);}
   if(u.side==='h'){const cv=sp.querySelector('canvas');if(cv)cv.style.filter=has('tiger')?'sepia(1) saturate(5) hue-rotate(-28deg) brightness(1.1)':'';}
 }
 function stageList(n){
@@ -165,7 +169,10 @@ function cloud(host,cols,n,delay){
 }
 const ULTFX={
   tank:u=>{u.shield=(u.shield||0)+Math.round(u.max*.4);refresh(u);flash('#6ad0ff');},
-  rafinha:u=>{const h=Math.round(u.max*.3);u.hp=Math.min(u.max,u.hp+h);pop(u,'+'+h,'heal');u.shield=(u.shield||0)+Math.round(u.max*.3);addFx(u,'atk',1.6,8);addFx(u,'grow',1.3,8);refresh(u);flash('#6aff3a');},
+  rafinha:u=>{
+    monsterCan(u);   // the can is shown first, the transformation lands when he finishes drinking
+    setTimeout(()=>{if(over||u.hp<=0)return;const h=Math.round(u.max*.3);u.hp=Math.min(u.max,u.hp+h);pop(u,'+'+h,'heal');u.shield=(u.shield||0)+Math.round(u.max*.3);addFx(u,'atk',1.6,8);addFx(u,'grow',1.35,8);addFx(u,'orc',1,8);refresh(u);flash('#6aff3a');shockwave(u);},850);
+  },
   lucao:u=>{
     const sp=u.el.querySelector('.msp,.spr'),fish=document.createElement('span');
     if(sp)sp.classList.add('spintop');fish.className='bigfish';fish.textContent='\u{1F41F}';u.el.appendChild(fish);
@@ -280,6 +287,15 @@ function launchWipes(host,srcCv,tgtCv,srcFy,onHit,sc){
   },i*Math.max(40,120/Math.max(1,speed*.6)));
 }
 
+/* Rafinha: a clearly-labelled Monster energy drink rises to his mouth, he chugs it, then the orc form lands with a shockwave */
+const MCAN="url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 66'><rect x='7' y='5' width='26' height='57' rx='4' fill='%23121212' stroke='%23000' stroke-width='1.5'/><rect x='7' y='5' width='26' height='8' rx='3' fill='%23888'/><path d='M13 17 L16 43 L20 22 L24 43 L28 17 L25 17 L24 33 L20 17 L16 33 L15 17 Z' fill='%238ee02a' stroke='%234a8a10' stroke-width='.8'/><text x='20' y='55' font-size='6.4' font-weight='900' fill='%238ee02a' text-anchor='middle' font-family='Impact,Arial Black,sans-serif' letter-spacing='.2'>MONSTER</text></svg>\") center/contain no-repeat";
+function monsterCan(u){
+  const fld=$('field'),fr=fld.getBoundingClientRect(),r=u.el.getBoundingClientRect(),x0=r.left-fr.left,y0=r.top-fr.top;
+  const c=document.createElement('span');c.className='mcan';c.style.background=MCAN;fld.appendChild(c);
+  c.animate([{transform:'translate('+(x0+14)+'px,'+(y0-8)+'px) rotate(0deg) scale(.8)',opacity:0},{transform:'translate('+(x0+10)+'px,'+(y0-34)+'px) rotate(-20deg) scale(1.1)',opacity:1,offset:.25},{transform:'translate('+(x0+4)+'px,'+(y0-46)+'px) rotate(-62deg) scale(1.15)',offset:.45},{transform:'translate('+(x0+2)+'px,'+(y0-48)+'px) rotate(-70deg) scale(1.15)',offset:.8},{transform:'translate('+(x0+18)+'px,'+(y0-20)+'px) rotate(30deg) scale(.7)',opacity:0}],{duration:1000,easing:'ease-in-out'});
+  setTimeout(()=>c.remove(),1100);
+}
+function shockwave(u){const s=document.createElement('span');s.className='shock';u.el.appendChild(s);setTimeout(()=>s.remove(),500);}
 /* Ze Vitor: musical notes fly up out of him (ultimate) and he throws drumsticks (basic attack) */
 function notesUp(u){
   const fld=$('field'),fr=fld.getBoundingClientRect(),r=u.el.getBoundingClientRect(),x0=r.left-fr.left,y0=r.top-fr.top-30;
@@ -312,6 +328,7 @@ function act(u){
   atkEl(u.el);
   const dmg=Math.max(1,Math.round(A(u)*(0.9+Math.random()*0.2)));
   if(u.side==='m'&&(u.kind==='clorox'))setTimeout(()=>launchWipes($('field'),u.el.querySelector('canvas'),t.el.querySelector('canvas'),u.kind==='boss'?.2:.17,()=>dealDamage(t,dmg,u,'burns'),FS),200);
+  else if(u.side==='h'&&u.kind==='rafinha'&&u.fx.some(f=>f.k==='orc'))setTimeout(()=>{if(over)return;dealDamage(t,Math.round(dmg*1.15),u,'smashes');shockwave(t);shake(2);},150);
   else if(u.side==='h'&&u.kind==='chavoso')setTimeout(()=>arrowFly(u,t,()=>{if(!over)dealDamage(t,dmg,u);}),90);
   else if(u.side==='h'&&u.kind==='ze')setTimeout(()=>throwSticks(u,t,()=>{if(!over)dealDamage(t,dmg,u);}),100);
   else setTimeout(()=>{dealDamage(t,dmg,u);if(u.kind==='donnie'&&t.hp>0)addFx(t,'in',1.12,6,'curse');},u.side==='h'?120:220);

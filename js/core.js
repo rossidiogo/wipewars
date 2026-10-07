@@ -104,7 +104,7 @@ const HEROES={
 };
 const ULT={
   tank:{n:'Hold the Line',mana:40,d:'Gain a shield worth 40% of max health.'},
-  rafinha:{n:'Energy Overload',mana:50,d:'Drinks a can: grows huge, heals 30%, gains a 30% shield and +60% attack for 8s.'},
+  rafinha:{n:'Orc Mode',mana:50,d:'Drinks a can of Monster and turns into a huge orc for 8s: heals 30%, gains a 30% shield, +60% attack and grows 35%. His basic attacks become ground-shaking smashes.'},
   lucao:{n:'Big Catch',mana:50,d:'Reels in a huge fish and spins like a top, whipping it into every enemy 4 times for 1x attack each, and gains a shield worth 15% of max health.'},
   dps:{n:'Summon Cockatiel',mana:80,d:'The cockatiel takes off from his shoulder, circles over his head, charges one enemy for 5x attack damage and flies back.'},
   chavoso:{n:'Tornado Shot',mana:70,d:'Fires a tornado of arrows: every enemy is hit twice for 1.3x attack each, and he gains Tailwind: +30% speed for 8s.'},
