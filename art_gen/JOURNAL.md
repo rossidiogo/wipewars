@@ -38,3 +38,8 @@
 - Referencias recebidas: Chavoso (3 prints). Deadeye do PoE, flechas no ataque basico (agora voam ate o alvo). Ultimate nova 'Tiro Tornado': tornado de flechas acerta todo inimigo 2x e ele ganha +30% de velocidade por 8s (testado). Corrigido: dano de flecha/baqueta agora nao depende de animacao (nao trava se a aba ficar em segundo plano). Faltam fotos de 7 herois.
 
 - Referencias recebidas: Rafinha (foto recente do perfil + fotos antigas). Baixinho, barba preta cheia, veias verdes discretas. Ultimate 'Modo Orc': bebe lata de MONSTER (lata desenhada com o logo e o nome) e vira orc estilo WoW (por enquanto verde por filtro; sprite do orc entra quando eu desenhar: o jogo ja troca sozinho para rafinha_orc). Ataque basico do orc = soco pesado com onda de choque (testado). Faltam fotos de 6 herois: Lucao, Copello, Malaguti, Glem, Samuel, Rubens.
+
+## 2026-10-07 manha
+- PROBLEMA ENCONTRADO: depois do ultimo commit (23:42) nada novo foi feito durante a noite. A tarefa automatica ficou TRAVADA desde as 21:33 esperando uma permissao do navegador que ninguem aprovou, e uma execucao travada impede as proximas. Corrigido: sessao travada encerrada e tarefa reiniciada; falta voce aprovar as permissoes dela uma vez (veja a barra lateral).
+
+- 07/10 manha: monstros do cap. 5 gerados no Gemini (silicone cor de pele e versao deluxe verde-azulada), cartoon sem nada explicito; aguardando Jacquin. Tarefa agendada agora so faz codigo (sem navegador, para nao travar); esta sessao ganhou um lembrete a cada 20 min para continuar a arte.
