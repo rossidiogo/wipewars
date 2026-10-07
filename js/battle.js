@@ -163,7 +163,14 @@ const ULTFX={
     for(let i=0;i<4;i++)alive('m').forEach(m=>hitFor(u,m,1,200+i*230));
     u.shield=(u.shield||0)+Math.round(u.max*.15);refresh(u);flash('#6ad0ff');
   },
-  dps:u=>{const t=pickTarget(u);if(t){const d=Math.round(A(u)*5*(.9+Math.random()*.2));flash('#ff6a4a');setTimeout(()=>{slash(t);dealDamage(t,d,u,'strikes');},180);}},
+  dps:u=>{const t=pickTarget(u);if(t){const d=Math.round(A(u)*5*(.9+Math.random()*.2));flash('#ff6a4a');
+    // the cockatiel takes off from his shoulder, circles over his head, charges the enemy and flies back
+    const fld=$('field'),fr=fld.getBoundingClientRect(),r1=u.el.getBoundingClientRect(),r2=t.el.getBoundingClientRect();
+    const sx=r1.left-fr.left,sy=r1.top-fr.top-45,tx=r2.left-fr.left,ty=r2.top-fr.top-35,bird=document.createElement('span');
+    bird.className='ckbird';bird.textContent='\u{1F426}';fld.appendChild(bird);
+    const an=bird.animate([{transform:'translate('+sx+'px,'+sy+'px) scale(1)'},{transform:'translate('+sx+'px,'+(sy-48)+'px) scale(1.25)',offset:.22},{transform:'translate('+tx+'px,'+ty+'px) scale(1.35)',offset:.58},{transform:'translate('+sx+'px,'+(sy-32)+'px) scale(1.1)',offset:.88},{transform:'translate('+sx+'px,'+sy+'px) scale(1)'}],{duration:1150,easing:'ease-in-out'});
+    an.onfinish=()=>bird.remove();setTimeout(()=>bird.remove(),1400);
+    setTimeout(()=>{slash(t);dealDamage(t,d,u,'strikes');},670);}},
   chavoso:u=>{const ms=alive('m');if(!ms.length)return;flash('#9ae070');for(let i=0;i<4;i++)hitFor(u,ms[rnd(ms.length)],1.7,i*160);},
   copello:u=>{const t=pickTarget(u);flash('#f0a020');hitFor(u,t,4.5,200);alive('m').forEach(m=>{if(m!==t)hitFor(u,m,1.2,330);});},
   glem:u=>{addFx(u,'atk',1.8,10);addFx(u,'in',.75,10);addFx(u,'grow',1.35,10);addFx(u,'tiger',1,10);const h=Math.round(u.max*.15);u.hp=Math.min(u.max,u.hp+h);pop(u,'+'+h,'heal');refresh(u);flash('#ffa030');},

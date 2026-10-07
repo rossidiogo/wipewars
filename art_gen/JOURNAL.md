@@ -23,3 +23,10 @@
 - 8 monstros novos ja estao DENTRO DO JOGO (caps. 1 a 4: rolo de papel, Clorox, condom congelado e permafrost, lixa, lixadeira, pizza queimada, fatia de pizza). Testado: carrega sem erros, aparece na batalha. Chefes Big Head e cap. 5 ainda com arte antiga.
 
 - Lucao definido (voce): pescador tank, vara de pesca; ultimate 'Pescaria Gigante' (pesca um peixe, gira como piao e bate nos monstros) ja funciona no jogo (testada) e esta traduzida.
+
+## Cenarios definidos por voce (2026-10-07)
+- Cap. 1: banheiro (continua). Cap. 2: rua, com um carro atras; as camisinhas vem grudadas no vidro e (no futuro, com animacao) o carro chega, para, elas se soltam do vidro e caem no campo de batalha. Cap. 3 (lixa): oficina com torno/CNC. Cap. 4 (pizza): dentro do carro. Cap. 5 (dildos): como se fosse a tela de um PC olhando pra frente: parte da mesa com o teclado e a cadeira ao fundo, sem pessoas. Casa (tela inicial) e tela de titulo: eu invento.
+
+- Cap. 5 (monstros-dildo): referencia = as criacoes do Diogo com o kit Clone-A-Willy mostradas aos amigos (silicone cor de pele, brilhante). Vai ser versao cartoon, engracada, sem nada explicito, no mesmo estilo dos outros monstros.
+
+- Referencias recebidas: Jack (prints do Instagram) e Daniel (prints do Instagram, com a calopsita real). Daniel agora e 'Invocador Necromante' (vai usar manto de necromante/feiticeiro) e sua ultimate mostra a calopsita saindo do ombro, voando por cima da cabeca, atacando e voltando (ja funciona no jogo, testado). Faltam fotos de 10 herois.

@@ -15,9 +15,12 @@ Status: ver JOURNAL. Pendente itens: ver ultimas linhas do JOURNAL (fixes de cod
 ## B. Sem cota (fazer quando a cota acabar)
 1. (FEITO e testado no jogo) `tools/export_sprite.py KEY idle.png [--atk atk.png] --target-h N --steps hero|tank|tp|boss --shw N`.
 2. `tools/export_icons.py`: coloca icones aprovados em `icons2.json` (canvas 40, chaves item_<slot>_<base>).
-3. Sistema de atributos STR/DEX/INT no jogo (core.js): atributo principal por heroi (tabela em STYLE_BIBLE), bases de itens por atributo, requisitos, UI, traducao PT.
+3. Sistema de atributos STR/DEX/INT no jogo (core.js) - REGRA DEFINIDA PELO DIOGO: o atributo principal do heroi decide qual SET de itens ele pode usar; so 3 sets raros por enquanto (STR=Bulwark, DEX=Fury, INT=Mercy, ja existem em SETW); itens unicos/lendarios com habilidades especiais e atributos hibridos ficam para depois. Fazer: atributo por heroi (tabela em STYLE_BIBLE), restricao de equipar por set, UI mostrando o atributo, traducao PT, migracao de saves.
 4. Recriar testes (Playwright: monkey/play/multi) e rodar; reescrever `sim.py`/`sim2.py` para times de 4 + gacha + estrelas; passada de balanceamento (meta: cap.1 ~2h, jogo todo 3-4 semanas).
 5. Auditar traducao PT (tela calendario) e novos textos.
 6. Gerador local de imagens (RTX 3060 Ti): avaliar/instalar ComfyUI + modelo (ver `art_gen/FREE_GENERATORS.md`).
 7. Efeitos (fx) em CSS/JS: lenco em chamas, fumaca, etc. a partir dos `_fxN.png`.
 8. Publicar no GitHub (push) a cada lote aprovado; o site atualiza sozinho.
+
+## Cenarios (definidos pelo Diogo) - fazer no Gemini gratis
+Cap1 banheiro; Cap2 rua + carro ao fundo (camisinhas grudadas no vidro; futuro: carro chega e elas caem); Cap3 oficina torno/CNC; Cap4 interior do carro; Cap5 visao de dentro do monitor de PC: mesa + teclado + cadeira ao fundo, sem pessoas. Tamanho final 320x293 (ver ASSET_PIPELINE). Atencao ao tamanho do pixel (monstros ~0.7-1.05 px de campo por pixel logico).

@@ -1,3 +1,6 @@
+# DECISION (Diogo, 2026-10-07): the hero's main attribute (STR/DEX/INT) decides which item set he can use. For now there are ONLY 3 rare sets (STR = Bulwark/armour, DEX = Fury/evasion, INT = Mercy/energy shield; slots: helmet, body, gloves, boots, weapon, + jewelry). Unique/legendary items with special abilities and HYBRID attributes come LATER. The hybrid icons already approved (chainmail tabard STR/INT, crowned helm STR/INT, brown boots STR/DEX, hybrid gloves) are parked in `approved/items/` for those future uniques.
+Set mapping used by the art: STR set = plate body, steel helm, silver gauntlet, steel boots, axe/sword/mace; DEX set = leather jerkin, hood, green gloves, green boots, bow/dagger; INT set = robe, winged circlet, blue gloves, blue boots, wand/staff.
+
 # Item bases (pixel-art versions of popular Path of Exile 1 RARE bases - no uniques)
 
 Attribute -> defence type: **STR = Armour (red)**, **DEX = Evasion (green)**, **INT = Energy Shield (blue)**. Hybrids use two. Rarity (Common/Magic/Rare/Legendary) is shown by frame/border color + star count, not by redrawing the base.

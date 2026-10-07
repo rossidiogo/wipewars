@@ -485,6 +485,7 @@ body[data-nav="1"] #nav{display:flex}
 .unit.fx-buff .msp{filter:drop-shadow(0 0 3px #ffd84a) drop-shadow(0 0 6px #ffb02a)}
 .unit.fx-curse .msp{filter:drop-shadow(0 0 4px #b050ff) drop-shadow(0 0 7px #7a2ac0)}
 .unit.fx-stun .msp{filter:drop-shadow(0 0 4px #6ad0ff) saturate(.35) brightness(1.2)}
+.ckbird{position:absolute;left:0;top:0;font-size:26px;line-height:1;z-index:700;pointer-events:none;filter:drop-shadow(0 0 3px #ffd84a)}
 .spintop{animation:spintop .26s linear infinite}
 @keyframes spintop{0%{transform:scaleX(1)}50%{transform:scaleX(-1)}100%{transform:scaleX(1)}}
 .bigfish{position:absolute;left:0;top:-40px;font-size:30px;line-height:1;z-index:700;pointer-events:none;animation:fishorbit .52s linear infinite}
