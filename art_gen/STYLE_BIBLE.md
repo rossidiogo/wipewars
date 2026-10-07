@@ -12,6 +12,12 @@ STYLE LOCK: Hand-placed 16-bit pixel art for a dark-fantasy idle RPG. One unifor
 - **Icon:** single object, centered, fills about 80% of its cell, same viewing angle and same scale as its siblings, drawn so it still reads at 32x32 pixels. No magenta in any asset (purple tier uses violet around #5a2d82).
 - **Background scene:** same pixel rules but a full scene: dark-fantasy palette, readable floor line for the battle field, no characters, no text; background tint stays darker than the sprites so units pop.
 
+### RECOGNIZABILITY RULE (added 2026-10-07, owner feedback: "nobody would know what the sandpaper belt is")
+Every monster/item must be identifiable as the REAL object by a stranger with no caption (blind-ID test, see jacquin.md category 10). When writing a monster prompt: (1) name the real object plainly first ("a sheet of coarse sandpaper"), (2) exaggerate its ONE most iconic feature (grit speckle + torn edge for sandpaper; pepperoni + stringy cheese for pizza; perforated tissue sheet + cardboard tube for toilet paper; yellow canister + blue label for Clorox), (3) keep the object's real silhouette intact (the face/limbs attach to it, they do not replace it), (4) put the face on the main flat surface, (5) no decorative extras that compete with the object. If the blind test fails, regenerate with the object described even more literally and draw the face smaller.
+
+### CONSTRUCTION RULE (owner feedback 2026-10-07: "make sure the arts don't look like AI and aren't sloppy")
+In every prompt, state HOW parts connect, in physical terms: where each limb, prop, strap, sheet, tongue, lid comes from and what holds it. Example: "the loose tissue sheet is the outer layer of the roll: it peels off from the bottom-right edge of the roll and hangs straight down beside the legs" (NOT "a sheet hanging from the front"). Prefer fewer, clearer parts over many decorative ones. Jacquin rejects any unexplained attachment (category 4b).
+
 ## 2. Sheet rules (Jacquin)
 - Heroes: 4 per image, same-role or mixed, equal cells, identical height/head size/baseline/pose; differences only in costume, prop and one accent hue each. Generate and approve ONE neutral base body first and use it as the reference for later prompts when the tool accepts image upload.
 - Icons: **4 per image** (never 16), same size, angle and centering; boots as a pair side view toes right, gloves upright palm to viewer, armor front torso, helmet front view. Cell backgrounds one flat magenta.

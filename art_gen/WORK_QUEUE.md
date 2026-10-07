@@ -7,6 +7,11 @@ Trava: `art_gen/.lock` (timestamp). Se o arquivo tem menos de 15 min, outra sess
 Prioridade: 1) Clorox + rolo de papel (cap.1) aprovados pelo Jacquin  2) itens (bases PoE): corpo OK, elmos OK, luvas OK, botas OK -> faltam escudos, armas (STR/DEX/INT), joias, 3) icones de moeda/chave/bau/navegacao  4) monstros cap.2-4 (+cap.5 dildos)  5) herois (fotos em `art_gen/refs/<id>/`; so Big Head recebido) 6) cenarios 7) UI kit 8) cutscenes 9) futuro.
 Status: ver JOURNAL. Pendente itens: ver ultimas linhas do JOURNAL (fixes de codigo + diadema + luva roxa).
 
+### Decisao do Jacquin sobre geradores (2026-10-07, `verdicts/generator_comparison.md`)
+- use.ai (trial) = padrao para PERSONAGENS, MONSTROS e ITENS ate acabar o trial (12-13/10): congelar ancoras e herois nesse estilo.
+- App Gemini (gratis, ~100/dia) roda em PARALELO para: cenarios, cutscenes, UI, arte do futuro, e para TUDO depois do trial, sempre com o ajuste de estilo do arquivo de comparacao (saturacao ~55%, sujeira, sombras violeta, contorno fino violeta-preto, presas grandes etc.). Rodar o harmonizador de paleta/saturacao ao limpar imagens do Gemini.
+- Usar a cota inteira das duas fontes todo dia (use.ai: /v1/limits; Gemini: contar imagens, parar no aviso de limite).
+
 ## B. Sem cota (fazer quando a cota acabar)
 1. (FEITO e testado no jogo) `tools/export_sprite.py KEY idle.png [--atk atk.png] --target-h N --steps hero|tank|tp|boss --shw N`.
 2. `tools/export_icons.py`: coloca icones aprovados em `icons2.json` (canvas 40, chaves item_<slot>_<base>).

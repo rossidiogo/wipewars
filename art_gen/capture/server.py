@@ -90,10 +90,11 @@ class H(BaseHTTPRequestHandler):
                 key = json.loads(data.decode('utf-8')).get('key', '')
             except Exception:
                 key = ''
-            if not re.match(r'^[A-Za-z0-9_\-]{20,120}$', key):
-                return self.send(200, {'ok': False, 'msg': 'Isso nao parece uma chave. Copie de novo (comeca com AIza).'})
+            if not re.match(r'^[A-Za-z0-9_\-\.]{20,300}$', key):
+                return self.send(200, {'ok': False, 'msg': 'Isso nao parece uma chave (tem espaco ou caractere estranho). Copie de novo, so a chave.'})
             try:
-                urllib.request.urlopen('https://generativelanguage.googleapis.com/v1beta/models?key=' + key, timeout=20).read()
+                rq = urllib.request.Request('https://generativelanguage.googleapis.com/v1beta/models', headers={'x-goog-api-key': key})
+                urllib.request.urlopen(rq, timeout=20).read()
             except urllib.error.HTTPError as e:
                 return self.send(200, {'ok': False, 'msg': 'O Google recusou a chave (erro %s). Confira se copiou inteira.' % e.code})
             except Exception as e:

@@ -9,6 +9,13 @@
 - Trabalho automatico ligado: uma tarefa agendada me retoma a cada 20 min, o computador fica acordado, e a fila esta em WORK_QUEUE.md.
 - Cota da use.ai: ~25 imagens por janela de 24 h; trial vai ate 12-13/10. Hoje ja usado ~65%.
 
+## 2026-10-07
+- Geradores comparados pelo Jacquin: use.ai ficou melhor (86 x 79), mas o Gemini gratis serve com ajuste de estilo. Plano: use.ai para personagens/itens ate o fim do trial; Gemini (gratis, ~100/dia) em paralelo para cenarios, cutscenes, interface e tudo depois do trial. A chave de API do Google nao gera imagem de graca (so o app).
+
 ## 2026-10-06 (noite)
 - Geradas 3 folhas de itens (12 icones: couro, capuz, luva de aco, diadema, luva roxa, bota verde, maca, adaga, arco, cajado azul, anel, amuleto) em out/clean; enviadas ao Jacquin. Arco ficou escuro/fino (provavel refazer).
 - Jacquin aprovou: adaga, anel de rubi, cajado safira, luva de aco (total 18 itens aprovados). Corrigir em codigo (ja no relatorio dele): couro/jerkin (cor marrom quente), capuz (detalhe dourado), amuleto (tirar 1 linha), maca (cabo mais grosso), bota (virar em par), arco (clarear). Refazer: diadema (vista frontal com pico), luva roxa (reta). Cota use.ai ~25% restante.
+
+- Monstros dos cap. 2-4 gerados (6 criaturas, mesmo estilo). Jacquin: nenhum aprovado ainda; 3 se resolvem em codigo (anel permafrost, serra de fita, fatia de pizza) e 3 serao refeitos (anel congelado, lixa em anel, mini pizza queimada). +3 icones aprovados (couro, diadema, luva de prata): total 17 itens aprovados.
+
+- Monstros refeitos no Gemini gratis depois do seu aviso (lixa nao parecia lixa, rolo com folha ilogica): agora o Jacquin so aprova se um estranho reconhecer o objeto e se cada parte fizer sentido fisico. Aprovados: rolo de papel, lixa (com o 120 no verso), pizza queimada, condom congelado, condom permafrost (com saquinho de aluminio), lixadeira de cinta. Faltam: Clorox (retoques), chefes, cap. 5, herois (dependem das fotos).

@@ -22,6 +22,9 @@ Save to `art_gen/out/<asset>_<attempt>.png` (git-ignored). Use the in-page image
 Scripts live in `art_gen/tools/`. Steps: flat-background removal (flood from corners + tolerance, no halo) -> crop to content -> detect/force pixel grid -> nearest-neighbor downscale to target size -> quantize to the shared roster palette (hue-shifted ramps in `art2/palette.py`) -> 1px dark outline cleanup (`art2/pxclean.py`, `art2/pixelize.py`) -> feet anchor. Reuse `art2/pxlib.py` helpers where they fit.
 Targets: hero sprite 112x112 (tank 160x160 allowed), small monster 64 wide, boss up to 89x165, avatar PNG like `assets/ava_*.png`, icons 48x48 cells, backgrounds like `assets/bg_wide.png`/`bg_tall.png`.
 
+## 3b. Blind-ID test (mandatory before Jacquin for every monster, boss and item)
+Spawn an agent with `model: sonnet` (haiku sees too little in pixel art and gives false failures; tested 2026-10-07), general-purpose, that views ONLY the cleaned `*_x4.png` of ONE creature per file (no names, no brief; tell it adult-humor everyday-object enemies are possible; ask top-3 guesses + confidences + any illogical/sloppy part) and says what each creature/item is plus confidence. Save its answer to `art_gen/verdicts/blind_<asset>.md` and hand it to Jacquin (category 10). Mismatch or confidence < 70 => regenerate with the object described more literally (see STYLE_BIBLE recognizability rule).
+
 ## 4. Jacquin gate
 Spawn the `jacquin` agent (or a general-purpose agent given the contents of `.claude/agents/jacquin.md` if the type is not registered yet) with: file path, asset type, the brief, attempt number, and `art_gen/approved/` references. He returns APPROVED / REJECTED (FIXABLE_IN_CODE | REGENERATE | ESCALATE). Obey it. Max 4 attempts, then change approach.
 Approved files -> `art_gen/approved/<asset>.png`.
