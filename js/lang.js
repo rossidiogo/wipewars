@@ -34,7 +34,7 @@ const PT={
 'Drinks a can: grows huge, heals 30%, gains a 30% shield and +60% attack for 8s.':'Bebe uma lata: fica gigante, cura 30%, ganha 30% de escudo e +60% de ataque por 8s.',
 'Placeholder: shields the whole team for 20% of his max health.':'Provisório: protege toda a equipe com 20% da vida máxima dele.',
 'The cockatiel takes off from his shoulder, circles over his head, charges one enemy for 5x attack damage and flies back.':'A calopsita decola do ombro, voa por cima da cabeça dele, avança em um inimigo causando 5x de dano de ataque e volta.','Necromancer Summoner':'Invocador Necromante',
-'Fires 4 arrows at random enemies for 1.7x attack each.':'Dispara 4 flechas em inimigos aleatórios, 1,7x de ataque cada.',
+'Fires a tornado of arrows: every enemy is hit twice for 1.3x attack each, and he gains Tailwind: +30% speed for 8s.':'Dispara um tornado de flechas: todo inimigo é atingido duas vezes com 1,3x de ataque cada, e ele ganha Vento a Favor: +30% de velocidade por 8s.','Tornado Shot':'Tiro Tornado',
 'Hurls a mango for 4.5x damage to one enemy, splashing 1.2x on the rest.':'Arremessa uma manga: 4,5x de dano em um inimigo e 1,2x nos demais.',
 'Turns into a huge tiger for 10s: +80% attack, takes 25% less damage, heals 15%.':'Vira um tigre gigante por 10s: +80% de ataque, recebe 25% menos dano e cura 15%.',
 'A 6-hit combo on one enemy; the finisher hits for 2.2x.':'Um combo de 6 golpes em um inimigo; o golpe final causa 2,2x.',

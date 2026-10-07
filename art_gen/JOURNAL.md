@@ -34,3 +34,5 @@
 - Referencias recebidas: Ze Vitor (print do Instagram; roupa de fanfarra azul/verde, tambor). No jogo: ataque basico = joga baquetas (ranged), ultimate toca o tambor, notas musicais voam pra cima e o time ganha +35% ataque, +25% velocidade e +15 mana por 10s (testado). Faltam fotos de 9 herois.
 
 - Referencias recebidas: Donnie (3 prints; so ele foi separado, as outras pessoas dos prints ficaram de fora). Tema: xama ocultista (quimbanda), preto e roxo, mago a distancia, caveira de boi. No jogo: ultimate abre um pentagrama vermelho num circulo embaixo de cada inimigo (testado). Faltam fotos de 8 herois.
+
+- Referencias recebidas: Chavoso (3 prints). Deadeye do PoE, flechas no ataque basico (agora voam ate o alvo). Ultimate nova 'Tiro Tornado': tornado de flechas acerta todo inimigo 2x e ele ganha +30% de velocidade por 8s (testado). Corrigido: dano de flecha/baqueta agora nao depende de animacao (nao trava se a aba ficar em segundo plano). Faltam fotos de 7 herois.
