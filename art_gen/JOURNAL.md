@@ -77,3 +77,4 @@
 - 2026-10-07: PAUSA a pedido do Diogo: tarefa agendada desativada e lembrete da sessao apagado; sem busca automatica de trabalho ate ele decidir sobre uso de tokens.
 
 - 2026-10-07: HANDOFF.md atualizado e conversa nova aberta automaticamente (tarefa unica). Teto diario 10%/dia combinado.
+- 2026-10-07: Donnie espelhado; ult Hex of Ruin com 1 pentagrama grande; armas fixas por heroi com upgrade (WEAPONS/wlv); cap.5 renomeado 'The PC'.

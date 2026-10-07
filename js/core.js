@@ -59,7 +59,7 @@ const ECON={
     {n:'The Deep Freeze',sub:'Everything is frozen. Even the condoms.',f:'hue-rotate(150deg) saturate(1.3)'},
     {n:'The Workshop',sub:'Sawdust, sparks and sandpaper',f:'sepia(.8) hue-rotate(-10deg) saturate(1.6)'},
     {n:'The Car Ride',sub:'Never put the box on your lap',f:'hue-rotate(210deg) saturate(1.2) brightness(.92)'},
-    {n:'The Basement',sub:'Something is growing down here',f:'hue-rotate(275deg) saturate(1.1) brightness(.75)'}
+    {n:'The PC',sub:'The brain enters the network',f:'hue-rotate(275deg) saturate(1.1) brightness(.75)'}
   ],
   achievements:[
     {id:'w10',n:'Warm-up',d:'Win 10 battles',stat:'wins',t:10,r:{gems:20}},
@@ -97,7 +97,7 @@ const HEROES={
   copello:{n:'Copello',role:'Mango Sharpshooter',sub:'Ranged DPS',cls:'dps',rng:1,hp:95,atk:33,iv:1.15},
   glem:{n:'Glem',role:'Tiger Druid',sub:'Melee DPS',cls:'dps',hp:175,atk:20,iv:1.1},
   malaguti:{n:'Malaguti',role:'Street Fighter',sub:'Melee DPS',cls:'dps',hp:130,atk:26,iv:.9},
-  samuel:{n:'Samuel',role:'Hacker Assassin',sub:'Melee DPS',cls:'dps',hp:80,atk:36,iv:.8},
+  samuel:{n:'Samuel',role:'Synthetic Assassin',sub:'Melee DPS',cls:'dps',hp:80,atk:36,iv:.8},
   rubens:{n:'Rubens',role:'Smoke Medic',sub:'Support',cls:'sup',heal:1,hp:120,atk:14,iv:1.4},
   ze:{n:'Zé',role:'Fanfarra Drummer',sub:'Support',cls:'sup',rng:1,hp:130,atk:12,iv:1.3},
   donnie:{n:'Donnie',role:'Curse Shaman',sub:'Support',cls:'sup',rng:1,hp:110,atk:16,iv:1.3}
@@ -111,12 +111,32 @@ const ULT={
   copello:{n:'Mango Barrage',mana:80,d:'Hurls a mango for 4.5x damage to one enemy, splashing 1.2x on the rest.'},
   glem:{n:'Tiger Form',mana:60,d:'Turns into a huge tiger for 10s: +80% attack, takes 25% less damage, heals 15%.'},
   malaguti:{n:'Combo Breaker',mana:60,d:'A 6-hit combo on one enemy; the finisher hits for 2.2x.'},
-  samuel:{n:'Root Access',mana:70,d:'Freezes every enemy for 3s and deals 5.5x damage to the weakest in the back.'},
+  samuel:{n:'Root Access',mana:70,d:'He glitches out of reality and reappears behind the most dangerous enemy in the back row: a 5.5x backstab that stuns it for 2s. Passive: hits on stunned or back-row enemies deal +30% damage.'},
   rubens:{n:'Smoke Session',mana:60,d:'A cloud of smoke heals every ally for a large amount.'},
   ze:{n:'Fanfarra!',mana:60,d:'He plays the drum and musical notes fly up: the whole team gets +35% attack, +25% speed and +15 mana for 10s. Passive: allies hit 8% harder.'},
   donnie:{n:'Hex of Ruin',mana:60,d:'A red pentagram circle opens under every enemy: for 10s they deal 35% less damage and take 25% more. Passive: his hits curse (+12% damage taken).'}
 };
 const HIDS=Object.keys(HEROES);
+/* Each hero has ONE fixed weapon (not an item): it cannot be swapped, only upgraded with Chaos. ico = placeholder emoji until real art is drawn. */
+const WEAPONS={
+  tank:{n:'Outlaw Bullwhip',ico:'\u{1FAA2}',d:'A braided leather whip that cracks across the whole line.'},
+  rafinha:{n:'Monster Can',ico:'\u{1F96B}',d:'An ice-cold energy drink. Handle with care: it turns him into an orc.'},
+  lucao:{n:'Lucky Fishing Rod',ico:'\u{1F3A3}',d:'Reels in anything, including fish the size of a bus.'},
+  dps:{n:'Cockatiel Staff',ico:'\u{1FA84}',d:'A gnarled staff topped with a green orb. The cockatiel approves.'},
+  chavoso:{n:'Deadeye Longbow',ico:'\u{1F3F9}',d:'A tall bow that never misses twice in a row.'},
+  copello:{n:'Mango Launcher',ico:'\u{1F96D}',d:'Fires overripe mangos at dangerous speeds.'},
+  glem:{n:'Tiger Claws',ico:'\u{1F42F}',d:'Gloves with the spirit of the tiger inside.'},
+  malaguti:{n:'Iron Knuckles',ico:'\u{1F94A}',d:'Street-fighter wraps hardened by a thousand combos.'},
+  samuel:{n:'Synth Wristblade',ico:'\u{1F5E1}\uFE0F',d:'A monofilament blade wired to a wrist console. It writes the code that cuts.'},
+  rubens:{n:'Cloud Vaporizer',ico:'\u{1F4A8}',d:'Produces the healing smoke. Smells suspiciously nice.'},
+  ze:{n:'Fanfarra Drum',ico:'\u{1F941}',d:'A battered drum and a pair of sticks that set the rhythm.'},
+  donnie:{n:'Horned Skull Staff',ico:'\u{1F480}',d:'A cow skull on a pole, lit by a purple flame.'}
+};
+const WEP_MAX=12;
+const WEP_BASE={tank:{hp:24,atk:2},dps:{hp:8,atk:6},sup:{hp:16,atk:4}};   // = what two best-set weapon items used to give
+const wlvOf=r=>Math.min(WEP_MAX,Math.max(1,(save.wlv&&save.wlv[r])||1));
+const wepStat=(r,lv)=>{lv=lv||wlvOf(r);const b=WEP_BASE[HEROES[r].cls],p=Math.pow(ECON.itemGrowth,lv-1);return {hp:Math.round(b.hp*p),atk:Math.round(b.atk*p*10)/10};};
+const wepCost=lv=>Math.round(100*Math.pow(lv,1.9)/5)*5;     // Chaos to go from lv to lv+1
 const MAXTEAM=4;
 const isOwned=k=>!!(save.own[k]||save.digas);
 // Flavio ('sup') left the game: his healer role is Rubens. Strip him from old/cloud saves (his gear goes back to the bag).
@@ -130,7 +150,7 @@ function purgeFlavio(d){
 
 /* ---------- save ---------- */
 const DEF=()=>({ver:2,name:'',music:true,tut:{},gold:300,gems:0,keys:{b:0,s:0,g:0},cleared:0,last:Date.now(),skip:0,
-  lv:Object.fromEntries(HIDS.map(k=>[k,1])),items:[],eq:Object.fromEntries(HIDS.map(k=>[k,{}])),nid:1,xp:0,
+  lv:Object.fromEntries(HIDS.map(k=>[k,1])),wlv:Object.fromEntries(HIDS.map(k=>[k,1])),items:[],eq:Object.fromEntries(HIDS.map(k=>[k,{}])),nid:1,xp:0,
   tasks:{day:'',p:{},c:{},m:{}},cal:{last:'',streak:0},auto:false,form:{tank:1,dps:4,rubens:5},team:['tank','dps','rubens'],tix:10,own:{tank:1,dps:1,rubens:1},stars:{},shards:{},gp:{n:0,t:0},wish:[],autoUlt:false,sound:true,
   mail:[],mailInit:false,mid:1,shop:{day:'',n:0,bought:{},free:false},pity:{s:0,g:0,gl:0},quick:{day:'',n:0},
   chapDone:{},stats:{wins:0,opens:0,casts:0,fuses:0},ach:{},seen:{}});
@@ -189,9 +209,9 @@ function closeModal(){const m=$('modal');m.classList.remove('on');const f=m._clo
 $('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal();});
 
 /* ---------- items ---------- */
-const SLOTS=['helm','armor','gloves','boots','weapon1','weapon2'];
-const STYPE=s=>s.startsWith('weapon')?'weapon':s;
-const TYPES=['helm','armor','gloves','boots','weapon'];
+const SLOTS=['helm','armor','gloves','boots'];
+const STYPE=s=>s;
+const TYPES=['helm','armor','gloves','boots'];
 const LABEL={helm:'Helm',armor:'Armor',gloves:'Gloves',boots:'Boots',weapon:'Weapon'};
 const SETS=[{n:'Bulwark',hp:12,atk:1,col:'#4a8fe0',d:'Built for the Tank'},{n:'Fury',hp:4,atk:3,col:'#e0503a',d:'Built for the Damage Dealer'},{n:'Mercy',hp:8,atk:2,col:'#5ac26a',d:'Built for the Support'}];
 const PREF=Object.fromEntries(HIDS.map(k=>[k,{tank:0,dps:1,sup:2}[HEROES[k].cls]]));
@@ -200,12 +220,21 @@ const lvlOf=i=>i.tier*3+i.star;
 const pwr=i=>Math.pow(ECON.itemGrowth,lvlOf(i));
 const istat=i=>({hp:Math.round(SETS[i.set].hp*pwr(i)),atk:Math.round(SETS[i.set].atk*pwr(i)*10)/10});
 const itemName=i=>TIERS[i.tier][0]+' '+SETS[i.set].n+' '+LABEL[i.type]+' '+i.star+'*';
-const itemIco=i=>'item_'+(i.type==='weapon'?'sword':i.type)+'_'+i.tier;
+const itemIco=i=>'item_'+i.type+'_'+i.tier;
 const scrapVal=i=>ECON.scrap(lvlOf(i));
+// Weapons are no longer items: old weapon items are scrapped into Chaos and weapon slots are cleared (one-time, safe to repeat).
+function dropOldWeapons(){
+  if(!Array.isArray(save.items))return;
+  const old=save.items.filter(i=>i.type==='weapon');
+  if(old.length){save.gold+=old.reduce((a,i)=>a+scrapVal(i),0);const ids=new Set(old.map(i=>i.id));save.items=save.items.filter(i=>!ids.has(i.id));}
+  Object.values(save.eq||{}).forEach(e=>{delete e.weapon1;delete e.weapon2;});
+  if(!save.wlv)save.wlv={};HIDS.forEach(k=>{if(!save.wlv[k])save.wlv[k]=1;});
+}
+dropOldWeapons();
 const itemOf=id=>save.items.find(x=>x.id===id);
 function equippedIds(){const s=new Set();Object.values(save.eq).forEach(e=>Object.values(e).forEach(id=>s.add(id)));return s;}
 function newItem(tier,type,set,star){
-  const it={id:save.nid++,type:type||TYPES[rnd(5)],set:set===undefined?rnd(3):set,tier:tier||0,star:star||0};
+  const it={id:save.nid++,type:type||TYPES[rnd(TYPES.length)],set:set===undefined?rnd(3):set,tier:tier||0,star:star||0};
   save.items.push(it);return it;
 }
 function stageDropTier(b){
@@ -237,6 +266,7 @@ function heroStats(r,hp,atk){
   hp=hp===undefined?HEROES[r].hp:hp;atk=atk===undefined?HEROES[r].atk:atk;
   const m=(1+0.15*(save.lv[r]-1))*(1+0.1*(save.stars[r]||0));let h=hp*m,a=atk*m;
   Object.values(save.eq[r]).forEach(id=>{const it=itemOf(id);if(it){const s=istat(it);h+=s.hp;a+=s.atk;}});
+  const w=wepStat(r);h+=w.hp;a+=w.atk;
   return {hp:Math.round(h),atk:Math.round(a)};
 }
 const powerOf=r=>{const s=heroStats(r);return Math.round(s.hp/5+s.atk*4);};

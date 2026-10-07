@@ -537,3 +537,7 @@ body[data-nav="1"] #nav{display:flex}
 .pmini.isnew{box-shadow:0 0 14px var(--rc),0 0 0 1px var(--rc)}.pmini .pn{font-size:10px}.pmini .pt{font-size:10px;color:var(--rc);font-weight:700}
 .psub2{text-align:center;color:var(--dim);font-size:13px}
 .sOn{color:#ffd84a}.sOff{color:#4a3e30}.rbtns>.btn{flex:1}
+
+.wpn .wrow{display:flex;gap:12px;align-items:center;margin:6px 0 10px}.wpn .wico{font-size:40px;line-height:1;width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);border:1px solid rgba(214,170,90,.35);border-radius:8px;flex:none}.wpn .winf{flex:1;min-width:0}.wpn .winf .sub{margin-top:3px}
+@keyframes glitchf{0%,100%{opacity:1;translate:0 0}20%{opacity:.25;translate:-4px 0}40%{opacity:1;translate:4px -2px}60%{opacity:.4;translate:-2px 0}80%{opacity:1;translate:2px 0}}
+.unit.glitch canvas{animation:glitchf .3s steps(3) 4;filter:drop-shadow(0 0 5px #6aff8a) hue-rotate(40deg)}

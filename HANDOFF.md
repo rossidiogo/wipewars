@@ -16,10 +16,32 @@
 - js/net.js: camada online plugavel com banco local de mentira (bots de treino); Acct.mock=true sem claude.ai; amigos testados (pedido->bot aceita). Guilda NAO testada na tela. Troca por servidor real: Net.setBackend(...) quando o Diogo criar projeto gratis.
 - Presentes: limite diario salvo em localStorage.
 
+## AUTORIZACAO PERMANENTE (Diogo, 07/10): ele autoriza TUDO que for necessario no projeto (Gemini no navegador embutido, subir as fotos de art_gen/refs/, baixar imagens, editar, commitar). NAO pedir OK por passo. Limites fixos: sem senhas/dados financeiros, sem apagar dados de vez, nada de fotos/chaves no git (repo publico), respeitar teto diario de uso.
+
+## REGRA (Diogo, 07/10): em TODA sessao nova (inclusive handoff automatico) ligar a conexao remota (set_remote_control) para ele usar o celular.
+
+## Elenco (Diogo, 07/10): Flavio NAO faz mais parte do roster. Faltam 6 herois (Lucao, Copello, Malaguti, Glem, Samuel, Rubens); Diogo manda foto + descricao de um em um.
+
+## Feito em 07/10 (nesta sessao; NAO commitado ainda)
+- Donnie espelhado (agora olha para a direita, como os outros) em assets/sprites2.json; ult Hex of Ruin = UM pentagrama grande sob todos os monstros (battle.js ULTFX.donnie). Testado na tela.
+- ARMAS FIXAS: armas deixaram de ser item. Cada heroi tem 1 arma fixa (WEAPONS em core.js, arte = emoji PROVISORIO, falta arte real + Jacquin) que sobe de nivel 1-12 com Chaos (wepCost, wepStat, save.wlv; painel 'Weapon' na tela Herois, ui.js). Saves antigos: itens arma viram Chaos (dropOldWeapons). Itens agora so helm/armor/gloves/boots. Testado: migracao, upgrade, sem erro no console. NAO testado: baú/loja gerando itens novos, nem balance (stats = o que 2 armas do melhor set davam).
+- SAMUEL (design do Diogo, 07/10): Assassino Sintetico estilo androides de Alien (pele palida, jaqueta tatica preta, sangue branco, um olho com circuito atras dos oculos escuros; cabelo preto degrade, bigode fino + cavanhaque, argola com cruz na orelha). Arma: Synth Wristblade (lamina + console de pulso, golpes = linhas de codigo verde/branco). Ult Root Access JA NO CODIGO e testada: glitch-teleporta atras do inimigo de maior atk da fileira de tras, backstab 5.5x + stun 2s; passiva +30% dano em alvo atordoado/fileira de tras. FALTA a arte (sprite+avatar): fotos em art_gen/refs/samuel/ (usar f6bb8e63, ff813d98, eeabd036, af3ba7b4; 036fb7c1 e foto de OUTRA pessoa, ignorar). Aguardando OK do Diogo para usar Gemini/baixar imagens.
+- Opcional: arma aparecer na mao do sprite/animacao de ataque.
+
+## LABORATORIO (feito 07/10, js/lab.js, testado: galeria 34 cartas + luta de teste sem erro)
+- Configuracoes > Laboratorio > Abrir (ou URL com ?lab). Aba 'Laboratorio de luta': escolhe ate 6 herois (qualquer um) e ate 6 inimigos (qualquer monstro/chefe), cenario (cap 1-5), herois nao morrem, inimigos imortais, ults sempre prontas, respawn automatico, velocidade 1/0.5/0.25/2. Aba 'Galeria': sprite, arma, ult e status (aprovado/provisorio/placeholder) de cada heroi, monstros/chefes e cenarios.
+- Rubens deve usar a camisa havaiana especifica (ver art_gen/refs/rubens/FEATURES.md). Porta 8799 = art_gen/tools/receive.py (receptor local; so e necessario se achar um jeito de contornar o CSP do Gemini).
+
+## PEDIDOS DO DIOGO AINDA ABERTOS (07/10, anotados para nao perder)
+1. BOSS FINAL (Big Head bh5, e talvez bh1-4): o 'double biceps' que ele pediu era do CEREBRO, NAO do corpo. O personagem/corpo deve parecer um VESSEL usado, que nao aguenta mais ser hospedeiro de tanto poder: flacido, murcho, 'just hanging there'; toda a vida/forca esta no cerebro (cerebro gigante e musculoso/vivo, corpo pendurado). Refazer a arte do boss assim (passar pelo Jacquin).
+2. RUBENS (heroi de apoio/curandeiro): 'maconheiro da paz', olhos vermelhos, paz e amor e erva, camisa havaiana, oculos retangulares pretos, cabelo castanho com mechas grisalhas, bigode+barba, argola, tatuagem de anime no antebraco (ficha: art_gen/refs/rubens/FEATURES.md; as 2 fotos NAO foram salvas em disco). ULT Smoke Session: poe o cigarro na boca, puxa e solta fumaca em volta de TODO o time curando todos (hoje o codigo cura todos com nuvem; trocar visual/animacao para essa descricao). Arma atual no codigo: Cloud Vaporizer (trocar para joint/cigarro de erva se quiser).
+3. SAMUEL: arte em andamento (art_gen/out/hero_samuel_gem1.jpg fundo cinza nao serve; precisa de fundo MAGENTA; gem2 gerada no chat Gemini 'Samuel Android Assassin Pixel Art' mas ainda NAO baixada).
+4. POPUP DO DOWNLOAD: o Diogo odeia o popup 'salvar' do navegador a cada imagem do Gemini (dezenas esperando). Tentei contornar: o CSP do Gemini bloqueia fetch/img/window.name para localhost; receptor local em art_gen/tools/receive.py (porta 8799). Se nao der, fazer o Diogo desligar 'perguntar onde salvar' nas configuracoes do app, ou capturar a imagem de outro jeito.
+
 ## Proximos passos (SO quando o Diogo pedir; nada em andamento agora)
 1. Mais baratos por token: codigo (cutscenes a partir de LORE.md, Torre/Julia corrompida, pvp.js com Net.ghosts(), colecao, pets, pesca, eventos, itens STR/DEX/INT; testar tela de Guilda).
 2. Arte (mais caro): 6 herois restantes quando houver fotos (Lucao, Copello, Malaguti, Glem, Samuel, Rubens; refs em art_gen/refs/<nome>/); opcionais: anel do cranio do Big Head, acentos bh1-3, Jacquin na casa e no elite cap.5.
-3. Cap.5 se chama 'The Basement' no jogo (lore diz PC): renomear se o Diogo quiser.
+3. (FEITO 07/10) Cap.5 renomeado para 'The PC' / 'O PC' (core.js, lang.js; build ok, nao testado na tela). Diogo pediu em 07/10 para fazer TODOS os proximos passos; fotos dos 6 herois chegam depois.
 
 ## Como trabalhar (orcamento de uso: Pro, limite semanal)
 - Teto 10%/dia do semanal; ler get_usage no inicio e fim de cada lote e dizer o numero. Base de 07/10 = 31%.

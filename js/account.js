@@ -33,7 +33,7 @@ window.Acct=(function(){
   A.pushNow=push;
   A.applyCloud=()=>{ // replace local save with the newer cloud copy
     if(!A.cloud)return false;
-    try{const c=JSON.parse(A.cloud.j);Object.keys(save).forEach(k=>delete save[k]);Object.assign(save,purgeFlavio(c));persist();return true;}catch(e){return false;}
+    try{const c=JSON.parse(A.cloud.j);Object.keys(save).forEach(k=>delete save[k]);Object.assign(save,purgeFlavio(c));dropOldWeapons();persist();return true;}catch(e){return false;}
   };
   A.cloudNewer=()=>!!(A.cloud&&A.cloud.mod>(save.mod||0)+1000);
   A.cloudInfo=()=>{try{const c=JSON.parse(A.cloud.j);return{name:c.name,lvl:(c.xp!==undefined?null:null),stage:c.cleared||0};}catch(e){return null;}};

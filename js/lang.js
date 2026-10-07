@@ -13,8 +13,8 @@ const PT={
 'Join or create a guild with your friend group':'Entre ou crie uma guilda com seu grupo de amigos','Team boss battles with shared rewards':'Batalhas contra chefes em equipe, com recompensas compartilhadas','Guild shop and weekly rankings':'Loja da guilda e rankings semanais',
 'Guilds need the signed-in online version. Open the game from its shared link while signed in to claude.ai, with Contributor access.':'Guildas precisam da versão online com login. Abra o jogo pelo link compartilhado, conectado ao claude.ai, com acesso de Colaborador.',
 /* campaign / stages */
-'Where it all began':'Onde tudo começou','Everything is frozen. Even the condoms.':'Tudo está congelado. Até as camisinhas.','Sawdust, sparks and sandpaper':'Serragem, faíscas e lixa','Never put the box on your lap':'Nunca coloque a caixa no colo','Something is growing down here':'Algo está crescendo aqui embaixo',
-'The Bathroom':'O Banheiro','The Deep Freeze':'O Congelamento Profundo','The Workshop':'A Oficina','The Car Ride':'O Passeio de Carro','The Basement':'O Porão',
+'Where it all began':'Onde tudo começou','Everything is frozen. Even the condoms.':'Tudo está congelado. Até as camisinhas.','Sawdust, sparks and sandpaper':'Serragem, faíscas e lixa','Never put the box on your lap':'Nunca coloque a caixa no colo','The brain enters the network':'O cérebro entra na rede',
+'The Bathroom':'O Banheiro','The Deep Freeze':'O Congelamento Profundo','The Workshop':'A Oficina','The Car Ride':'O Passeio de Carro','The PC':'O PC',
 'BOSS':'CHEFE','Chapter reward':'Recompensa do capítulo','Clear the previous chapter to unlock':'Complete o capítulo anterior para desbloquear','More chapters coming soon':'Mais capítulos em breve',
 'Flee':'Fugir','Start battle':'Iniciar batalha','Team':'Equipe','Enemies':'Inimigos','Rewards':'Recompensas','Rewards (first clear bonus included)':'Recompensas (bônus de primeira vitória incluso)','Back row':'Fileira de trás','Front row':'Fileira da frente','empty':'vazio',
 'Tap a hero, then tap a spot to move or swap.':'Toque em um herói e depois em uma posição para mover ou trocar.','Now tap the spot to move to (tap the same hero to cancel).':'Agora toque na posição de destino (toque no mesmo herói para cancelar).',
@@ -24,7 +24,7 @@ const PT={
 /* monsters */
 'Toilet Paper':'Papel Higiênico','Clorox Wipes':'Lenços Clorox','Big Head':'Cabeção','Silicone Clone':'Clone de Silicone','Deluxe Clone':'Clone Deluxe','Bottle':'Frasco','Boss':'Chefe','Frozen Condom':'Camisinha Congelada','Permafrost Prophylactic':'Preservativo Permafrost','Sandpaper Belt':'Cinta de Lixa','Belt Sander':'Lixadeira de Cinta','Burnt Mini Pizza':'Mini Pizza Queimada','Dropped Pizza':'Pizza Caída','Cobweb Roll':'Rolo de Teia','Mold Spray':'Spray de Mofo',
 /* heroes */
-'Cowboy Tank':'Tanque Cowboy','Energy Drink Tank':'Tanque do Energético','Tank (skills TBD)':'Tanque (habilidades a definir)','Bird Summoner':'Invocador de Pássaros','Deadeye Archer':'Arqueiro Deadeye','Mango Sharpshooter':'Atirador de Mangas','Tiger Druid':'Druida Tigrinho','Street Fighter':'Lutador de Rua','Hacker Assassin':'Assassino Hacker','Smoke Medic':'Médico da Fumaça','Fanfarra Drummer':'Baterista da Fanfarra','Curse Shaman':'Xamã das Maldições',
+'Cowboy Tank':'Tanque Cowboy','Energy Drink Tank':'Tanque do Energético','Tank (skills TBD)':'Tanque (habilidades a definir)','Bird Summoner':'Invocador de Pássaros','Deadeye Archer':'Arqueiro Deadeye','Mango Sharpshooter':'Atirador de Mangas','Tiger Druid':'Druida Tigrinho','Street Fighter':'Lutador de Rua','Synthetic Assassin':'Assassino Sintético','Smoke Medic':'Médico da Fumaça','Fanfarra Drummer':'Baterista da Fanfarra','Curse Shaman':'Xamã das Maldições',
 'Tank':'Tanque','Ranged DPS':'DPS à Distância','Melee DPS':'DPS Corpo a Corpo','Support':'Suporte','Locked':'Bloqueado','On team':'Na equipe','Level':'Nível','Stars':'Estrelas','Health':'Vida','Attack':'Ataque','Power':'Poder','Level up':'Subir de nível','Equipment':'Equipamento','Best set:':'Melhor conjunto:','Equip best':'Equipar o melhor','Unequip hero':'Desequipar herói','Equip':'Equipar','Unequip':'Desequipar','Best gear equipped':'Melhor equipamento colocado',
 'Jewelry slots (ring, necklace, belt) unlock in a future update.':'Espaços de joias (anel, colar, cinto) serão liberados em uma atualização futura.','Ring':'Anel','Necklace':'Colar','Belt':'Cinto','Helm':'Elmo','Armor':'Armadura','Gloves':'Luvas','Boots':'Botas','Weapon':'Arma','Go to Recruit':'Ir para Recrutar','Item':'Item',
 'Select an item to compare.':'Selecione um item para comparar.','Currently equipped':'Equipado no momento','Selecione':'Selecione',
@@ -38,7 +38,7 @@ const PT={
 'Hurls a mango for 4.5x damage to one enemy, splashing 1.2x on the rest.':'Arremessa uma manga: 4,5x de dano em um inimigo e 1,2x nos demais.',
 'Turns into a huge tiger for 10s: +80% attack, takes 25% less damage, heals 15%.':'Vira um tigre gigante por 10s: +80% de ataque, recebe 25% menos dano e cura 15%.',
 'A 6-hit combo on one enemy; the finisher hits for 2.2x.':'Um combo de 6 golpes em um inimigo; o golpe final causa 2,2x.',
-'Freezes every enemy for 3s and deals 5.5x damage to the weakest in the back.':'Congela todos os inimigos por 3s e causa 5,5x de dano ao mais fraco da retaguarda.',
+'He glitches out of reality and reappears behind the most dangerous enemy in the back row: a 5.5x backstab that stuns it for 2s. Passive: hits on stunned or back-row enemies deal +30% damage.':'Ele sai da realidade com um glitch e reaparece atrás do inimigo mais perigoso da fileira de trás: uma facada nas costas de 5,5x que o atordoa por 2s. Passiva: golpes em inimigos atordoados ou na fileira de trás causam +30% de dano.',
 'A cloud of smoke heals every ally for a large amount.':'Uma nuvem de fumaça cura bastante todos os aliados.',
 'He plays the drum and musical notes fly up: the whole team gets +35% attack, +25% speed and +15 mana for 10s. Passive: allies hit 8% harder.':'Ele toca o tambor e notas musicais voam para cima: a equipe inteira ganha +35% de ataque, +25% de velocidade e +15 de mana por 10s. Passiva: aliados batem 8% mais forte.',
 'A red pentagram circle opens under every enemy: for 10s they deal 35% less damage and take 25% more. Passive: his hits curse (+12% damage taken).':'Um círculo com pentagrama vermelho se abre sob todos os inimigos: por 10s eles causam 35% menos dano e recebem 25% mais. Passiva: seus golpes amaldiçoam (+12% de dano recebido).',
@@ -220,3 +220,17 @@ function setLang(l){
 }
 function initLang(){document.documentElement.lang=LANG==='pt'?'pt-BR':'en';startLang();tWalk(document.body);}
 window.addEventListener('load',initLang);
+
+Object.assign(PT,{'Weapon':'Arma','Fixed - cannot be changed':'Fixa - não pode ser trocada','Upgrade weapon':'Melhorar arma','Weapon at max level':'Arma no nível máximo','Attack':'Ataque','Health':'Vida',
+'Outlaw Bullwhip':'Chicote do Fora-da-Lei','A braided leather whip that cracks across the whole line.':'Um chicote de couro trançado que estala por toda a fileira.',
+'Monster Can':'Lata de Monster','An ice-cold energy drink. Handle with care: it turns him into an orc.':'Um energético gelado. Cuidado: ele vira um orc.',
+'Lucky Fishing Rod':'Vara da Sorte','Reels in anything, including fish the size of a bus.':'Fisga qualquer coisa, até peixe do tamanho de um ônibus.',
+'Cockatiel Staff':'Cajado da Calopsita','A gnarled staff topped with a green orb. The cockatiel approves.':'Um cajado torto com uma esfera verde. A calopsita aprova.',
+'Deadeye Longbow':'Arco Longo Mira-Certeira','A tall bow that never misses twice in a row.':'Um arco alto que nunca erra duas vezes seguidas.',
+'Mango Launcher':'Lança-Mangas','Fires overripe mangos at dangerous speeds.':'Dispara mangas maduras demais em velocidades perigosas.',
+'Tiger Claws':'Garras de Tigre','Gloves with the spirit of the tiger inside.':'Luvas com o espírito do tigre dentro.',
+'Iron Knuckles':'Soco-Inglês','Street-fighter wraps hardened by a thousand combos.':'Ataduras de lutador de rua endurecidas por mil combos.',
+'Synth Wristblade':'Lâmina de Pulso Sintética','A monofilament blade wired to a wrist console. It writes the code that cuts.':'Uma lâmina de monofilamento ligada a um console no pulso. Ela escreve o código que corta.',
+'Cloud Vaporizer':'Vaporizador de Nuvem','Produces the healing smoke. Smells suspiciously nice.':'Produz a fumaça curativa. Cheira suspeitosamente bem.',
+'Fanfarra Drum':'Tambor da Fanfarra','A battered drum and a pair of sticks that set the rhythm.':'Um tambor surrado e um par de baquetas que marcam o ritmo.',
+'Horned Skull Staff':'Cajado de Crânio com Chifres','A cow skull on a pole, lit by a purple flame.':'Um crânio de boi num cajado, com uma chama roxa.'});

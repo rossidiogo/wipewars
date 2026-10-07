@@ -209,6 +209,18 @@ DRAW.heroes=function(){
   card.appendChild(el('div','ultbox','<div class="ulth">Ultimate — '+u.n+'</div><div class="sub">'+u.d+' Needs '+u.mana+' mana.</div>'));
   box.appendChild(card);
 
+  const W=WEAPONS[r],wl=wlvOf(r),ws=wepStat(r),wc=el('div','panel wpn');
+  wc.appendChild(el('div','sect','Weapon <small>Fixed - cannot be changed</small>'));
+  wc.appendChild(el('div','wrow','<div class="wico">'+W.ico+'</div><div class="winf"><b>'+W.n+'</b> <small class="gld">Lv '+wl+' / '+WEP_MAX+'</small><div class="sub">'+W.d+'</div><div class="sub"><span>Attack</span> <b>+'+ws.atk+'</b> &middot; <span>Health</span> <b>+'+ws.hp+'</b></div></div>'));
+  if(wl<WEP_MAX){
+    const nx=wepStat(r,wl+1),wcost=wepCost(wl);
+    const ub=el('button','btn primary wide','Upgrade weapon &nbsp;'+ic('gold','s')+' '+comma(wcost)+' &nbsp;<small>+'+Math.round((nx.atk-ws.atk)*10)/10+' ATK / +'+(nx.hp-ws.hp)+' HP</small>');
+    ub.disabled=save.gold<wcost;
+    ub.onclick=()=>{if(save.gold<wcost)return;save.gold-=wcost;save.wlv[r]=wl+1;persist();sfx('reward');DRAW.heroes();syncCur();};
+    wc.appendChild(ub);
+  }else wc.appendChild(el('div','sub center gld','Weapon at max level'));
+  box.appendChild(wc);
+
   const eq=el('div','panel eqp');
   eq.appendChild(el('div','sect','Equipment <small>Best set: <span style="color:'+SETS[PREF[r]].col+'">'+SETS[PREF[r]].n+'</span></small>'));
   const g=el('div','eqgrid');
@@ -497,11 +509,11 @@ const SHOPTABS=[['deals','Deals'],['chests','Chests'],['gold','Chaos'],['gems','
 function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
 function hashStr(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
 function dealsFor(){
-  const R=mulberry(hashStr(save.shop.day+':'+save.shop.n)),P=()=>TYPES[Math.floor(R()*5)],S=()=>Math.floor(R()*3);
+  const R=mulberry(hashStr(save.shop.day+':'+save.shop.n)),P=()=>TYPES[Math.floor(R()*TYPES.length)],S=()=>Math.floor(R()*3);
   const disc=()=>[.1,.2,.3,.4][Math.floor(R()*4)];
   const item=(tier,cur)=>{const d=disc(),base=cur==='gold'?ECON.itemGold[tier]:ECON.itemGems[tier];return {kind:'item',type:P(),set:S(),tier,cur,disc:d,price:Math.round(base*(1-d))};};
   const FR=mulberry(hashStr(save.shop.day+':free'));
-  const free={kind:'item',free:true,type:TYPES[Math.floor(FR()*5)],set:Math.floor(FR()*3),tier:1,cur:'gold',price:0,disc:1};
+  const free={kind:'item',free:true,type:TYPES[Math.floor(FR()*TYPES.length)],set:Math.floor(FR()*3),tier:1,cur:'gold',price:0,disc:1};
   const keyDeal=(new Date().getDate()%2)?{kind:'keys',keys:{b:5},cur:'gems',price:50,disc:.25}:{kind:'keys',keys:{s:1},cur:'gems',price:80,disc:.2};
   return [free,item(0,'gold'),item(1,'gold'),item(2,'gold'),item(2,'gems'),keyDeal];
 }
@@ -644,6 +656,8 @@ DRAW.settings=function(){
   const row=(label,btn)=>{const r=el('div','srow','<span>'+label+'</span>');r.appendChild(btn);return r;};
   const sec=t=>L.appendChild(el('div','sect',t));
   const tog=(label,get,set)=>{const b=el('button','btn sm'+(get()?' primary':''),get()?'On':'Off');b.onclick=()=>{set(!get());persist();DRAW.settings();};L.appendChild(row(label,b));};
+  sec('Laboratório');
+  const lb=el('button','btn sm primary','Abrir');lb.onclick=()=>openLab('fight');L.appendChild(row('Testar heróis, monstros, ults e ver a galeria',lb));
   sec('Digas mode');
   const dg=el('button','btn sm'+(save.digas?' primary':''),save.digas?'On':'Off');
   dg.onclick=()=>{if(save.digas)digasOff();else digasOn();syncCur();toast(save.digas?'Digas mode ON: everything unlocked':'Digas mode off: progress restored');DRAW.settings();};
