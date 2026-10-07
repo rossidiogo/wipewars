@@ -59,3 +59,5 @@
 - 2026-10-07: Monstros do cap. 5 (normal rosa + elite verde com faixa dourada e olhos laranja) prontos e NO JOGO; testado sem erros. Falta: Jacquin no chefe Big Head (5 estagios) e depois exportar. Cap. 5 ainda se chama 'The Basement' no jogo (o lore diz que e o PC): renomear quando o Diogo quiser.
 
 - 2026-10-07: Jacquin reprovou o 1o conjunto do Big Head (cabeca ja enorme no cap.1, sem iris, abas do cranio viravam chifres). Refiz os 5 estagios com a cabeca crescendo de verdade (45% > 55% > 63% > 68%+cerebro > maior de todas + cerebro gigante), iris nos olhos, brinco, cranio quebrado em forma de coroa. Teste cego: cerebro lido com 65-80%. Em novo julgamento (verdicts/BOSS_BIGHEAD_2.md).
+
+- 2026-10-07: Big Head (5 estagios) NO JOGO. Estagios 1-3 retocados por codigo (iris, brinco, nariz) conforme o Jacquin; 4 e 5 entraram PROVISORIOS (nota ~82-84, abaixo de 94; ele pede cerebro maior no 5 e remover as pontas que parecem chifres). Multiplicador de tamanho agora cresce por capitulo (0.9, 1.0, 1.1, 1.2, 1.35). Testado: os 5 chefes carregam sem erro.

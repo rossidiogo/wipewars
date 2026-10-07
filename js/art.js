@@ -45,6 +45,11 @@ STEPS['chavoso']=HERO_ST;SHW['chavoso']=30;
 STEPS['rafinha']=HERO_ST;SHW['rafinha']=34;
 STEPS['ch5clone']=STEPS.tp;SHW['ch5clone']=34;
 STEPS['ch5deluxe']=STEPS.tp;SHW['ch5deluxe']=40;
+STEPS['bh3']=STEPS.boss;SHW['bh3']=56;
+STEPS['bh1']=STEPS.boss;SHW['bh1']=56;
+STEPS['bh5']=STEPS.boss;SHW['bh5']=56;
+STEPS['bh2']=STEPS.boss;SHW['bh2']=56;
+STEPS['bh4']=STEPS.boss;SHW['bh4']=56;
 /*END-GENART*/
 function atkEl(el){
   const c=el.querySelector('canvas.monc');if(!c||c.dataset.busy)return;

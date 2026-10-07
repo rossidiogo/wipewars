@@ -14,7 +14,7 @@
 - 8 monstros dos caps 1-4 no jogo. Monstros do cap.5 gerados mas SEM veredito do Jacquin.
 
 ## Proximos passos (ordem)
-1. EM ANDAMENTO: Big Head v2 (out/clean/boss_bh1_gem2_0, bh2_gem2_0, bh3_gem2_0, bh4_gem3_0, bh5_gem2_0) esta no Jacquin (verdicts/BOSS_BIGHEAD_2.md). Se aprovado/retocado: copiar para art_gen/approved/bosses/bh1..5.png, exportar com export_sprite.py chaves bh1..bh5 (--steps boss; ver KINDS/CHAPMON em js/battle.js, o multiplicador m dos chefes hoje diminui por capitulo (.9,.8,.72,.62,.6): como a cabeca ja cresce na arte, usar m parecido (~.8 todos) e testar). Monstros do cap.5 (normal+elite) JA no jogo. Cenario ch5_pc_monitor ainda sem veredito do Jacquin. Cap.5 se chama 'The Basement' no jogo (lore diz PC).
+1. Big Head esta NO JOGO (bh1..bh5, approved/bosses/). Provisorios: bh4 e bh5 (Jacquin 82-84; ver verdicts/BOSS_BIGHEAD_2.md: refazer bh5 com cerebro realmente gigante e sem pontas de chifre, dourar fivelas, clarear calca/capa; bh4 borda do cranio rente a testa). Retocar bh1-3 conforme 'What would make it APPROVED' (acento de cor, blind-ID). Cenario ch5_pc_monitor ainda sem veredito do Jacquin. Cap.5 se chama 'The Basement' no jogo (lore diz PC).
 2. Sprite `rafinha_orc` (orc estilo WoW) via Gemini; chave rafinha_orc em sprites2.json (o jogo troca sozinho).
 3. Big Head (chefe, 5 fases, 31 fotos em refs/bighead), cutscenes a partir de LORE.md, Julia corrompida (chefe da Torre).
 4. Codigo em arquivos novos: tower.js, pvp.js (usa Net.ghosts()), colecao, pets, pesca, eventos, itens STR/DEX/INT. Testar tela de Guilda com o mock.
