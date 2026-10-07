@@ -14,7 +14,7 @@
 - 8 monstros dos caps 1-4 no jogo. Monstros do cap.5 gerados mas SEM veredito do Jacquin.
 
 ## Proximos passos (ordem)
-1. Jacquin: monstros do cap.5 e cenario ch5_pc_monitor (fundo de baixo e gradiente suave). Retoques finos de Donnie/Chavoso/Rafinha se sobrar tempo.
+1. EM ANDAMENTO: veredito do Jacquin do chefe Big Head (out/clean/boss_bh1..5_gem1_0.png; verdicts/BOSS_BIGHEAD_1.md) -> se aprovado: exportar com export_sprite.py chaves bh1..bh5 (--steps boss, ver KINDS/CHAPMON em battle.js) e testar no jogo. Monstro cap.5 normal APROVADO (approved/monsters/ch5_clone.png); elite verde (out/clean/ch5_deluxe_gem2_0.png) em julgamento (verdicts/ch5_monsters_2.md); depois exportar os 2 (CHAPMON cap.5). Jacquin ainda nao viu o cenario ch5_pc_monitor. Retoques finos de Donnie/Chavoso/Rafinha se sobrar tempo.
 2. Sprite `rafinha_orc` (orc estilo WoW) via Gemini; chave rafinha_orc em sprites2.json (o jogo troca sozinho).
 3. Big Head (chefe, 5 fases, 31 fotos em refs/bighead), cutscenes a partir de LORE.md, Julia corrompida (chefe da Torre).
 4. Codigo em arquivos novos: tower.js, pvp.js (usa Net.ghosts()), colecao, pets, pesca, eventos, itens STR/DEX/INT. Testar tela de Guilda com o mock.

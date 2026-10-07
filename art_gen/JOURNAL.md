@@ -53,3 +53,5 @@
 - 2026-10-07: Jack e Daniel (aprovados pelo Jacquin) ja estao no jogo com a arte nova; Donnie/Chavoso/Rafinha refeitos e em julgamento (rodada 2); cenario do cap. 5 (dentro do monitor) gerado; cinco cenarios novos ligados no jogo. HANDOFF.md atualizado (historico antigo preservado embaixo).
 
 - 2026-10-07: Ze Vitor aprovado. Donnie, Chavoso e Rafinha refeitos/retocados e ja no jogo como PROVISORIOS (Jacquin deu 87-90, falta retoque fino). Avatares novos dos 6 herois. Novo js/net.js: amigos/guilda funcionam offline com bots de treino (troca por servidor real depois). Rafinha agora baixinho de verdade.
+
+- 2026-10-07: Chefe Big Head gerado nos 5 estagios a partir das suas fotos (azul calmo; cachecol gelado; cabeca rachada + avental laranja; cranio aberto com cerebro; final musculoso com cerebro gigante e capa roxa): conjunto muito consistente, em julgamento do Jacquin. Monstros do cap. 5: o normal (rosa) aprovado apos limpeza de pixels; o elite (verde) refeito e em julgamento. Teste cego: leu como brinquedo/condom (a piada do capitulo).
