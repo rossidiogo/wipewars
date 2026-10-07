@@ -178,7 +178,8 @@ const ULTFX={
   samuel:u=>{alive('m').forEach(m=>addFx(m,'stun',1,3));const ms=alive('m').sort((a,b)=>(b.row-a.row)||(a.hp-b.hp));if(ms[0])hitFor(u,ms[0],5.5,250);flash('#6aff8a');},
   rubens:u=>{const h=Math.round(20+A(u)*2.5),host=$('field');flash('#8aa870');cloud(host,['#e8e8e0','#b8c8a8','#9ae070'],9,500);setTimeout(()=>{if(!over)healAll(h);},700);},
   ze:u=>{alive('h').forEach(a=>{addFx(a,'atk',1.35,10,'fan');addFx(a,'spd',1.25,10,'fan');if(a!==u)gainMana(a,15);});flash('#ffd84a');notesUp(u);},
-  donnie:u=>{alive('m').forEach(m=>{addFx(m,'atk',.65,10,'hex');addFx(m,'in',1.25,10,'hex');});flash('#b050ff');}
+  donnie:u=>{alive('m').forEach(m=>{addFx(m,'atk',.65,10,'hex');addFx(m,'in',1.25,10,'hex');
+    const p=document.createElement('span');p.className='penta';m.el.appendChild(p);setTimeout(()=>p.remove(),10000);});flash('#b050ff');}
 };
 function castUlt(u){
   if(over||u.hp<=0||u.mana<u.mmax)return;

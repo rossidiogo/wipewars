@@ -114,7 +114,7 @@ const ULT={
   samuel:{n:'Root Access',mana:70,d:'Freezes every enemy for 3s and deals 5.5x damage to the weakest in the back.'},
   rubens:{n:'Smoke Session',mana:60,d:'A cloud of smoke heals every ally for a large amount.'},
   ze:{n:'Fanfarra!',mana:60,d:'He plays the drum and musical notes fly up: the whole team gets +35% attack, +25% speed and +15 mana for 10s. Passive: allies hit 8% harder.'},
-  donnie:{n:'Hex of Ruin',mana:60,d:'Curses all enemies for 10s: -35% attack and +25% damage taken. Passive: his hits curse (+12% damage taken).'}
+  donnie:{n:'Hex of Ruin',mana:60,d:'A red pentagram circle opens under every enemy: for 10s they deal 35% less damage and take 25% more. Passive: his hits curse (+12% damage taken).'}
 };
 const HIDS=Object.keys(HEROES);
 const MAXTEAM=4;

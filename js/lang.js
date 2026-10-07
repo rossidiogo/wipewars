@@ -41,7 +41,7 @@ const PT={
 'Freezes every enemy for 3s and deals 5.5x damage to the weakest in the back.':'Congela todos os inimigos por 3s e causa 5,5x de dano ao mais fraco da retaguarda.',
 'A cloud of smoke heals every ally for a large amount.':'Uma nuvem de fumaça cura bastante todos os aliados.',
 'He plays the drum and musical notes fly up: the whole team gets +35% attack, +25% speed and +15 mana for 10s. Passive: allies hit 8% harder.':'Ele toca o tambor e notas musicais voam para cima: a equipe inteira ganha +35% de ataque, +25% de velocidade e +15 de mana por 10s. Passiva: aliados batem 8% mais forte.',
-'Curses all enemies for 10s: -35% attack and +25% damage taken. Passive: his hits curse (+12% damage taken).':'Amaldiçoa todos os inimigos por 10s: -35% de ataque e +25% de dano recebido. Passiva: seus golpes amaldiçoam (+12% de dano recebido).',
+'A red pentagram circle opens under every enemy: for 10s they deal 35% less damage and take 25% more. Passive: his hits curse (+12% damage taken).':'Um círculo com pentagrama vermelho se abre sob todos os inimigos: por 10s eles causam 35% menos dano e recebem 25% mais. Passiva: seus golpes amaldiçoam (+12% de dano recebido).',
 
 /* items + sets */
 'Common':'Comum','Magic':'Mágico','Rare':'Raro','Legendary':'Lendário','Epic':'Épico','Bulwark':'Baluarte','Fury':'Fúria','Mercy':'Misericórdia','Built for the Tank':'Feito para o Tanque','Built for the Damage Dealer':'Feito para o Atacante','Built for the Support':'Feito para o Suporte',

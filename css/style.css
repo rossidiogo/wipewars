@@ -485,6 +485,8 @@ body[data-nav="1"] #nav{display:flex}
 .unit.fx-buff .msp{filter:drop-shadow(0 0 3px #ffd84a) drop-shadow(0 0 6px #ffb02a)}
 .unit.fx-curse .msp{filter:drop-shadow(0 0 4px #b050ff) drop-shadow(0 0 7px #7a2ac0)}
 .unit.fx-stun .msp{filter:drop-shadow(0 0 4px #6ad0ff) saturate(.35) brightness(1.2)}
+.penta{position:absolute;left:-38px;top:-20px;width:76px;height:76px;transform:scaleY(.36);pointer-events:none;z-index:0;opacity:.95;animation:pentapulse 1.2s ease-in-out infinite;filter:drop-shadow(0 0 4px #d02a2a);background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><g fill='none' stroke='%23e03030' stroke-width='3.2'><circle cx='50' cy='50' r='46'/><circle cx='50' cy='50' r='40' stroke-width='1.6'/><path d='M50 8 L79 91 L8 38 L92 38 L21 91 Z' stroke-linejoin='round'/></g></svg>") center/contain no-repeat}
+@keyframes pentapulse{0%,100%{opacity:.6}50%{opacity:1}}
 .mnote{position:absolute;font-size:22px;font-weight:900;line-height:1;z-index:700;pointer-events:none;text-shadow:0 0 3px #000,1px 1px 0 #000}
 .dstick{position:absolute;left:0;top:0;width:3px;height:16px;background:linear-gradient(#e8c88a 70%,#8a5a2c 70%);border:1px solid #3a2410;border-radius:1px;z-index:700;pointer-events:none}
 .ckbird{position:absolute;left:0;top:0;font-size:26px;line-height:1;z-index:700;pointer-events:none;filter:drop-shadow(0 0 3px #ffd84a)}
