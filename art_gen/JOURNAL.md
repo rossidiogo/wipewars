@@ -30,3 +30,5 @@
 - Cap. 5 (monstros-dildo): referencia = as criacoes do Diogo com o kit Clone-A-Willy mostradas aos amigos (silicone cor de pele, brilhante). Vai ser versao cartoon, engracada, sem nada explicito, no mesmo estilo dos outros monstros.
 
 - Referencias recebidas: Jack (prints do Instagram) e Daniel (prints do Instagram, com a calopsita real). Daniel agora e 'Invocador Necromante' (vai usar manto de necromante/feiticeiro) e sua ultimate mostra a calopsita saindo do ombro, voando por cima da cabeca, atacando e voltando (ja funciona no jogo, testado). Faltam fotos de 10 herois.
+
+- Referencias recebidas: Ze Vitor (print do Instagram; roupa de fanfarra azul/verde, tambor). No jogo: ataque basico = joga baquetas (ranged), ultimate toca o tambor, notas musicais voam pra cima e o time ganha +35% ataque, +25% velocidade e +15 mana por 10s (testado). Faltam fotos de 9 herois.

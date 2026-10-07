@@ -40,7 +40,7 @@ const PT={
 'A 6-hit combo on one enemy; the finisher hits for 2.2x.':'Um combo de 6 golpes em um inimigo; o golpe final causa 2,2x.',
 'Freezes every enemy for 3s and deals 5.5x damage to the weakest in the back.':'Congela todos os inimigos por 3s e causa 5,5x de dano ao mais fraco da retaguarda.',
 'A cloud of smoke heals every ally for a large amount.':'Uma nuvem de fumaça cura bastante todos os aliados.',
-'Drums rally the team: +35% attack and +25% speed for 10s. Passive: allies hit 8% harder.':'Os tambores animam a equipe: +35% de ataque e +25% de velocidade por 10s. Passiva: aliados batem 8% mais forte.',
+'He plays the drum and musical notes fly up: the whole team gets +35% attack, +25% speed and +15 mana for 10s. Passive: allies hit 8% harder.':'Ele toca o tambor e notas musicais voam para cima: a equipe inteira ganha +35% de ataque, +25% de velocidade e +15 de mana por 10s. Passiva: aliados batem 8% mais forte.',
 'Curses all enemies for 10s: -35% attack and +25% damage taken. Passive: his hits curse (+12% damage taken).':'Amaldiçoa todos os inimigos por 10s: -35% de ataque e +25% de dano recebido. Passiva: seus golpes amaldiçoam (+12% de dano recebido).',
 
 /* items + sets */

@@ -99,7 +99,7 @@ const HEROES={
   malaguti:{n:'Malaguti',role:'Street Fighter',sub:'Melee DPS',cls:'dps',hp:130,atk:26,iv:.9},
   samuel:{n:'Samuel',role:'Hacker Assassin',sub:'Melee DPS',cls:'dps',hp:80,atk:36,iv:.8},
   rubens:{n:'Rubens',role:'Smoke Medic',sub:'Support',cls:'sup',heal:1,hp:120,atk:14,iv:1.4},
-  ze:{n:'Zé',role:'Fanfarra Drummer',sub:'Support',cls:'sup',hp:130,atk:12,iv:1.3},
+  ze:{n:'Zé',role:'Fanfarra Drummer',sub:'Support',cls:'sup',rng:1,hp:130,atk:12,iv:1.3},
   donnie:{n:'Donnie',role:'Curse Shaman',sub:'Support',cls:'sup',rng:1,hp:110,atk:16,iv:1.3}
 };
 const ULT={
@@ -113,7 +113,7 @@ const ULT={
   malaguti:{n:'Combo Breaker',mana:60,d:'A 6-hit combo on one enemy; the finisher hits for 2.2x.'},
   samuel:{n:'Root Access',mana:70,d:'Freezes every enemy for 3s and deals 5.5x damage to the weakest in the back.'},
   rubens:{n:'Smoke Session',mana:60,d:'A cloud of smoke heals every ally for a large amount.'},
-  ze:{n:'Fanfarra!',mana:60,d:'Drums rally the team: +35% attack and +25% speed for 10s. Passive: allies hit 8% harder.'},
+  ze:{n:'Fanfarra!',mana:60,d:'He plays the drum and musical notes fly up: the whole team gets +35% attack, +25% speed and +15 mana for 10s. Passive: allies hit 8% harder.'},
   donnie:{n:'Hex of Ruin',mana:60,d:'Curses all enemies for 10s: -35% attack and +25% damage taken. Passive: his hits curse (+12% damage taken).'}
 };
 const HIDS=Object.keys(HEROES);
