@@ -61,3 +61,5 @@
 - 2026-10-07: Jacquin reprovou o 1o conjunto do Big Head (cabeca ja enorme no cap.1, sem iris, abas do cranio viravam chifres). Refiz os 5 estagios com a cabeca crescendo de verdade (45% > 55% > 63% > 68%+cerebro > maior de todas + cerebro gigante), iris nos olhos, brinco, cranio quebrado em forma de coroa. Teste cego: cerebro lido com 65-80%. Em novo julgamento (verdicts/BOSS_BIGHEAD_2.md).
 
 - 2026-10-07: Big Head (5 estagios) NO JOGO. Estagios 1-3 retocados por codigo (iris, brinco, nariz) conforme o Jacquin; 4 e 5 entraram PROVISORIOS (nota ~82-84, abaixo de 94; ele pede cerebro maior no 5 e remover as pontas que parecem chifres). Multiplicador de tamanho agora cresce por capitulo (0.9, 1.0, 1.1, 1.2, 1.35). Testado: os 5 chefes carregam sem erro.
+
+- 2026-10-07: Orc do Rafinha (estilo World of Warcraft, barba preta mantida) desenhado e NO JOGO: a ultimate Modo Orc troca o sprite (testado, sem erros); falta o Jacquin julgar o orc. Cenario do cap. 5 retocado pelo Jacquin (moldura suavizada, textura no chao) e atualizado no jogo.

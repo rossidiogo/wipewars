@@ -50,6 +50,7 @@ STEPS['bh1']=STEPS.boss;SHW['bh1']=56;
 STEPS['bh5']=STEPS.boss;SHW['bh5']=56;
 STEPS['bh2']=STEPS.boss;SHW['bh2']=56;
 STEPS['bh4']=STEPS.boss;SHW['bh4']=56;
+STEPS['rafinha_orc']=STEPS.tank;SHW['rafinha_orc']=40;
 /*END-GENART*/
 function atkEl(el){
   const c=el.querySelector('canvas.monc');if(!c||c.dataset.busy)return;

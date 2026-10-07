@@ -15,7 +15,7 @@
 
 ## Proximos passos (ordem)
 1. Big Head esta NO JOGO (bh1..bh5, approved/bosses/). Provisorios: bh4 e bh5 (Jacquin 82-84; ver verdicts/BOSS_BIGHEAD_2.md: refazer bh5 com cerebro realmente gigante e sem pontas de chifre, dourar fivelas, clarear calca/capa; bh4 borda do cranio rente a testa). Retocar bh1-3 conforme 'What would make it APPROVED' (acento de cor, blind-ID). Cenario ch5_pc_monitor ainda sem veredito do Jacquin. Cap.5 se chama 'The Basement' no jogo (lore diz PC).
-2. Sprite `rafinha_orc` (orc estilo WoW) via Gemini; chave rafinha_orc em sprites2.json (o jogo troca sozinho).
+2. rafinha_orc JA NO JOGO (approved/heroes/rafinha_orc.png), so falta Jacquin julgar. Cenario ch5 retocado e no jogo (verdicts/bg_ch5_1.md).
 3. Big Head (chefe, 5 fases, 31 fotos em refs/bighead), cutscenes a partir de LORE.md, Julia corrompida (chefe da Torre).
 4. Codigo em arquivos novos: tower.js, pvp.js (usa Net.ghosts()), colecao, pets, pesca, eventos, itens STR/DEX/INT. Testar tela de Guilda com o mock.
 5. Herois restantes quando chegarem fotos: Lucao, Copello, Malaguti, Glem, Samuel, Rubens (refs em art_gen/refs/<nome>/).
