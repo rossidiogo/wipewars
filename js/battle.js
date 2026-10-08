@@ -45,10 +45,10 @@ function fxVis(u){
   const g=u.fx.filter(f=>f.k==='grow').reduce((a,f)=>Math.max(a,f.m),1),sp=u.el.querySelector('.msp,.spr'),hud=u.el.querySelector('.hud');
   sp.style.scale=g>1?g:'';if(hud&&u.hy!==undefined)hud.style.top=Math.round(u.hy*g-(u.side==='h'?20:16))+'px';
   // orc form: swap to the '<key>_orc' sprite when it exists, otherwise tint the normal sprite green as a stand-in
-  if(u.side==='h'){const orc=has('orc'),want=(orc&&SP[u.kind+'_orc'])?u.kind+'_orc':u.kind;
+  if(u.side==='h'){const orc=has('orc'),tig=has('tiger'),want=(orc&&SP[u.kind+'_orc'])?u.kind+'_orc':(tig&&SP[u.kind+'_tiger'])?u.kind+'_tiger':u.kind;
     if(SP[want]&&sp.dataset.cur!==want&&(want!==u.kind||sp.dataset.cur)){sp.dataset.cur=want;spriteArt(sp,want,u.m*FS,false);}
     u.el.classList.toggle('fx-orc',orc&&!SP[u.kind+'_orc']);}
-  if(u.side==='h'){const cv=sp.querySelector('canvas');if(cv)cv.style.filter=has('tiger')?'sepia(1) saturate(5) hue-rotate(-28deg) brightness(1.1)':'';}
+  if(u.side==='h'){const cv=sp.querySelector('canvas');if(cv)cv.style.filter=(has('tiger')&&!SP[u.kind+'_tiger'])?'sepia(1) saturate(5) hue-rotate(-28deg) brightness(1.1)':'';}
 }
 function stageList(n){
   const cnt=Math.min(5,3+Math.floor((n-1)/4)),nC=Math.min(cnt-1,Math.floor(n/3)),l=[];
@@ -192,7 +192,11 @@ const ULTFX={
     setTimeout(()=>{slash(t);dealDamage(t,d,u,'strikes');},670);}},
   chavoso:u=>{const ms=alive('m');if(!ms.length)return;flash('#9ae070');addFx(u,'spd',1.3,8,'fan');ms.forEach((m,i)=>{hitFor(u,m,1.3,120+i*40);hitFor(u,m,1.3,420+i*40);});},
   copello:u=>{const t=pickTarget(u);flash('#f0a020');hitFor(u,t,4.5,200);alive('m').forEach(m=>{if(m!==t)hitFor(u,m,1.2,330);});},
-  glem:u=>{addFx(u,'atk',1.8,10);addFx(u,'in',.75,10);addFx(u,'grow',1.35,10);addFx(u,'tiger',1,10);const h=Math.round(u.max*.15);u.hp=Math.min(u.max,u.hp+h);pop(u,'+'+h,'heal');refresh(u);flash('#ffa030');},
+  glem:u=>{addFx(u,'atk',1.8,10);addFx(u,'in',.75,10);addFx(u,'grow',1.1,10);addFx(u,'tiger',1,10);const h=Math.round(u.max*.15);u.hp=Math.min(u.max,u.hp+h);pop(u,'+'+h,'heal');refresh(u);flash('#ffa030');
+    // transformation burst: gold coins fly out of him, then a shockwave lands as the tiger appears (the form wears off after 10s)
+    const host=$('field'),r=u.el.getBoundingClientRect(),hr=host.getBoundingClientRect();
+    for(let i=0;i<14;i++){const e=document.createElement('span');e.className='sp';e.style.left=(r.left-hr.left+r.width/2)+'px';e.style.top=(r.top-hr.top+r.height*.4)+'px';const an=Math.random()*6.28,v=18+Math.random()*30;e.style.setProperty('--vx',Math.cos(an)*v+'px');e.style.setProperty('--vy',Math.sin(an)*v-12+'px');e.style.background=['#ffd84a','#fff0a0','#e8a020'][rnd(3)];e.style.width=e.style.height='6px';host.appendChild(e);setTimeout(()=>e.remove(),480);}
+    shockwave(u);},
   malaguti:u=>{const t=pickTarget(u);if(!t)return;for(let i=0;i<6;i++)hitFor(u,t,i===5?2.2:1,i*130);setTimeout(()=>{if(!over)banner(t,'K.O.!');},800);flash('#ff6a4a');},
   samuel:u=>{
     // glitch-teleport behind the strongest back-row enemy, backstab, stun, then glitch back

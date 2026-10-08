@@ -53,6 +53,8 @@ STEPS['bh4']=STEPS.boss;SHW['bh4']=56;
 STEPS['rafinha_orc']=STEPS.tank;SHW['rafinha_orc']=40;
 STEPS['samuel']=HERO_ST;SHW['samuel']=30;
 STEPS['rubens']=HERO_ST;SHW['rubens']=30;
+STEPS['glem']=HERO_ST;SHW['glem']=30;
+STEPS['glem_tiger']=HERO_ST;SHW['glem_tiger']=36;
 /*END-GENART*/
 function atkEl(el){
   const c=el.querySelector('canvas.monc');if(!c||c.dataset.busy)return;

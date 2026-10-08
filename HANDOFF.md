@@ -2,6 +2,11 @@
 
 > PAUSA (2026-10-07, ordem do Diogo): a politica de 'nunca parar de trabalhar' esta PAUSADA. Tarefa agendada wipewars-keep-working DESATIVADA e cron da sessao apagado. Nao procurar trabalho sozinho nem agendar nada; so fazer o que o Diogo pedir. Teto diario acordado: 10% do limite semanal por dia (base de 07/10 = 31%, teto do dia 41%); checar get_usage no inicio e no fim de cada lote; handoff automatico via tarefa agendada de uso unico (ver skill handoff).
 
+## ATUALIZACAO 08/10 (Glem, commit local sem push)
+- GLEM FEITO COMO PROVISORIO, DESENHADO POR CODIGO: humano (jaqueta vermelha com ouro, corrente, garra dourada, ficha de poker) + forma TIGRE (sprite 'glem_tiger', Fortune Tiger parrudo). Scripts: art_gen/tools/pxdraw.py, draw_glem.py, draw_glem_tiger.py. Jacquin 84/80 na 1a tentativa (verdicts/HEROES_GLEM_1.md); apliquei todas as correcoes dele (prevê ~87/86) SEM novo julgamento. Fotos: art_gen/refs/glem/ (ignoradas pelo git) + FEATURES.md.
+- Ult Tiger Form: battle.js troca para o sprite glem_tiger por 10s e volta sozinha (mesma logica do orc do Rafinha); explosao de moedas + onda de choque; crescimento so 1.1 (o sprite ja e maior). NAO TESTADO NA TELA (sem navegador): abrir o Lab (?lab), Glem, soltar ult, ver se troca e destroca e olhar o console.
+- Barulho: a aba do navegador embutido tocava o jogo; fechei e parei o servidor. O Chrome do Diogo pode ter outra aba.
+
 ## ATUALIZACAO 08/10 (Rubens, commit local sem push)
 - RUBENS FEITO COMO PROVISORIO, DESENHADO POR CODIGO (Gemini inacessivel: Chrome real exigia clique de aprovacao que ninguem deu; API gratis do Gemini com cota 0). Arte: art_gen/tools/draw_rubens.py -> approved/heroes/rubens.png, assets/ava_rubens.png, sprites2.json. Jacquin: 79.1 -> 85.2 (verdicts/HEROES_RUBENS_1/2.md); apliquei os ajustes finais dele (33 cores, fumaca, nos dos dedos) mas SEM novo julgamento. Residual: 2.5 cabecas e de frente, destoa do Samuel/Jack. Quando houver Gemini, refazer com IA (ficha refs/rubens/FEATURES.md).
 - Ult Smoke Session nova (js/battle.js ULTFX.rubens: baseado vai a boca, trago, fumaca .smoke em cada aliado, cura em 1.65s; CSS .joint/.smoke no fim de css/style.css). Arma = Peace Joint (core.js + lang.js PT).
