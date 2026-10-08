@@ -2,6 +2,12 @@
 
 > PAUSA (2026-10-07, ordem do Diogo): a politica de 'nunca parar de trabalhar' esta PAUSADA. Tarefa agendada wipewars-keep-working DESATIVADA e cron da sessao apagado. Nao procurar trabalho sozinho nem agendar nada; so fazer o que o Diogo pedir. Teto diario acordado: 10% do limite semanal por dia (base de 07/10 = 31%, teto do dia 41%); checar get_usage no inicio e no fim de cada lote; handoff automatico via tarefa agendada de uso unico (ver skill handoff).
 
+## ATUALIZACAO 08/10 (Rubens, commit local sem push)
+- RUBENS FEITO COMO PROVISORIO, DESENHADO POR CODIGO (Gemini inacessivel: Chrome real exigia clique de aprovacao que ninguem deu; API gratis do Gemini com cota 0). Arte: art_gen/tools/draw_rubens.py -> approved/heroes/rubens.png, assets/ava_rubens.png, sprites2.json. Jacquin: 79.1 -> 85.2 (verdicts/HEROES_RUBENS_1/2.md); apliquei os ajustes finais dele (33 cores, fumaca, nos dos dedos) mas SEM novo julgamento. Residual: 2.5 cabecas e de frente, destoa do Samuel/Jack. Quando houver Gemini, refazer com IA (ficha refs/rubens/FEATURES.md).
+- Ult Smoke Session nova (js/battle.js ULTFX.rubens: baseado vai a boca, trago, fumaca .smoke em cada aliado, cura em 1.65s; CSS .joint/.smoke no fim de css/style.css). Arma = Peace Joint (core.js + lang.js PT).
+- NAO TESTADO NA TELA: Diogo recusou preview_start; sem node para checar sintaxe. Primeira coisa: abrir o Laboratorio (?lab), escolher Rubens, soltar a ult e olhar o console.
+- Regras de permissao em .claude/settings.local.json (nao vai pro git). Chrome real continua pedindo aprovacao: precisa clique do Diogo.
+
 ## Projeto e ordens permanentes do Diogo
 - Idle auto-battler HTML (arquivo unico gerado por `python build.py test.html`), amigos reais como herois, publicado no GitHub Pages (repo publico rossidiogo/wipewars). Diogo nao programa: linguagem simples, chat curto, tudo registrado em `art_gen/JOURNAL.md`.
 - (PAUSADO) Antes: trabalhar sem parar enquanto o PC estiver ligado. Agora: so fazer o que for pedido; chat curto. Avisar so quando os 12 herois estiverem prontos (faltam fotos de 6: Lucao, Copello, Malaguti, Glem, Samuel, Rubens).

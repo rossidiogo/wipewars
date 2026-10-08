@@ -112,7 +112,7 @@ const ULT={
   glem:{n:'Tiger Form',mana:60,d:'Turns into a huge tiger for 10s: +80% attack, takes 25% less damage, heals 15%.'},
   malaguti:{n:'Combo Breaker',mana:60,d:'A 6-hit combo on one enemy; the finisher hits for 2.2x.'},
   samuel:{n:'Root Access',mana:70,d:'He glitches out of reality and reappears behind the most dangerous enemy in the back row: a 5.5x backstab that stuns it for 2s. Passive: hits on stunned or back-row enemies deal +30% damage.'},
-  rubens:{n:'Smoke Session',mana:60,d:'A cloud of smoke heals every ally for a large amount.'},
+  rubens:{n:'Smoke Session',mana:60,d:'Takes a long drag on the joint and exhales a cloud of smoke around the whole team, healing every ally for a large amount.'},
   ze:{n:'Fanfarra!',mana:60,d:'He plays the drum and musical notes fly up: the whole team gets +35% attack, +25% speed and +15 mana for 10s. Passive: allies hit 8% harder.'},
   donnie:{n:'Hex of Ruin',mana:60,d:'A red pentagram circle opens under every enemy: for 10s they deal 35% less damage and take 25% more. Passive: his hits curse (+12% damage taken).'}
 };
@@ -128,7 +128,7 @@ const WEAPONS={
   glem:{n:'Tiger Claws',ico:'\u{1F42F}',d:'Gloves with the spirit of the tiger inside.'},
   malaguti:{n:'Iron Knuckles',ico:'\u{1F94A}',d:'Street-fighter wraps hardened by a thousand combos.'},
   samuel:{n:'Synth Wristblade',ico:'\u{1F5E1}\uFE0F',d:'A monofilament blade wired to a wrist console. It writes the code that cuts.'},
-  rubens:{n:'Cloud Vaporizer',ico:'\u{1F4A8}',d:'Produces the healing smoke. Smells suspiciously nice.'},
+  rubens:{n:'Peace Joint',ico:'\u{1F6AC}',d:'A hand-rolled joint of peace and love. The smoke heals, and smells suspiciously nice.'},
   ze:{n:'Fanfarra Drum',ico:'\u{1F941}',d:'A battered drum and a pair of sticks that set the rhythm.'},
   donnie:{n:'Horned Skull Staff',ico:'\u{1F480}',d:'A cow skull on a pole, lit by a purple flame.'}
 };

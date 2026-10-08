@@ -202,7 +202,21 @@ const ULTFX={
       hitFor(u,t,5.5,120);addFx(t,'stun',1,2);},300);
     setTimeout(()=>{e.style.left=L;e.style.top=T;e.style.zIndex=Z;setTimeout(()=>e.classList.remove('glitch'),250);},1250);
   },
-  rubens:u=>{const h=Math.round(20+A(u)*2.5),host=$('field');flash('#8aa870');cloud(host,['#e8e8e0','#b8c8a8','#9ae070'],9,500);setTimeout(()=>{if(!over)healAll(h);},700);},
+  rubens:u=>{
+    // joint goes to his mouth, long drag, then he exhales a smoke cloud that rolls over the WHOLE team and heals everyone
+    const h=Math.round(20+A(u)*2.5),host=$('field'),j=document.createElement('span');
+    j.className='joint';j.textContent='\u{1F6AC}';u.el.appendChild(j);flash('#8aa870');
+    setTimeout(()=>j.classList.add('drag'),450);
+    setTimeout(()=>j.remove(),1300);
+    setTimeout(()=>{if(over||u.hp<=0)return;const hr=host.getBoundingClientRect();
+      alive('h').forEach((a,i)=>{const r=a.el.getBoundingClientRect();
+        for(let k=0;k<5;k++){const e=document.createElement('span');e.className='smoke';
+          e.style.left=(r.left-hr.left+r.width/2+(Math.random()-.5)*r.width*.8)+'px';e.style.top=(r.top-hr.top+r.height*(.2+Math.random()*.6))+'px';
+          e.style.animationDelay=(i*90+k*60)+'ms';host.appendChild(e);setTimeout(()=>e.remove(),1700+i*90+k*60);}});
+      cloud(host,['#e8e8e0','#b8c8a8','#9ae070'],7,150);
+    },1250);
+    setTimeout(()=>{if(!over)healAll(h);},1650);
+  },
   ze:u=>{alive('h').forEach(a=>{addFx(a,'atk',1.35,10,'fan');addFx(a,'spd',1.25,10,'fan');if(a!==u)gainMana(a,15);});flash('#ffd84a');notesUp(u);},
   donnie:u=>{const ms=alive('m');ms.forEach(m=>{addFx(m,'atk',.65,10,'hex');addFx(m,'in',1.25,10,'hex');});
     // one big pentagram under the whole enemy group (not one per monster)

@@ -39,7 +39,7 @@ const PT={
 'Turns into a huge tiger for 10s: +80% attack, takes 25% less damage, heals 15%.':'Vira um tigre gigante por 10s: +80% de ataque, recebe 25% menos dano e cura 15%.',
 'A 6-hit combo on one enemy; the finisher hits for 2.2x.':'Um combo de 6 golpes em um inimigo; o golpe final causa 2,2x.',
 'He glitches out of reality and reappears behind the most dangerous enemy in the back row: a 5.5x backstab that stuns it for 2s. Passive: hits on stunned or back-row enemies deal +30% damage.':'Ele sai da realidade com um glitch e reaparece atrás do inimigo mais perigoso da fileira de trás: uma facada nas costas de 5,5x que o atordoa por 2s. Passiva: golpes em inimigos atordoados ou na fileira de trás causam +30% de dano.',
-'A cloud of smoke heals every ally for a large amount.':'Uma nuvem de fumaça cura bastante todos os aliados.',
+'Takes a long drag on the joint and exhales a cloud of smoke around the whole team, healing every ally for a large amount.':'Dá um longo trago no baseado e solta uma nuvem de fumaça em volta do time todo, curando bastante todos os aliados.',
 'He plays the drum and musical notes fly up: the whole team gets +35% attack, +25% speed and +15 mana for 10s. Passive: allies hit 8% harder.':'Ele toca o tambor e notas musicais voam para cima: a equipe inteira ganha +35% de ataque, +25% de velocidade e +15 de mana por 10s. Passiva: aliados batem 8% mais forte.',
 'A red pentagram circle opens under every enemy: for 10s they deal 35% less damage and take 25% more. Passive: his hits curse (+12% damage taken).':'Um círculo com pentagrama vermelho se abre sob todos os inimigos: por 10s eles causam 35% menos dano e recebem 25% mais. Passiva: seus golpes amaldiçoam (+12% de dano recebido).',
 
@@ -231,6 +231,6 @@ Object.assign(PT,{'Weapon':'Arma','Fixed - cannot be changed':'Fixa - não pode 
 'Tiger Claws':'Garras de Tigre','Gloves with the spirit of the tiger inside.':'Luvas com o espírito do tigre dentro.',
 'Iron Knuckles':'Soco-Inglês','Street-fighter wraps hardened by a thousand combos.':'Ataduras de lutador de rua endurecidas por mil combos.',
 'Synth Wristblade':'Lâmina de Pulso Sintética','A monofilament blade wired to a wrist console. It writes the code that cuts.':'Uma lâmina de monofilamento ligada a um console no pulso. Ela escreve o código que corta.',
-'Cloud Vaporizer':'Vaporizador de Nuvem','Produces the healing smoke. Smells suspiciously nice.':'Produz a fumaça curativa. Cheira suspeitosamente bem.',
+'Peace Joint':'Baseado da Paz','A hand-rolled joint of peace and love. The smoke heals, and smells suspiciously nice.':'Um baseado artesanal de paz e amor. A fumaça cura e cheira suspeitosamente bem.',
 'Fanfarra Drum':'Tambor da Fanfarra','A battered drum and a pair of sticks that set the rhythm.':'Um tambor surrado e um par de baquetas que marcam o ritmo.',
 'Horned Skull Staff':'Cajado de Crânio com Chifres','A cow skull on a pole, lit by a purple flame.':'Um crânio de boi num cajado, com uma chama roxa.'});
