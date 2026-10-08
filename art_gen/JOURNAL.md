@@ -78,3 +78,4 @@
 
 - 2026-10-07: HANDOFF.md atualizado e conversa nova aberta automaticamente (tarefa unica). Teto diario 10%/dia combinado.
 - 2026-10-07: Donnie espelhado; ult Hex of Ruin com 1 pentagrama grande; armas fixas por heroi com upgrade (WEAPONS/wlv); cap.5 renomeado 'The PC'.
+- 2026-10-07: Samuel (Assassino Sintetico) no jogo como provisorio (Jacquin 86.3); ult Root Access (teleporte + backstab); Lab e Galeria dentro do jogo; download do Gemini sem popup pelo Chrome real.
