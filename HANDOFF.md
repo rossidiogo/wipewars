@@ -2,6 +2,8 @@
 
 > PAUSA (2026-10-07, ordem do Diogo): a politica de 'nunca parar de trabalhar' esta PAUSADA. Tarefa agendada wipewars-keep-working DESATIVADA e cron da sessao apagado. Nao procurar trabalho sozinho nem agendar nada; so fazer o que o Diogo pedir. Teto diario acordado: 10% do limite semanal por dia (base de 07/10 = 31%, teto do dia 41%); checar get_usage no inicio e no fim de cada lote; handoff automatico via tarefa agendada de uso unico (ver skill handoff).
 
+## RE-CHECAGEM 08/10: Rubens 86.3 e Glem humano 86.3 (aceitos como provisorios); Glem tigre 83.9 -> apliquei os ajustes (proc4, exportado) SEM novo julgamento. Veredito: art_gen/verdicts/RECHECK_RUBENS_GLEM.md. js/core.js tem edicao nao minha (musica desligada por padrao), ainda nao commitada.
+
 ## ATUALIZACAO 08/10 (Glem, commit local sem push)
 - GLEM FEITO COMO PROVISORIO, DESENHADO POR CODIGO: humano (jaqueta vermelha com ouro, corrente, garra dourada, ficha de poker) + forma TIGRE (sprite 'glem_tiger', Fortune Tiger parrudo). Scripts: art_gen/tools/pxdraw.py, draw_glem.py, draw_glem_tiger.py. Jacquin 84/80 na 1a tentativa (verdicts/HEROES_GLEM_1.md); apliquei todas as correcoes dele (prevê ~87/86) SEM novo julgamento. Fotos: art_gen/refs/glem/ (ignoradas pelo git) + FEATURES.md.
 - Ult Tiger Form: battle.js troca para o sprite glem_tiger por 10s e volta sozinha (mesma logica do orc do Rafinha); explosao de moedas + onda de choque; crescimento so 1.1 (o sprite ja e maior). NAO TESTADO NA TELA (sem navegador): abrir o Lab (?lab), Glem, soltar ult, ver se troca e destroca e olhar o console.
