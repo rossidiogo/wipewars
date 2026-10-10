@@ -46,3 +46,18 @@ for (const lang of ['en', 'pt'] as Lang[]) {
     });
   });
 }
+
+test('mail follows a language switch made while it is open', async ({ page }) => {
+  const errors = await boot(page);
+  await open(page, 'mail');
+  const bar = page.locator('#mailBody .bagbar span');
+  const claim = page.locator('#mailBody .mailr .btn').first();
+  await expect(bar).toHaveText('2 unclaimed');
+  await run(page, `setLang('pt')`);
+  await expect(bar).toHaveText('2 para resgatar');
+  await expect(claim).toHaveText('Resgatar');
+  await run(page, `setLang('en')`);
+  await expect(bar).toHaveText('2 unclaimed');
+  await expect(claim).toHaveText('Claim');
+  expect(errors).toEqual([]);
+});

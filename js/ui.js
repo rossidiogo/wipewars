@@ -418,27 +418,7 @@ DRAW.cal=function(){
   box.appendChild(b);
 };
 
-/* ---------- mail ---------- */
-DRAW.mail=function(){
-  const box=$('mailBody');box.innerHTML='';
-  const unclaimed=save.mail.filter(m=>!m.claimed);
-  const bar=el('div','bagbar','<span>'+unclaimed.length+' unclaimed</span>');
-  const ca=el('button','btn sm primary','Claim all');ca.disabled=!unclaimed.length;
-  ca.onclick=()=>{
-    const tot={gold:0,gems:0,keys:{},tiers:[]};
-    unclaimed.forEach(m=>{m.claimed=true;const r=m.rewards;tot.gold+=r.gold||0;tot.gems+=r.gems||0;for(const k in (r.keys||{}))tot.keys[k]=(tot.keys[k]||0)+r.keys[k];(r.tiers||[]).forEach(t=>tot.tiers.push(t));});
-    const out=give(tot);syncCur();DRAW.mail();showRewards('Mail Rewards',out);
-  };
-  bar.appendChild(ca);box.appendChild(bar);
-  if(!save.mail.length)box.appendChild(el('div','empty-msg','No mail.'));
-  save.mail.forEach(m=>{
-    const p=el('div','panel mailr'+(m.claimed?' done':''));
-    p.innerHTML='<div class="mh"><b>'+m.title+'</b><small>'+new Date(m.t).toLocaleDateString()+'</small></div><div class="sub">'+m.body+'</div><div class="chips">'+chips(m.rewards)+'</div>';
-    const b=el('button','btn sm'+(m.claimed?'':' primary'),m.claimed?'Claimed':'Claim');b.disabled=m.claimed;
-    b.onclick=()=>{m.claimed=true;const out=give(m.rewards);syncCur();DRAW.mail();showRewards(m.title,out);};
-    p.appendChild(b);box.appendChild(p);
-  });
-};
+/* mail: migrated to Preact, see src/screens/mail */
 
 /* ---------- guild / friends placeholders ---------- */
 function soonPanel(id,icon,title,lines){
