@@ -1,0 +1,10 @@
+node_modules
+dist
+.git
+.superpowers
+test-results
+playwright-report
+tests
+art2
+art_gen
+docs
