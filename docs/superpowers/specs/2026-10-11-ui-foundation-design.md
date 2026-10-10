@@ -4,6 +4,13 @@ Date: 2026-10-11
 Branch: `ui/refactor`
 Status: design approved in chat ("just go"), spec not separately reviewed
 
+Amended during planning (same day): legacy files stay in `js/` (no `legacy/` move); `css/style.css`
+is injected raw by the build plugin and no tokens file is created yet; only `syncCur` is wrapped
+for reactivity (`persist` fires constantly in battle); `build.py` is deleted at the end of this
+sub-project because it would otherwise build a game with a blank Mail screen; pixel screenshots
+are a local gate and CI runs the smoke test only, since snapshots are machine-specific. Where the
+sections below disagree with this paragraph, this paragraph wins. The plan is authoritative.
+
 ## Intent
 
 The owner of this change (Rubens) asked for a full refactor of the Wipe Wars UI onto a
