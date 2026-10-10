@@ -234,3 +234,4 @@ Object.assign(PT,{'Weapon':'Arma','Fixed - cannot be changed':'Fixa - não pode 
 'Peace Joint':'Baseado da Paz','A hand-rolled joint of peace and love. The smoke heals, and smells suspiciously nice.':'Um baseado artesanal de paz e amor. A fumaça cura e cheira suspeitosamente bem.',
 'Fanfarra Drum':'Tambor da Fanfarra','A battered drum and a pair of sticks that set the rhythm.':'Um tambor surrado e um par de baquetas que marcam o ritmo.',
 'Horned Skull Staff':'Cajado de Crânio com Chifres','A cow skull on a pole, lit by a purple flame.':'Um crânio de boi num cajado, com uma chama roxa.'});
+Object.assign(PT,{'Something broke':'Algo deu errado','Back to home':'Voltar ao início'});
