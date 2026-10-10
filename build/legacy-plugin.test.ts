@@ -55,5 +55,8 @@ describe('vite build', () => {
     expect(html).toContain(`<script>${legacyJs(root)}</script>`);
     expect(html).toContain(`<style>${legacyCss(root)}</style>`);
     expect(html).not.toContain('LEGACY_');
+    // The Preact bundle is inlined too: nothing in the page points at another file of ours.
+    expect(html).toMatch(/<script type="module">[^<]/);
+    expect(html).not.toMatch(/(src|href)="\.?\/?assets\//);
   });
 });

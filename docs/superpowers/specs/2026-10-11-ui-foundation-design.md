@@ -2,14 +2,7 @@
 
 Date: 2026-10-11
 Branch: `ui/refactor`
-Status: design approved in chat ("just go"), spec not separately reviewed
-
-Amended during planning (same day): legacy files stay in `js/` (no `legacy/` move); `css/style.css`
-is injected raw by the build plugin and no tokens file is created yet; only `syncCur` is wrapped
-for reactivity (`persist` fires constantly in battle); `build.py` is deleted at the end of this
-sub-project because it would otherwise build a game with a blank Mail screen; pixel screenshots
-are a local gate and CI runs the smoke test only, since snapshots are machine-specific. Where the
-sections below disagree with this paragraph, this paragraph wins. The plan is authoritative.
+Status: implemented on `ui/refactor` (2026-10-11). This document describes what was built.
 
 ## Intent
 
@@ -50,23 +43,24 @@ Each later sub-project gets its own spec and plan.
 ## Layout
 
 ```
-legacy/                 js/*.js moved unchanged with git mv (except ui.js mail block removed)
+js/, css/style.css      legacy game, unchanged except the Mail block removed from ui.js
 src/
-  main.tsx              entry: checks bridge, registers migrated screens
+  main.tsx              entry: checks the bridge, registers migrated screens
   bridge/
     legacy.d.ts         ambient types for the legacy globals used by src/
-    store.ts            version signal, useSave(), hooks into persist/syncCur
-    mount.tsx           registerScreen(id, mountPointId, Component) + error boundary
+    store.ts            version signal, useSave(), hook into syncCur
+    mount.tsx           registerScreen(id, mountId, Component) + error boundary
   components/           Icon, Button, Panel, Chips, EmptyState
-  screens/mail/         Mail.tsx, actions.ts, actions.test.ts
-  styles/tokens.css     the existing :root variables
-css/style.css           unchanged, imported globally (tokens moved out)
-build/legacy-plugin.ts  Vite plugin replacing build.py
+  screens/mail/         Mail.tsx, actions.ts and their tests
+build/
+  legacy-plugin.ts      injects legacy JS, CSS and base64 assets (replaces build.py)
+  single-file-plugin.ts inlines the bundled module into index.html
 tests/e2e/              Playwright smoke + screenshots
-index.html              same markup; /*CSS*/ and /*JS*/ placeholders replaced by plugin tags
+index.html              same markup; <!--LEGACY_CSS--> and <!--LEGACY_JS--> placeholders
 ```
 
-`js/battle_old.js` is not in the build order today and is left where it is.
+Legacy files were left in `js/` rather than moved: every doc, skill and art tool refers to
+those paths, and moving them buys nothing until they are converted.
 
 ## Build
 
@@ -81,12 +75,15 @@ index.html              same markup; /*CSS*/ and /*JS*/ placeholders replaced by
 - The result is injected as one inline classic `<script>` at the end of `<body>` (where
   `/*JS*/` is now) and one inline `<style>`. Legacy code is not parsed, transformed or minified,
   so its global lexical bindings (`const save`, `const DRAW`, ...) behave exactly as today.
-- The Preact entry is a module script, inlined by `vite-plugin-singlefile`. Module scripts are
-  deferred, so it always runs after the legacy script.
+- The Preact entry is a module script, inlined by `build/single-file-plugin.ts` (own code:
+  the third-party single-file plugin pulled in a dependency with an unfixed advisory). Module
+  scripts are deferred, so it always runs after the legacy script.
 - In `vite dev` the plugin serves the same legacy script and style, rebuilt on file change with
   a full page reload.
 
-`build.py` is kept in this sub-project as the reference for the screenshot baseline.
+`build.py` served as the reference (screenshot baseline and a byte-level parity test of the
+generated script and stylesheet), then was deleted: with Mail's legacy block gone it would
+have built a game with a blank Mail screen.
 
 ## Bridge
 
@@ -100,14 +97,14 @@ Legacy top-level `const`/`let`/`function` names are visible to module code as ba
 - `initStore()`: asserts each required global exists and throws `Legacy global missing: <name>`
   otherwise; wraps `syncCur` so each call bumps `version`. `syncCur` is a function declaration,
   so it is reassignable, and legacy calls it after every currency or badge change.
-  `persist` is wrapped the same way.
+  `persist` is not wrapped: it fires many times a second during battles.
 - `useSave()`: reads `version.value` (subscribing the component) and returns `save`.
 - `touch()`: bumps `version` for actions that change state without calling either.
 
 `mount.tsx`:
 
 - `registerScreen(id, mountId, Component)` sets `DRAW[id]` to a function that renders
-  `<ErrorBoundary><Component/></ErrorBoundary>` into `#mountId` and bumps `version`. Legacy
+  `<ErrorBoundary><Component/></ErrorBoundary>` into `#mountId`. Legacy
   `openScreen(id)` already calls `DRAW[id]()`, and other legacy code calling `DRAW.mail()`
   keeps working.
 - The error boundary shows the error message and a "Back to home" button calling
@@ -138,32 +135,30 @@ via `sendMail`, never from another player.
 
 ## Styling
 
-`css/style.css` stays one global stylesheet with unchanged class names. The `:root` block
-moves to `src/styles/tokens.css`. No other CSS changes in this sub-project.
+`css/style.css` stays one global stylesheet with unchanged class names, injected raw by the
+legacy plugin. A tokens file and per-screen CSS are deferred to sub-project 2.
 
 ## Testing
 
-Order matters: the baseline is captured before any file moves.
-
-- Playwright (`tests/e2e`), Chromium, viewports 360x640, 390x844, 480x900.
-  - Determinism: `?skiptitle`, a fixed save written to localStorage by `addInitScript`,
-    `page.clock` fixed, `window.NOCUT=1`, animations disabled, fonts awaited.
-  - `screens.spec.ts`: for each screen id, `openScreen(id)` then `toHaveScreenshot`. Home and
-    fight are excluded from pixel comparison (random idle scene, live battle) and covered by
-    the smoke test instead.
-  - `smoke.spec.ts`: every screen in EN then PT, `startStage(1)` run to a result, mail claim
-    one and claim all; fails on any `console.error` or `pageerror`. In PT, asserts the mail
-    screen shows the translated strings.
-  - The project has two targets: `baseline` serves the `build.py` output and writes
-    snapshots; `vite` serves `dist/index.html` and compares against them.
-- Vitest: `store.test.ts` (version bumps on wrapped calls, missing-global error) and
-  `actions.test.ts`, written test-first.
+- Playwright (`tests/e2e`), Chromium, against the production build in `dist/`.
+  - Determinism: `?skiptitle`, a known save, fixed `Date`, seeded `Math.random`,
+    `window.NOCUT=1`, web fonts stubbed, CSS animations disabled, sprite canvases pinned to
+    idle frame 0 (`freezeSprites`).
+  - `screens.spec.ts`: a full-viewport screenshot per screen and tab at 360x640, 390x844 and
+    480x900. Home and fight are excluded (random idle scene, live battle). The snapshots were
+    captured from the `build.py` output before any code moved, and the Vite build with Preact
+    Mail matches them without an update. Snapshots are machine-specific, so this spec is
+    skipped in CI.
+  - `smoke.spec.ts`: every screen in EN and PT, a stage played to its result, mail claim one
+    and claim all, and a language switch with Mail open; fails on any console error.
+- Vitest: build plugins, bridge store and mounting, mail actions and the Mail component.
+- `npm run verify` runs typecheck, unit tests, build and e2e.
 
 ## CI
 
-`.github/workflows/pages.yml`: Node 22, `npm ci`, `npm run typecheck`, `npm test`,
-`npm run build`, Playwright smoke and screenshots, upload `dist/`. Triggers and the
-deploy-on-main behaviour are unchanged. Snapshots are generated on Linux and committed.
+`.github/workflows/pages.yml`: Node 22, `npm ci`, typecheck, unit tests, build, Playwright
+smoke, upload `dist/`. Triggers and deploy-on-main are unchanged. Not yet exercised: the
+workflow only runs on `main`.
 
 ## Docs
 
@@ -174,15 +169,12 @@ Update build instructions in `HANDOFF.md`, `ONBOARDING_WIPE_WARS.md`,
 ## Out of scope
 
 Other screens, visual changes, `lang.js`/`core.js`/`battle.js` internals, removing
-`build.py` or `js/battle_old.js`, pushing or publishing.
+`js/battle_old.js`, pushing or publishing.
 
-## Risks
+## Known issues found, not fixed here
 
-- A bundler touching legacy code would break global bindings. Mitigation: the plugin injects
-  it as raw text after bundling; a test asserts the built file contains the legacy source
-  verbatim.
-- Font loading and animation can make screenshots flaky. Mitigation: determinism list above;
-  a flaky screen is fixed at the source, not given a looser threshold.
-- CI font rendering may differ from this machine. Mitigation: if it does, snapshots are
-  regenerated in CI from the `build.py` target in the same job, so the comparison is always
-  same-machine.
+- The chosen language does not survive a reload: `core.js` only restores save keys present in
+  `DEF()`, and `lang` is not one of them. Pre-existing; a `core.js` change.
+- A mounted Preact screen re-renders on every `syncCur`, including the once-a-second call from
+  the home screen while it is hidden. Negligible for Mail; gate on the active screen in
+  sub-project 2 before many screens are mounted.
