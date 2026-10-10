@@ -19,5 +19,8 @@ The game writes English in the code and translates to Portuguese (BR) at the DOM
 3. New hero/monster/boss/item names: add them too (proper nouns that stay the same still need `'Jack':'Jack'` only if they are inside longer sentences - otherwise skip).
 4. Dynamic text built with `innerHTML`/typewriter effects: call `t()` before animating (the tutorial bug fixed in v34).
 5. Prefer natural Brazilian Portuguese, informal and short, matching the game's humor; keep inside jokes.
-6. Verify: rebuild `python build.py test.html`, switch to Portuguese in Settings > Language, open every screen you touched and look for leftover English. The `calendar` screen was not covered by the earlier crawl: check it manually.
+6. Verify: run `npm run dev` (or `npm run build` and open `dist/index.html`), switch to Portuguese in Settings > Language, open every screen you touched and look for leftover English. The `calendar` screen was not covered by the earlier crawl: check it manually.
 7. Art with baked-in text (logos, banners, signs) must be generated WITHOUT text (the generator garbles it) and have the text added in HTML/CSS so it can be translated.
+
+## Screens migrated to Preact (`src/screens/`)
+The DOM translator still does the work there, and it matches **whole text nodes**. In JSX, mixed text and values create several nodes: write `` {`${n} unclaimed`} ``, never `{n} unclaimed`, or the `RX` rule will not match. `npm run e2e` checks Mail in both languages; add the same kind of check for each screen you migrate.

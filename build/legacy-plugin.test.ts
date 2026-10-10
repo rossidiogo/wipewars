@@ -1,5 +1,4 @@
-import { execFileSync } from 'node:child_process';
-import { existsSync, mkdtempSync, readdirSync, readFileSync } from 'node:fs';
+import { mkdtempSync, readdirSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { build } from 'vite';
@@ -24,7 +23,7 @@ function split(js: string) {
 describe('legacyJs', () => {
   const js = legacyJs(root);
 
-  it('emits the generated constants first, in build.py order', () => {
+  it('emits the generated constants first, ahead of the code that uses them', () => {
     const { consts } = split(js);
     expect(Object.keys(consts)).toEqual(CONSTS);
     expect(consts.LOGO).toMatch(/^data:image\/png;base64,/);
@@ -56,25 +55,5 @@ describe('vite build', () => {
     expect(html).toContain(`<script>${legacyJs(root)}</script>`);
     expect(html).toContain(`<style>${legacyCss(root)}</style>`);
     expect(html).not.toContain('LEGACY_');
-  });
-});
-
-// Reference check against the Python build this plugin replaces.
-describe.runIf(existsSync(join(root, 'build.py')))('parity with build.py', () => {
-  const out = join(mkdtempSync(join(tmpdir(), 'ww-')), 'ref.html');
-  execFileSync('python3', [join(root, 'build.py'), out]);
-  const html = readFileSync(out, 'utf8');
-  const refCss = html.slice(html.indexOf('<style>') + 7, html.indexOf('</style>'));
-  // The legacy script is the inline <script>; the module entry tag comes right after it.
-  const refJs = html.slice(html.indexOf('<script>') + 8, html.lastIndexOf('</script>', html.lastIndexOf('<script type="module"')));
-
-  it('produces the same stylesheet', () => {
-    expect(legacyCss(root)).toBe(refCss);
-  });
-
-  it('produces the same script', () => {
-    const mine = split(legacyJs(root)), ref = split(refJs);
-    expect(mine.consts).toEqual(ref.consts);
-    expect(mine.source).toBe(ref.source);
   });
 });

@@ -21,17 +21,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-node@v4
         with:
-          python-version: '3.13'
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
       - name: Build game
+        run: npm run build
+      - name: Smoke test the built game
         run: |
-          mkdir -p _site
-          python build.py _site/index.html
+          npx playwright install --with-deps chromium
+          npm run e2e
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: dist
 
   deploy:
     needs: build

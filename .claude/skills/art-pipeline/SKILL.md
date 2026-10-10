@@ -33,7 +33,7 @@ Approved files -> `art_gen/approved/<asset>.png`.
 - Sprite entry shape in `assets/sprites2.json`: `SP[key]={w,h,ax,ay,top,s,idle[4],atk[4]}` (data-URI PNG frames). Animation is procedural: build 4 idle frames (1-2px bob/squash of the single approved image) and 4 attack frames (same image; the lunge/scale comes from `STEPS` in `js/art.js`).
 - A NEW sprite key also needs `STEPS[key]` and `SHW[key]` entries in `js/art.js` (shadow width), or battle crashes.
 - Avatars: `assets/ava_<key>.png`; icons: `assets/icons2.json`; backgrounds: `assets/bg2.json` / `bg_ch.json`.
-- Rebuild: `python build.py test.html` (always to test.html first), serve the folder and check in the built-in browser **with sound muted** (`Music`/audio off) - the user asked for no music during tests.
+- Rebuild: `npm run build` (writes `dist/index.html`; `npm run dev` gives a live-reloading server), serve `dist/` and check in the built-in browser **with sound muted** (`Music`/audio off) - the user asked for no music during tests.
 - Commit per approved batch with the attribution line the session specifies; push only if the user wants.
 
 ## 6. Roster symmetry rules (Jacquin enforces)

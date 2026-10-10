@@ -8,7 +8,6 @@
     "typecheck": "tsc",
     "test": "vitest run",
     "e2e": "playwright test",
-    "e2e:baseline": "mkdir -p .baseline && python3 build.py .baseline/index.html && WW_TARGET=baseline playwright test --update-snapshots",
     "verify": "tsc && vitest run && vite build && playwright test"
   },
   "devDependencies": {

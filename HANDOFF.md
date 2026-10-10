@@ -1,5 +1,15 @@
 # HANDOFF - Wipe Wars (escrito 2026-10-07, para o proximo Claude)
 
+## BUILD E UI (atualizado 2026-10-11) - LEIA ANTES DE MEXER NO CODIGO
+- `build.py` NAO EXISTE MAIS. O jogo agora e montado com Node (Vite). Precisa de Node 22+ instalado.
+- Comandos: `npm install` (uma vez) | `npm run dev` (servidor com recarga automatica) | `npm run build` (gera `dist/index.html`, arquivo unico, igual antes) | `npm run verify` (tipos + testes unitarios + build + testes no navegador; rode antes de todo commit).
+- O codigo antigo continua em `js/*.js` e `css/style.css` e funciona igual: o build (`build/legacy-plugin.ts`) junta tudo na mesma ordem de antes, sem alterar nada. Arquivo JS novo do jogo antigo: adicione o nome em `LEGACY_ORDER` nesse arquivo.
+- A UI esta sendo migrada para Preact + TypeScript, tela por tela, em `src/`. Tela ja migrada: Mail (`src/screens/mail/`). As outras continuam em `js/ui.js` ate serem migradas. Regras e desenho: `docs/superpowers/specs/2026-10-11-ui-foundation-design.md`.
+- Testes: `tests/e2e/` (Playwright) abre todas as telas em EN e PT, joga uma fase e compara screenshots de cada tela com `tests/e2e/__screenshots__/`. Se mudar o visual DE PROPOSITO: `npm run build && npm run e2e -- --update-snapshots` e confira as imagens antes de commitar.
+- Publicacao: push na `main` roda o mesmo build no GitHub Actions e publica `dist/` no GitHub Pages.
+- Onde este arquivo citar `python build.py test.html`, `monkey.py`, `play.py` ou `multi.py`, e historico: use os comandos acima.
+
+
 > PAUSA (2026-10-07, ordem do Diogo): a politica de 'nunca parar de trabalhar' esta PAUSADA. Tarefa agendada wipewars-keep-working DESATIVADA e cron da sessao apagado. Nao procurar trabalho sozinho nem agendar nada; so fazer o que o Diogo pedir. Teto diario acordado: 10% do limite semanal por dia (base de 07/10 = 31%, teto do dia 41%); checar get_usage no inicio e no fim de cada lote; handoff automatico via tarefa agendada de uso unico (ver skill handoff).
 
 ## RE-CHECAGEM 08/10: Rubens 86.3 e Glem humano 86.3 (aceitos como provisorios); Glem tigre 83.9 -> apliquei os ajustes (proc4, exportado) SEM novo julgamento. Veredito: art_gen/verdicts/RECHECK_RUBENS_GLEM.md. js/core.js tem edicao nao minha (musica desligada por padrao), ainda nao commitada.
@@ -16,7 +26,7 @@
 - Regras de permissao em .claude/settings.local.json (nao vai pro git). Chrome real continua pedindo aprovacao: precisa clique do Diogo.
 
 ## Projeto e ordens permanentes do Diogo
-- Idle auto-battler HTML (arquivo unico gerado por `python build.py test.html`), amigos reais como herois, publicado no GitHub Pages (repo publico rossidiogo/wipewars). Diogo nao programa: linguagem simples, chat curto, tudo registrado em `art_gen/JOURNAL.md`.
+- Idle auto-battler HTML (arquivo unico gerado por `npm run build` em `dist/index.html`), amigos reais como herois, publicado no GitHub Pages (repo publico rossidiogo/wipewars). Diogo nao programa: linguagem simples, chat curto, tudo registrado em `art_gen/JOURNAL.md`.
 - (PAUSADO) Antes: trabalhar sem parar enquanto o PC estiver ligado. Agora: so fazer o que for pedido; chat curto. Avisar so quando os 12 herois estiverem prontos (faltam fotos de 6: Lucao, Copello, Malaguti, Glem, Samuel, Rubens).
 - Todo asset de arte passa pelo Jacquin (agente critico, `.claude/agents/jacquin.md`) antes de entrar no jogo. Features aprovadas por ele: ver `FEATURES_ROADMAP.md`. Historia: `LORE.md` (tudo acontece DENTRO da cabeca do Diogo; cada capitulo = uma memoria).
 - Privacidade: repo PUBLICO. Nunca commitar `art_gen/refs/`, `.env`, `art_gen/out/`, fotos pessoais, chaves.
