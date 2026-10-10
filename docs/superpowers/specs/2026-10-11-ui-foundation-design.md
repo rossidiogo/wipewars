@@ -25,7 +25,7 @@ Assumptions stated to the user and not corrected:
 | 1 | Foundation (this spec) | Toolchain, legacy bundling, bridge, tests, CI, Mail screen as proof |
 | 2 | Menu screens | Tasks, shop, bag, heroes, campaign, settings, friends, guild, calendar, home shell, nav, header |
 | 3 | Game-flow screens | Recruit, formation, battle HUD and result, title, tutorial, lab. Battle field stays imperative |
-| 4 | Core and i18n | `core.js` to typed modules, key-based translation, delete bridge and `legacy/` |
+| 4 | Core and i18n | `core.js` to typed modules, key-based translation, delete the bridge and the legacy `js/` code |
 
 Each later sub-project gets its own spec and plan.
 
