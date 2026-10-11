@@ -70,10 +70,12 @@ function startStage(n){
 }
 $('back').onclick=()=>{window.LAB=null;over=true;$('result').classList.remove('on');openScreen('campaign');};
 
+// units are drawn at the size the field had when the battle began; a resize rescales them (style.css .field .unit)
+window.addEventListener('resize',()=>{const w=$('field').clientWidth;if(w)$('field').style.setProperty('--fz',w/(FS*320));});
 function setup(){
   stageBanner();
   const LB=window.LAB,s=(LB?LB.stg:stage)-1;fixForm();$('result').classList.remove('on');
-  FS=($('field').clientWidth||360)/320;
+  FS=($('field').clientWidth||360)/320;$('field').style.setProperty('--fz',1);
   $('fbg').style.filter='none';$('fbg').style.backgroundImage='url('+BGCH[LB?LB.chap:chapOf(stage)]+')';
   const TEAM=LB?LB.team:save.team,FORM=LB?labForm(LB.team):save.form;
   units=TEAM.map(r=>{const H=HEROES[r],st=heroStats(r);const u=mk('h',H.n,H.cls,st.hp,st.atk,H.iv,r);u.kind=r;u.m=H.sc||1;u.rng=H.rng;u.heal=H.heal;u.slot=FORM[r];u.mmax=ULT[r].mana;u.mana=0;u.shield=0;return u;});

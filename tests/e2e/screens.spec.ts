@@ -4,6 +4,9 @@ import { test, expect, boot, freezeSprites, run } from './fixtures';
 test.skip(!!process.env.CI, 'screenshot snapshots are generated locally');
 
 const shots: [name: string, setup: string][] = [
+  ['home', `openScreen('home')`],
+  // `over` stops the battle loop, so the units stay where they spawned
+  ['fight', `startStage(1);over=true`],
   ['campaign', `openScreen('campaign')`],
   ['prep', `openPrep(1)`],
   ['recruit', `openScreen('recruit')`],

@@ -1,7 +1,8 @@
 import { defineConfig } from '@playwright/test';
 
 // Tests run against the production build: `npm run build` first (or use `npm run verify`).
-const sizes = [[360, 640], [390, 844], [480, 900]] as const;
+// Three phones, then a tablet (wide column, bottom nav) and a desktop (side rail, split battle).
+const sizes = [[360, 640], [390, 844], [480, 900], [820, 1180], [1280, 800]] as const;
 
 export default defineConfig({
   testDir: 'tests/e2e',
@@ -22,6 +23,7 @@ export default defineConfig({
       use: { viewport: { width, height } },
     })),
     { name: 'smoke', testMatch: /smoke\.spec\.ts/, use: { viewport: { width: 390, height: 844 } } },
+    { name: 'smoke-wide', testMatch: /smoke\.spec\.ts/, use: { viewport: { width: 1280, height: 800 } } },
   ],
   webServer: {
     command: `npx vite preview --port 4173 --strictPort`,

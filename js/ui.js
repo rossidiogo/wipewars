@@ -98,7 +98,9 @@ function sprite(cls){
 function layoutHome(){
   const W=$('home').clientWidth||390,H=$('home').clientHeight||844;
   if(!W||!H)return;
-  const s=Math.max(W/320,H/693);homeS=s;const off=(320*s-W)/2;
+  // the scene is portrait art: on wide windows stop growing at 450 visible rows and centre it (style.css #home.cap)
+  const s=Math.min(Math.max(W/320,H/693),H/450);homeS=s;const off=(320*s-W)/2;
+  $('home').classList.toggle('cap',off<0);$('home').style.setProperty('--hsw',320*s+'px');
   [...bgH,...bgM].forEach(d=>{
     const cls=d.dataset.c,key=cls==='mon'?'clorox':cls,P=cls==='mon'?HOMEPOS.mon:HOMEH[+d.dataset.i];
     spriteArt(d.querySelector('.msp,.spr'),key,s);

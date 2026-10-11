@@ -561,3 +561,66 @@ body[data-nav="1"] #nav{display:flex}
 .hcur2 .pill.keys{gap:2px;padding-right:6px}.hcur2 .pill.keys b{margin-right:3px;font-size:12px}
 /* the recruit reveal card reuses .pname at a larger size; keep the player name on home compact */
 .xpw .pname{font-size:15px;letter-spacing:1.5px;color:var(--gold)}
+/* ---------- wide layouts ----------
+   Under 700px nothing here applies: the phone column above is the layout.
+   700px and up: the column fills the window and lists gain columns.
+   900px and up: the bottom nav becomes a left rail; battle, prep and heroes split in two. */
+@media (min-width:700px){
+  #app{max-width:none;height:100vh;height:100dvh;margin-top:0}
+  /* screens without a layout of their own read as a centred column */
+  .scroll>*{width:100%;max-width:720px;align-self:center}
+  #bagBody>*,#heroBody>*,#taskBody>*{max-width:none}
+  #shopBody,#mailBody{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start}
+  :is(#shopBody,#mailBody)>*{grid-column:1/-1;max-width:none;align-self:stretch}
+  :is(#shopBody,#mailBody)>:is(.chestp,.goldp.row,.mailr){grid-column:auto}
+  /* chapters wrap as flex rows, not a grid: the round stage nodes take their height from their width, which grid rows mis-measure */
+  #campBody{flex-direction:row;flex-wrap:wrap;align-content:flex-start}
+  #campBody>*{max-width:none;align-self:stretch}#campBody>.chap{width:calc(50% - 7px)}
+  .dgrid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+  .htabs{grid-template-columns:repeat(auto-fill,minmax(84px,1fr))}
+  /* home: the scene is portrait art, so past a point it stops growing and sits in a centred band (layoutHome) */
+  .xpw{max-width:340px}#cfg{margin-left:auto}
+  .hbot{left:0;right:0;margin:0 auto;max-width:440px}
+  #home.cap::before{content:"";position:absolute;inset:-24px;background:var(--bgimg) center bottom/cover no-repeat;filter:blur(16px) brightness(.4)}
+  #home.cap .homebg{left:calc(50% - var(--hsw)/2);right:auto;width:var(--hsw);background-size:100% auto;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+  /* battle: the field never takes more than 70% of the height */
+  .field{width:min(100%,calc(70vh*192/176));width:min(100%,calc(70dvh*192/176));align-self:center}
+  /* overlays sized for a phone stay phone-sized, centred */
+  #tPanel{left:0;right:0;margin:0 auto;max-width:440px}
+  /* title: the backdrop is portrait art too, so it stays a centred band over a blurred copy; a smaller logo keeps the tagline clear of the heroes on short windows */
+  #title::before{content:"";position:absolute;inset:-24px;background:var(--bgimg) center/cover no-repeat;filter:blur(16px) brightness(.4)}
+  .tbg{left:calc(50% - 100vh*.37);right:auto;width:calc(100vh*.74);left:calc(50% - 100dvh*.37);width:calc(100dvh*.74);-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+  .tlogo{width:min(78%,260px)}
+  .ttag{top:calc(max(46px,8%) + 260px*0.84 + 14px)}
+  #tip,#tip.top{left:calc(50% - 240px);right:auto;width:480px}
+  .psum{padding-left:max(14px,calc(50% - 280px));padding-right:max(14px,calc(50% - 280px))}
+}
+@media (min-width:900px){
+  #app{max-width:1188px}
+  #nav{top:0;right:auto;width:88px;height:auto;flex-direction:column;gap:4px;padding:12px 0 0;border-top:0;border-right:1px solid var(--line)}
+  .nb{flex:none;height:72px}
+  .nb.on::before,.nb.center.on::before{display:block;top:20%;bottom:20%;left:0;right:auto;width:3px;height:auto;border-radius:0 3px 3px 0}
+  .nb.center{order:-1}
+  .nb.center .nbi{width:auto;height:auto;margin:0;border-radius:0;background:none;box-shadow:none}
+  .nb.center .nbi img{width:28px;height:28px}
+  body[data-nav="1"] .screen{left:88px}
+  body[data-nav="1"] .scroll{padding-bottom:20px}
+  .hbot{bottom:20px}
+  .scroll{padding:16px 20px 20px;gap:14px}
+  .tlist{display:grid;grid-template-columns:1fr 1fr;column-gap:28px}
+  #heroBody{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start}
+  #heroBody>*{grid-column:1/-1;align-self:stretch}
+  #heroBody>.hcard{grid-column:1;grid-row:2/span 2;align-self:start}
+  #heroBody>:is(.wpn,.eqp){grid-column:2}
+  #prep .scroll{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start}
+  #prep .scroll>*{max-width:none;grid-column:2;align-self:stretch}
+  #prep #prepHint{grid-column:1/-1}
+  #prep .scroll>.panel:nth-child(2){grid-column:1;grid-row:2/span 4;align-self:start}
+  /* battle: field on the left sized by height, ultimates and enemies on the right */
+  #fight.on{display:grid;grid-template-columns:minmax(0,1fr) 340px;grid-template-rows:auto minmax(0,1fr);overflow:hidden}
+  #fight .hdr{grid-column:1/-1}
+  .field{width:min(calc(100% - 24px),calc((100vh - 92px)*192/176));width:min(calc(100% - 24px),calc((100dvh - 92px)*192/176));justify-self:center;align-self:center}
+  #ultbar{overflow-y:auto;padding:12px 12px 16px 0}
+  #ults{grid-template-columns:repeat(2,1fr)}
+}
+.field .unit{scale:var(--fz,1)}

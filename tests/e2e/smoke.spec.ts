@@ -61,3 +61,15 @@ test('mail follows a language switch made while it is open', async ({ page }) =>
   await expect(claim).toHaveText('Claim');
   expect(errors).toEqual([]);
 });
+
+test('battle units rescale when the window is resized mid-battle', async ({ page }) => {
+  const errors = await boot(page);
+  await run(page, `startStage(1)`);
+  const ratio = () => run<number>(page, `parseFloat(getComputedStyle(document.querySelector('#field .unit')).scale)*FS*320/$('field').clientWidth`);
+  expect(await ratio()).toBeCloseTo(1, 2);
+  const before = await run<number>(page, `$('field').clientWidth`);
+  await page.setViewportSize({ width: 820, height: 1180 });
+  await expect.poll(() => run<number>(page, `$('field').clientWidth`)).not.toBe(before);
+  await expect.poll(ratio).toBeCloseTo(1, 2);
+  expect(errors).toEqual([]);
+});
