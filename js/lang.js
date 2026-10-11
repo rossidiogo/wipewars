@@ -235,3 +235,80 @@ Object.assign(PT,{'Weapon':'Arma','Fixed - cannot be changed':'Fixa - não pode 
 'Fanfarra Drum':'Tambor da Fanfarra','A battered drum and a pair of sticks that set the rhythm.':'Um tambor surrado e um par de baquetas que marcam o ritmo.',
 'Horned Skull Staff':'Cajado de Crânio com Chifres','A cow skull on a pole, lit by a purple flame.':'Um crânio de boi num cajado, com uma chama roxa.'});
 Object.assign(PT,{'Something broke':'Algo deu errado','Back to home':'Voltar ao início'});
+/* skill trees (js/skills.js), the skill screen and the keystones */
+Object.assign(PT,{
+'Skill tree':'Árvore de habilidades','Skill Tree':'Árvore de habilidades','Maxed':'No máximo','No skill points left':'Sem pontos de habilidade','Learn':'Aprender','Active':'Ativa','Activate':'Ativar','Switch to this keystone':'Trocar para esta pedra-chave',
+'Keystone':'Pedra-chave','Keystones':'Pedras-chave','point to spend':'ponto para gastar','points to spend':'pontos para gastar','Tap a skill to see what it does.':'Toque em uma habilidade para ver o que ela faz.',
+'Auto-assign':'Distribuir sozinho','Points assigned':'Pontos distribuídos','Skill points reset':'Pontos de habilidade reiniciados','Heroes earn 1 skill point per level-up and 2 per star. Resetting is free.':'Heróis ganham 1 ponto de habilidade a cada nível que sobem e 2 por estrela. Reiniciar é grátis.',
+'Previous hero':'Herói anterior','Next hero':'Próximo herói',
+'Brawler':'Brigão','Rally':'Animação','Precision':'Precisão','Survival':'Sobrevivência','Mending':'Cura','Tactics':'Táticas','Hexes':'Maldições',
+'Thick Skin':'Pele Grossa','Iron Guard':'Guarda de Ferro','Second Wind':'Segundo Fôlego','Heavy Hands':'Mãos Pesadas','Spiked Armor':'Armadura Espinhosa','Bully':'Valentão','Head Start':'Largada Rápida','Adrenaline':'Adrenalina','Showman':'Exibido',
+'Sharpen':'Afiação','Keen Eye':'Olho Clínico','Deep Cuts':'Cortes Profundos','Quick Hands':'Mãos Rápidas','Momentum':'Impulso','Showtime':'Hora do Show','Tough':'Durão','Vampirism':'Vampirismo','Finisher':'Finalizador',
+'Vitality':'Vitalidade','Soothing Aura':'Aura Calmante','Guardian':'Guardião','Insight':'Intuição','Prepared':'Preparado','Encore':'Bis','Sting':'Ferroada','Haste':'Pressa','Weak Spot':'Ponto Fraco',
+'+6% Health per rank.':'+6% de Vida por grau.','Takes 4% less damage per rank.':'Recebe 4% menos dano por grau.','Every 5s, recovers 1.5% of max Health per rank.':'A cada 5s, recupera 1,5% da vida máxima por grau.',
+'+6% Attack per rank.':'+6% de Ataque por grau.','Attackers take back 10% of the damage they deal, per rank.':'Quem ataca devolve 10% do dano que causa, por grau.','+8% damage to bosses per rank.':'+8% de dano contra chefes por grau.',
+'Starts each battle with 12% mana per rank.':'Começa cada batalha com 12% de mana por grau.','Gains mana 8% faster per rank.':'Ganha mana 8% mais rápido por grau.','Ultimate is 10% stronger per rank.':'Ultimate fica 10% mais forte por grau.',
+'+6% chance to land a critical hit per rank.':'+6% de chance de dar um golpe crítico por grau.','Critical hits deal +20% damage per rank.':'Golpes críticos causam +20% de dano por grau.','Attacks 5% faster per rank.':'Ataca 5% mais rápido por grau.',
+'Heals for 4% of the damage dealt, per rank.':'Cura 4% do dano causado, por grau.','+10% damage to enemies below 30% Health, per rank.':'+10% de dano em inimigos com menos de 30% de vida, por grau.',
+'Every 5s, the whole team recovers 0.6% of max Health per rank.':'A cada 5s, a equipe toda recupera 0,6% da vida máxima por grau.','The whole team starts each battle with a shield worth 4% of max Health per rank.':'A equipe toda começa cada batalha com um escudo de 4% da vida máxima por grau.',
+'Enemies this hero hits take 3% more damage for 4s, per rank.':'Inimigos atingidos por este herói recebem 3% mais dano por 4s, por grau.',
+'Showdown':'Confronto','Whiplash':'Chicotada','Double Can':'Lata Dupla','Aftershock':'Réplica','Fishing Net':'Rede de Pesca','Live Bait':'Isca Viva','Flock':'Bando','Pecking Order':'Ordem do Bico',
+'Piercing Arrows':'Flechas Perfurantes','Eye of the Storm':'Olho do Furacão','Overripe':'Madura Demais','Heavy Cast':'Golpe Pesado','Jackpot':'Grande Prêmio','Wild Card':'Coringa','Counter Hit':'Contra-ataque',
+'Ghost Process':'Processo Fantasma','Munchies':'Larica','Standing Ovation':'Ovação de Pé','Marching Beat':'Batida Marcial','Doom':'Perdição','Cursed Ink':'Tinta Amaldiçoada',
+'Hold the Line also heals 15% of max Health and stuns the enemy front row for 1.5s.':'Segurar a Linha também cura 15% da vida máxima e atordoa a fileira da frente inimiga por 1,5s.',
+'Every 4th attack cracks the whip across every enemy for 60% damage.':'A cada 4º ataque, o chicote estala em todos os inimigos causando 60% de dano.',
+'Orc Mode lasts 12s instead of 8s and heals 40% instead of 25%.':'Modo Orc dura 12s em vez de 8s e cura 40% em vez de 25%.',
+'Orc smashes also hit every other enemy in the front row for 50% damage.':'As pancadas do orc também atingem os outros inimigos da fileira da frente, causando 50% de dano.',
+'Big Catch also slows every enemy by 30% for 6s.':'Pescaria Gigante também deixa todos os inimigos 30% mais lentos por 6s.',
+'The first time he drops below 40% Health in a battle, he gains a shield worth 30% of max Health.':'Na primeira vez que ele cair abaixo de 40% de vida numa batalha, ganha um escudo de 30% da vida máxima.',
+'The cockatiel also strikes two more enemies for half damage.':'A calopsita também ataca mais dois inimigos, com metade do dano.',
+'The cockatiel marks its target: it takes 25% more damage for 8s.':'A calopsita marca o alvo: ele recebe 25% mais dano por 8s.',
+'Basic attacks pass through and hit a second enemy for 50% damage.':'Ataques básicos atravessam e atingem um segundo inimigo com 50% de dano.',
+'Tornado Shot hits every enemy three times instead of twice.':'Tiro Tornado atinge todos os inimigos três vezes em vez de duas.',
+'Mango Barrage splashes for 2.4x instead of 1.5x.':'Chuva de Mangas respinga com 2,4x em vez de 1,5x.',
+'Basic attacks have a 20% chance to stun the target for 1s.':'Ataques básicos têm 20% de chance de atordoar o alvo por 1s.',
+'While in Tiger Form, heals for 25% of the damage dealt.':'Na Forma de Tigre, cura 25% do dano causado.',
+'Tiger Form lasts 14s instead of 10s and also gives +25% speed.':'Forma de Tigre dura 14s em vez de 10s e também dá +25% de velocidade.',
+'The combo finisher always crits, and refunds 30 mana if it kills.':'O golpe final do combo sempre é crítico, e devolve 30 de mana se matar.',
+'25% chance to strike back when hit.':'25% de chance de revidar quando for atingido.',
+'If the backstab kills, he backstabs another enemy for 60% of the damage.':'Se a facada matar, ele dá outra facada em outro inimigo, com 60% do dano.',
+'Dodges 20% of attacks.':'Esquiva 20% dos ataques.',
+'Smoke Session also gives the whole team +20% attack for 8s.':'Sessão de Fumaça também dá +20% de ataque para a equipe toda por 8s.',
+'His basic heals also give the target 8 mana.':'As curas básicas dele também dão 8 de mana ao alvo.',
+'Fanfarra! lasts 12s instead of 8s and gives +20 mana instead of +10.':'Fanfarra! dura 12s em vez de 8s e dá +20 de mana em vez de +10.',
+'His passive makes allies hit 14% harder instead of 8%.':'A passiva dele faz os aliados baterem 14% mais forte em vez de 8%.',
+'A hexed enemy that dies explodes, dealing 15% of its max Health to the others.':'Um inimigo amaldiçoado que morre explode, causando 15% da vida máxima dele aos outros.',
+'His basic curse is stronger and lasts longer: +20% damage taken for 9s.':'A maldição básica dele é mais forte e dura mais: +20% de dano recebido por 9s.',
+'Every <b>level-up</b> gives a hero a <b>skill point</b>, and every star gives two. Spend them here to shape how that hero fights.':'Cada <b>nível que o herói sobe</b> dá um <b>ponto de habilidade</b>, e cada estrela dá dois. Gaste aqui para moldar como esse herói luta.',
+'Each branch opens from the top down. Put <b>12 points</b> in the tree to unlock a <b>keystone</b>: a big change to the hero’s ultimate or attacks. You can reset for free, so experiment!':'Cada ramo abre de cima para baixo. Coloque <b>12 pontos</b> na árvore para liberar uma <b>pedra-chave</b>: uma grande mudança na ultimate ou nos ataques do herói. Dá para reiniciar de graça, então experimente!',
+/* ultimates whose numbers were reworded (the old entries above stay, unused) */
+'Reels in a huge fish and spins like a top, whipping it into every enemy 4 times for 1.2x attack each, and gains a shield worth 45% of max health.':'Puxa um peixe gigante e gira como um pião, acertando o peixe em todos os inimigos 4 vezes (1,2x de ataque cada) e ganha um escudo de 45% da vida máxima.',
+'He glitches out of reality and reappears behind the most dangerous enemy in the back row: a 5x backstab that stuns it for 2s. Passive: hits on stunned or back-row enemies deal +30% damage.':'Ele dá um glitch na realidade e reaparece atrás do inimigo mais perigoso da fileira de trás: uma facada nas costas de 5x que o atordoa por 2s. Passiva: golpes em inimigos atordoados ou na fileira de trás causam +30% de dano.',
+'He plays the drum and musical notes fly up: the whole team gets +22% attack and +20% speed for 8s, and +10 mana. Passive: allies hit 8% harder.':'Ele toca o tambor e notas musicais voam para cima: a equipe toda ganha +22% de ataque e +20% de velocidade por 8s, e +10 de mana. Passiva: aliados batem 8% mais forte.',
+'A red pentagram circle opens under every enemy: for 8s they deal 20% less damage and take 15% more. Passive: his hits curse (+12% damage taken).':'Um círculo de pentagrama vermelho se abre sob todos os inimigos: por 8s eles causam 20% menos dano e recebem 15% mais. Passiva: os golpes dele amaldiçoam (+12% de dano recebido).',
+'Hurls a mango for 4.5x damage to one enemy, splashing 1.5x on the rest.':'Arremessa uma manga: 4,5x de dano em um inimigo e 1,5x nos demais.',
+/* battle, scouting report and the post-loss tips */
+'Dodge':'Esquiva','Enraged!':'Enfurecido!','Scouting report':'Relatório do olheiro',
+'Should be a clean win':'Deve ser uma vitória tranquila','You have the edge':'Você leva vantagem','Could go either way':'Pode ir para qualquer lado','A long shot':'Chance remota',
+'Hopeless for now. Level up, upgrade gear or spend skill points.':'Sem chance por enquanto. Suba de nível, melhore o equipamento ou gaste pontos de habilidade.',
+'Time ran out. Bring more damage: level your damage dealers or upgrade their weapons.':'O tempo acabou. Traga mais dano: suba o nível dos seus DPS ou melhore as armas deles.',
+'You have unspent skill points. Open a hero’s skill tree and spend them.':'Você tem pontos de habilidade não gastos. Abra a árvore de habilidades de um herói e gaste-os.',
+'You can afford to level up a hero. Do that and try again.':'Você tem Caos suficiente para subir de nível um herói. Faça isso e tente de novo.',
+/* names that did not have a translation yet */
+'Sandpaper':'Lixa','Elite':'Craque'
+});
+/* variable parts: the skill rank, keystone unlock and battle odds */
+RX.push(
+ [/^Rank (\d+) \/ (\d+)$/,(a,b)=>'Grau '+a+' / '+b],
+ [/^(\d+) \/ (\d+) spent$/,(a,b)=>a+' / '+b+' gastos'],
+ [/^Needs (\d+) ranks of (.+)$/,(a,b)=>'Precisa de '+a+' graus em '+t(b)],
+ [/^Needs (\d+) skill points$/,a=>'Precisa de '+a+' pontos de habilidade'],
+ [/^Spend (\d+) points in the tree first \((\d+) \/ (\d+)\)$/,(a,b,c)=>'Gaste '+a+' pontos na árvore primeiro ('+b+' / '+c+')'],
+ [/^Keystones unlock at (\d+) points \((\d+) \/ (\d+)\)$/,(a,b,c)=>'Pedras-chave liberam com '+a+' pontos ('+b+' / '+c+')'],
+ [/^Win chance (\d+)%$/,a=>'Chance de vitória '+a+'%']
+);
+
+Object.assign(PT,{'Drinks a can of Monster and turns into a huge orc for 8s: heals 25%, gains a 25% shield, +60% attack and grows 35%. His basic attacks become ground-shaking smashes.':'Bebe uma lata de Monster e vira um orc gigante por 8s: cura 25%, ganha 25% de escudo, +60% de ataque e cresce 35%. Os ataques básicos viram pancadas que sacodem o chão.',
+'The Great Rebalance':'O Grande Rebalanceamento',
+'Heroes now have skill trees, and gear and monsters were rebalanced. Every level you already earned is a skill point waiting to be spent. Here is something to get you going again.':'Os heróis agora têm árvores de habilidades, e os equipamentos e monstros foram rebalanceados. Cada nível que você já ganhou é um ponto de habilidade esperando para ser gasto. Aqui vai uma ajuda para você voltar com tudo.'});
+Object.assign(PT,{'When a hero’s <b>mana bar</b> fills up they cast their <b>ultimate</b> on their own. Want to time it yourself? Turn off <b>Auto ultimates</b> under the field and tap their portrait.':'Quando a <b>barra de mana</b> de um herói enche, ele usa a <b>ultimate</b> sozinho. Quer escolher a hora? Desligue as <b>Ultimates automáticas</b> embaixo do campo e toque no retrato dele.'});

@@ -1,5 +1,5 @@
 /* ================= skills: every hero's skill tree. Data + rules, no DOM (the tree screen is src/screens/skills). =================
-   A hero earns 1 skill point per level after the first and 2 per star. A tree has three branches of three nodes
+   A hero earns 1 skill point per level-up and 2 per star. A tree has three branches of three nodes
    (3 ranks each) shared by the hero's class, plus two keystones of the hero's own: only one can be active.
    A node's `m` names what it changes (see SK_ZERO); `v` is the amount per rank. The battle rules read the totals
    through skMods(); keystones are looked up by id in engine.js. */
@@ -56,7 +56,7 @@ const SKTREE={
 const KEYSTONES={
   tank:[{id:'jack_showdown',n:'Showdown',d:'Hold the Line also heals 15% of max Health and stuns the enemy front row for 1.5s.'},
         {id:'jack_whiplash',n:'Whiplash',d:'Every 4th attack cracks the whip across every enemy for 60% damage.'}],
-  rafinha:[{id:'raf_double',n:'Double Can',d:'Orc Mode lasts 12s instead of 8s and heals 45% instead of 30%.'},
+  rafinha:[{id:'raf_double',n:'Double Can',d:'Orc Mode lasts 12s instead of 8s and heals 40% instead of 25%.'},
         {id:'raf_quake',n:'Aftershock',d:'Orc smashes also hit every other enemy in the front row for 50% damage.'}],
   lucao:[{id:'luc_net',n:'Fishing Net',d:'Big Catch also slows every enemy by 30% for 6s.'},
         {id:'luc_bait',n:'Live Bait',d:'The first time he drops below 40% Health in a battle, he gains a shield worth 30% of max Health.'}],
@@ -103,7 +103,7 @@ function skKeyBlock(r,id){
 }
 /* taking the other keystone swaps it: the cost is the same */
 function skPickKey(r,id){if(skKeyBlock(r,id))return false;skOf(r).key=id;persist();return true;}
-function skReset(r){save.sk[r]={};persist();}
+function skReset(r){skOf(r);save.sk[r]={};persist();}
 /* the totals the battle rules use */
 function skMods(r){
   const m=SK_ZERO();skNodes(r).forEach(n=>{m[n.m]+=n.v*skRank(r,n.id);});m.key=skKey(r);return m;

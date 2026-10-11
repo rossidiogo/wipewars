@@ -18,11 +18,19 @@ function drawPrep(){
   drawRoster();
   const cnt={};stageList(n).forEach(k=>cnt[k]=(cnt[k]||0)+1);
   $('prepEnemies').innerHTML=Object.keys(cnt).map(k=>'<div class="erow"><span style="color:'+RC[KINDS[k].r]+'">'+cnt[k]+'&times; '+KINDS[k].n+'</span><small>'+RN[KINDS[k].r]+'</small></div>').join('');
+  drawOdds(n);
   const first=n>save.cleared;
   let rw={gold:stageGold(n)};if(first){rw.gems=stageIn(n)===10?ECON.bossFirstClearGems:ECON.firstClearGems;rw.tix=stageIn(n)===10?ECON.bossFirstClearTix:ECON.firstClearTix;rw.xp=ECON.firstClearXp(n);}
   $('prepRewards').innerHTML=chips(rw)+'<span class="chip">'+ic('item_sword_0')+'<b>'+(stageIn(n)===10?'2 drops':'1 drop')+'</b></span>';
   $('prepRwLabel').textContent=first?'Rewards (first clear bonus included)':'Rewards';
   $('prepHint').textContent=selSlot===null?'Tap a hero, then tap a spot to move or swap.':'Now tap the spot to move to (tap the same hero to cancel).';
+}
+/* scouting report: the engine rehearses the fight with the current team and formation */
+const ODDS=[[.9,'Should be a clean win','good'],[.6,'You have the edge','good'],[.3,'Could go either way','even'],[.05,'A long shot','bad'],[-1,'Hopeless for now. Level up, upgrade gear or spend skill points.','bad']];
+function drawOdds(n){
+  const w=winChance(n),o=ODDS.find(x=>w>=x[0]);
+  $('prepOdds').className='scout '+o[2];
+  $('prepOdds').innerHTML='<div class="sch"><span>Scouting report</span><b>Win chance '+Math.round(w*100)+'%</b></div><div class="scb"><i style="width:'+Math.max(3,w*100)+'%"></i></div><div class="sub">'+o[1]+'</div>';
 }
 function prepTap(s){
   const k=heroAtSlot(s);

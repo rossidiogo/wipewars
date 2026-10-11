@@ -117,11 +117,11 @@ function createBattle(heroes,mons,opt){
     tank(u,p){shield(u,u.max*.4*p);
       if(key(u,'jack_showdown')){heal(u,u.max*.15*p,u);alive('m').filter(m=>m.row===0).forEach(m=>addFx(m,'stun',1,1.5));}
       emit('ult',{u});},
-    rafinha(u,p){const dur=key(u,'raf_double')?12:8,hp=key(u,'raf_double')?.45:.3;emit('ult',{u,d:.85});
-      after(.85,()=>{if(u.hp<=0)return;heal(u,u.max*hp*p,u);shield(u,u.max*.3*p);addFx(u,'atk',1.6,dur);addFx(u,'grow',1.35,dur);addFx(u,'orc',1,dur);});},
+    rafinha(u,p){const dur=key(u,'raf_double')?12:8,hp=key(u,'raf_double')?.4:.25;emit('ult',{u,d:.85});
+      after(.85,()=>{if(u.hp<=0)return;heal(u,u.max*hp*p,u);shield(u,u.max*.25*p);addFx(u,'atk',1.6,dur);addFx(u,'grow',1.35,dur);addFx(u,'orc',1,dur);});},
     lucao(u,p){emit('ult',{u});
       for(let i=0;i<4;i++)alive('m').forEach(m=>strike(u,m,1.2*p,.2+i*.23));
-      shield(u,u.max*.4*p);if(key(u,'luc_net'))alive('m').forEach(m=>addFx(m,'spd',.7,6,'net'));},
+      shield(u,u.max*.45*p);if(key(u,'luc_net'))alive('m').forEach(m=>addFx(m,'spd',.7,6,'net'));},
     dps(u,p){const t=pickTarget(u);if(!t)return;emit('ult',{u,t,d:.67});
       strike(u,t,5*p,.67,{then:()=>{if(key(u,'dan_peck'))addFx(t,'in',1.25,8,'peck');}});
       if(key(u,'dan_flock'))alive('m').filter(m=>m!==t).slice(0,2).forEach((m,i)=>strike(u,m,2.5*p,.8+i*.12));},

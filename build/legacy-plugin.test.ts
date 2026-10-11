@@ -32,7 +32,7 @@ describe('legacyJs', () => {
   });
 
   it('contains every legacy file verbatim, in order', () => {
-    expect(LEGACY_ORDER).toEqual(['data', 'state', 'skills', 'engine', 'dom', 'lang', 'art', 'battle', 'prep', 'ui', 'recruit', 'cuts', 'net', 'account', 'guild', 'music', 'title', 'lab']);
+    expect(LEGACY_ORDER).toEqual(['data', 'state', 'skills', 'engine', 'dom', 'lang', 'art', 'battle', 'prep', 'ui/shell', 'ui/home', 'ui/campaign', 'ui/heroes', 'ui/bag', 'ui/tasks', 'ui/calendar', 'ui/friends', 'ui/shop', 'ui/settings', 'ui/start', 'ui/tutorial', 'recruit', 'cuts', 'net', 'account', 'guild', 'music', 'title', 'lab']);
     expect(split(js).source).toBe(LEGACY_ORDER.map(f => read(`js/${f}.js`) + '\n').join(''));
   });
 });

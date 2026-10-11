@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { render } from 'preact';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { initStore } from '../../bridge/store';
+import { REQUIRED_GLOBALS, initStore } from '../../bridge/store';
 import { Mail } from './Mail';
 
 const tick = () => new Promise(r => setTimeout(r));
@@ -18,6 +18,8 @@ const letter = (id: number, rewards: Rewards = { gold: 5000, gems: 300, keys: { 
 
 beforeEach(() => {
   calls = [];
+  // every global the bridge checks for, then the ones this screen really uses
+  for (const name of REQUIRED_GLOBALS) vi.stubGlobal(name, vi.fn());
   vi.stubGlobal('DRAW', {});
   vi.stubGlobal('ICO', new Proxy({}, { get: (_, k) => `ico:${String(k)}` }));
   vi.stubGlobal('KEYI', { b: 'key_bronze', s: 'key_silver', g: 'key_gold' });
@@ -88,7 +90,7 @@ describe('Mail', () => {
   it('claims everything at once with the combined rewards', async () => {
     mount([letter(1, { gold: 10 }), letter(2, { gold: 5, keys: { b: 3 } })]);
     host.querySelector<HTMLButtonElement>('.bagbar button')!.click();
-    expect(give).toHaveBeenCalledWith({ gold: 15, gems: 0, keys: { b: 3 }, tiers: [] });
+    expect(give).toHaveBeenCalledWith({ gold: 15, gems: 0, tix: 0, keys: { b: 3 }, tiers: [] });
     expect(showRewards).toHaveBeenCalledWith('Mail Rewards', out);
     expect(calls).toEqual(['give', 'syncCur', 'showRewards']);
     await tick();

@@ -3,7 +3,7 @@ import { test as base, expect, type Page } from '@playwright/test';
 export type Lang = 'en' | 'pt';
 
 // Screens reachable with openScreen(id). 'prep' and 'fight' need a stage, see open().
-export const SCREENS = ['home', 'campaign', 'recruit', 'heroes', 'bag', 'shop', 'tasks', 'cal', 'mail', 'guild', 'friends', 'settings'] as const;
+export const SCREENS = ['home', 'campaign', 'recruit', 'heroes', 'skills', 'bag', 'shop', 'tasks', 'cal', 'mail', 'guild', 'friends', 'settings'] as const;
 
 /** Boots the game past the title with a fixed clock, seeded randomness and a known save. */
 export async function boot(page: Page, lang: Lang = 'en'): Promise<string[]> {

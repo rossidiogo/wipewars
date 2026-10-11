@@ -9,7 +9,11 @@ import type { Plugin } from 'vite';
  */
 
 /** Concatenation order of js/<name>.js. Later files depend on globals from earlier ones. */
-export const LEGACY_ORDER = ['data', 'state', 'skills', 'engine', 'dom', 'lang', 'art', 'battle', 'prep', 'ui', 'recruit', 'cuts', 'net', 'account', 'guild', 'music', 'title', 'lab'];
+export const LEGACY_ORDER = [
+  'data', 'state', 'skills', 'engine', 'dom', 'lang', 'art', 'battle', 'prep',
+  'ui/shell', 'ui/home', 'ui/campaign', 'ui/heroes', 'ui/bag', 'ui/tasks', 'ui/calendar', 'ui/friends', 'ui/shop', 'ui/settings', 'ui/start', 'ui/tutorial',
+  'recruit', 'cuts', 'net', 'account', 'guild', 'music', 'title', 'lab',
+];
 
 const text = (root: string, p: string) => readFileSync(join(root, p), 'utf8').replace(/\r\n/g, '\n');
 const json = (root: string, p: string) => JSON.parse(text(root, p));

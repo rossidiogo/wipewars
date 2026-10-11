@@ -28,6 +28,7 @@ const ECON={
   replayXp:.015,                        // replaying a cleared stage gives this share of its first-clear XP
   replayGold:.25,                       // ...and this share of its Chaos: idle income, not grinding, is the main source
   chapMul:[2.2,2.6,3.4,3.9,4.3],      // how much stronger each chapter's monsters are (health and attack)
+  easeIn:[.45,.6,.75,.85,.95],          // the first stages of the game are this fraction of their normal strength
   monHpLin:.34, monAtkLin:.32,          // monster growth per stage of the campaign
   goldPerGem:30,                        // gold bundle price = gold / goldPerGem (min 10 gems)
   chests:[
@@ -92,7 +93,7 @@ const stageLabel=n=>(chapOf(n)+1)+'-'+stageIn(n);
 const HEROES={
   tank:{n:'Jack',role:'Cowboy Tank',sub:'Tank',cls:'tank',hp:220,atk:12,iv:1.2},
   rafinha:{n:'Rafinha',role:'Energy Drink Tank',sub:'Tank',cls:'tank',hp:285,atk:11,iv:1.3,sc:1},
-  lucao:{n:'Lucão',role:'Fisherman Tank',sub:'Tank',cls:'tank',hp:300,atk:14,iv:1.2,sc:1.05},
+  lucao:{n:'Lucão',role:'Fisherman Tank',sub:'Tank',cls:'tank',hp:310,atk:14,iv:1.2,sc:1.05},
   dps:{n:'Daniel',role:'Necromancer Summoner',sub:'Ranged DPS',cls:'dps',rng:1,hp:100,atk:30,iv:1.0},
   chavoso:{n:'Chavoso',role:'Deadeye Archer',sub:'Ranged DPS',cls:'dps',rng:1,hp:90,atk:26,iv:.85},
   copello:{n:'Copello',role:'Mango Sharpshooter',sub:'Ranged DPS',cls:'dps',rng:1,hp:95,atk:36,iv:1.1},
@@ -105,8 +106,8 @@ const HEROES={
 };
 const ULT={
   tank:{n:'Hold the Line',mana:40,d:'Gain a shield worth 40% of max health.'},
-  rafinha:{n:'Orc Mode',mana:45,d:'Drinks a can of Monster and turns into a huge orc for 8s: heals 30%, gains a 30% shield, +60% attack and grows 35%. His basic attacks become ground-shaking smashes.'},
-  lucao:{n:'Big Catch',mana:50,d:'Reels in a huge fish and spins like a top, whipping it into every enemy 4 times for 1.2x attack each, and gains a shield worth 40% of max health.'},
+  rafinha:{n:'Orc Mode',mana:45,d:'Drinks a can of Monster and turns into a huge orc for 8s: heals 25%, gains a 25% shield, +60% attack and grows 35%. His basic attacks become ground-shaking smashes.'},
+  lucao:{n:'Big Catch',mana:50,d:'Reels in a huge fish and spins like a top, whipping it into every enemy 4 times for 1.2x attack each, and gains a shield worth 45% of max health.'},
   dps:{n:'Summon Cockatiel',mana:80,d:'The cockatiel takes off from his shoulder, circles over his head, charges one enemy for 5x attack damage and flies back.'},
   chavoso:{n:'Tornado Shot',mana:70,d:'Fires a tornado of arrows: every enemy is hit twice for 1.3x attack each, and he gains Tailwind: +30% speed for 8s.'},
   copello:{n:'Mango Barrage',mana:70,d:'Hurls a mango for 4.5x damage to one enemy, splashing 1.5x on the rest.'},
@@ -194,6 +195,6 @@ function placeMonsters(list){
   return list.map(kd=>{const pr=KINDS[kd].pr;let s=null;for(const r of [pr,1-pr]){for(const l of order){const sl=r*3+l;if(!used.has(sl)){s=sl;break;}}if(s!==null)break;}used.add(s);return s;});
 }
 /* a monster of kind kd as it appears on stage n */
-function monStats(kd,n){const k=KINDS[kd],s=n-1,c=ECON.chapMul[chapOf(n)];return {hp:Math.round(k.hp*(1+ECON.monHpLin*s)*c),atk:Math.round(k.atk*(1+ECON.monAtkLin*s)*c)};}
+function monStats(kd,n){const k=KINDS[kd],s=n-1,c=ECON.chapMul[chapOf(n)]*(ECON.easeIn[s]||1);return {hp:Math.round(k.hp*(1+ECON.monHpLin*s)*c),atk:Math.round(k.atk*(1+ECON.monAtkLin*s)*c)};}
 /* the enemy line-up of a list of kinds, ready for createBattle (engine.js) */
 function monSpecs(list,n){const slots=placeMonsters(list);return list.map((kd,i)=>{const k=KINDS[kd],st=monStats(kd,n);return {kind:kd,name:k.n,hp:st.hp,atk:st.atk,iv:k.iv,slot:slots[i],rar:k.r,boss:k.r===3};});}

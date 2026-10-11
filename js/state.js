@@ -12,12 +12,12 @@ function purgeFlavio(d){
 }
 
 /* ---------- save ---------- */
-const DEF=()=>({ver:2,name:'',music:true,tut:{},gold:300,gems:0,keys:{b:0,s:0,g:0},cleared:0,last:Date.now(),skip:0,
+const DEF=()=>({ver:3,name:'',music:true,tut:{},gold:300,gems:0,keys:{b:0,s:0,g:0},cleared:0,last:Date.now(),skip:0,
   lv:Object.fromEntries(HIDS.map(k=>[k,1])),wlv:Object.fromEntries(HIDS.map(k=>[k,1])),items:[],eq:Object.fromEntries(HIDS.map(k=>[k,{}])),nid:1,xp:0,
-  tasks:{day:'',p:{},c:{},m:{}},cal:{last:'',streak:0},auto:false,form:{tank:1,dps:4,rubens:5},team:['tank','dps','rubens'],tix:10,own:{tank:1,dps:1,rubens:1},stars:{},shards:{},gp:{n:0,t:0},wish:[],autoUlt:false,sound:true,lang:'en',sk:{},
+  tasks:{day:'',p:{},c:{},m:{}},cal:{last:'',streak:0},auto:false,form:{tank:1,dps:4,rubens:5},team:['tank','dps','rubens'],tix:10,own:{tank:1,dps:1,rubens:1},stars:{},shards:{},gp:{n:0,t:0},wish:[],autoUlt:true,sound:true,lang:'en',sk:{},
   mail:[],mailInit:false,mid:1,shop:{day:'',n:0,bought:{},free:false},pity:{s:0,g:0,gl:0},quick:{day:'',n:0},
   chapDone:{},stats:{wins:0,opens:0,casts:0,fuses:0},ach:{},seen:{}});
-let save=DEF();
+let save=DEF(),fromVer=3;   // fromVer: the version of the save that was loaded (3 for a new game)
 try{
   const s=JSON.parse(localStorage.getItem('wipewars')||'null');
   if(s){
@@ -28,10 +28,10 @@ try{
     if(s.own===undefined)d.own={tank:1,dps:1,rubens:1};
     if(!s.ver){d.gems=0;} // v1 saves: keep everything, fresh premium currency
     purgeFlavio(d);
-    save=d;
+    save=d;fromVer=s.ver||1;
   }
 }catch(e){}
-save.ver=2;
+save.ver=3;
 function persist(){save.mod=Date.now();if(window.Acct)Acct.markDirty();try{localStorage.setItem('wipewars',JSON.stringify(save));}catch(e){}}
 
 // Weapons are no longer items: old weapon items are scrapped into Chaos and weapon slots are cleared (one-time, safe to repeat).
@@ -99,7 +99,8 @@ function badgeCounts(){
   const cal=calInfo().can?1:0;
   const mail=save.mail.filter(m=>!m.claimed).length;
   const shop=(!save.shop.free)?1:0;
-  return {tasks,cal,mail,shop};
+  const heroes=save.team.filter(r=>skFree(r)>0).length;
+  return {tasks,cal,mail,shop,heroes};
 }
 function calInfo(){
   const c=save.cal,t=dayKey();
@@ -114,6 +115,8 @@ if(!save.mailInit){
   sendMail('Welcome to Wipe Wars!','A little something to get your run started. Open chests in the shop, equip your heroes and push the campaign.',{gems:300,gold:5000,keys:{s:1}});
   save.mailInit=true;persist();
 }
+/* v3 rebalanced gear and monsters and added skill trees: a save from before that gets one thank-you mail, so losing gear power does not sting */
+if(fromVer<3&&save.cleared>0)sendMail('The Great Rebalance','Heroes now have skill trees, and gear and monsters were rebalanced. Every level you already earned is a skill point waiting to be spent. Here is something to get you going again.',{gems:300,tix:5,keys:{s:1}});
 
 /* ---------- team and formation ---------- */
 function fixForm(){
@@ -223,4 +226,11 @@ function stageWin(n){
   }
   prog('win');save.stats.wins++;
   return {out:give(r),first,boss};
+}
+
+/* share of k rehearsed battles the current team wins on stage n. Fixed seeds: the same team always gets the same answer. */
+function winChance(n,k){
+  k=k||20;let w=0;const hs=()=>heroSpecs(save.team,save.form),ms=()=>monSpecs(stageList(n),n);
+  for(let i=0;i<k;i++)if(runBattle(hs(),ms(),{seed:i*7919+n}).win)w++;
+  return w/k;
 }

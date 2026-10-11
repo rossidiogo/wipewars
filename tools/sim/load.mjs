@@ -14,7 +14,8 @@ function mulberry(a) {
 }
 
 /**
- * @param {{seed?: number, start?: number, player?: boolean}} [o] seed for Math.random, start time in ms
+ * @param {{seed?: number, start?: number, player?: boolean, extra?: string[]}} [o] seed for Math.random, start time in ms,
+ *   extra js/ files to load after the rules (only ones that need no page, e.g. 'lang')
  * @returns {{run: (code: string) => any, clock: {now: number}}} `run` evaluates code among the game's globals
  */
 export function loadGame(o = {}) {
@@ -23,9 +24,10 @@ export function loadGame(o = {}) {
     constructor(...a) { if (a.length) super(...a); else super(clock.now); }
     static now() { return clock.now; }
   }
-  const ctx = vm.createContext({ console, Date: SimDate, window: {}, toast() {}, sfx() {} });
+  const ctx = vm.createContext({ console, Date: SimDate, window: { addEventListener() {} }, toast() {}, sfx() {} });
   vm.runInContext('Math.random=__r;', Object.assign(ctx, { __r: mulberry(o.seed ?? 1) }));
   const files = RULE_FILES.map(f => `js/${f}.js`);
+  for (const f of o.extra ?? []) files.push(`js/${f}.js`);
   if (o.player !== false) files.push('tools/sim/player.js');
   for (const f of files) vm.runInContext(readFileSync(join(root, f), 'utf8'), ctx, { filename: f });
   return { run: code => vm.runInContext(code, ctx), clock };

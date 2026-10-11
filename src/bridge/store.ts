@@ -21,6 +21,10 @@ const present: Record<string, () => boolean> = {
   syncCur: () => typeof syncCur !== 'undefined',
   showRewards: () => typeof showRewards !== 'undefined',
   openScreen: () => typeof openScreen !== 'undefined',
+  HEROES: () => typeof HEROES !== 'undefined',
+  KEYSTONES: () => typeof KEYSTONES !== 'undefined',
+  skTree: () => typeof skTree !== 'undefined',
+  spriteArt: () => typeof spriteArt !== 'undefined',
 };
 export const REQUIRED_GLOBALS = Object.keys(present);
 

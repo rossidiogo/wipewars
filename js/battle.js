@@ -162,7 +162,7 @@ const EV={
   heal:e=>{pop(e.t,'+'+e.n,'heal');refresh(e.t);},
   miss:e=>pop(e.t,'Dodge','heal'),
   mana:e=>updMana(e.u),
-  shield:e=>refresh(e.u),
+  shield:e=>refresh(e.t),
   fx:e=>fxVis(e.u),
   die:e=>{refresh(e.t);fxVis(e.t);},
   ult:e=>{const u=e.u;sfx('ult');banner(u,ULT[u.kind].n);shake(3);atkEl(u.el);prog('ult');save.stats.casts++;ULTFX[u.kind](e);},

@@ -1,15 +1,16 @@
 /** Mail rules, free of DOM and legacy calls so they can be unit-tested. */
 
-type Merged = Required<Pick<Rewards, 'gold' | 'gems' | 'keys' | 'tiers'>>;
+type Merged = Required<Pick<Rewards, 'gold' | 'gems' | 'tix' | 'keys' | 'tiers'>>;
 
 export const unclaimed = (s: Save): Mail[] => s.mail.filter(m => !m.claimed);
 
-/** Adds up the rewards of several mails into one grant. Mail never carries tickets or XP. */
+/** Adds up the rewards of several mails into one grant. Chapter mail carries recruit tickets; no mail carries XP. */
 export function mergeRewards(mails: Mail[]): Merged {
-  const total: Merged = { gold: 0, gems: 0, keys: {}, tiers: [] };
+  const total: Merged = { gold: 0, gems: 0, tix: 0, keys: {}, tiers: [] };
   for (const { rewards: r } of mails) {
     total.gold += r.gold ?? 0;
     total.gems += r.gems ?? 0;
+    total.tix += r.tix ?? 0;
     for (const k in r.keys) total.keys[k] = (total.keys[k] ?? 0) + r.keys[k];
     total.tiers.push(...(r.tiers ?? []));
   }
