@@ -1,5 +1,7 @@
 # Wipe Wars — Onboarding para o Claude Code (resumo completo da sessão)
 
+> **Atualização 2026-10-11:** o build mudou. `build.py`, `test.html`, `monkey.py`, `play.py` e `multi.py` citados abaixo são histórico. Hoje: `npm install`, `npm run dev`, `npm run build` (gera `dist/index.html`), `npm run verify`. A UI está migrando para Preact em `src/`. Detalhes no topo do `HANDOFF.md`.
+
 ## 0. Quem é o usuário e como trabalhar com ele
 - Diogo. Mora em Lowell, MA (fuso America/New_York). **Zero experiência com programação/gamedev**; Claude escreve TODO o código e a arte placeholder. Estava no plano grátis do Claude, pretende assinar depois. Usa o celular.
 - Fala português (BR) e inglês. Explique em linguagem simples, sem jargão; entregue algo pronto para usar, não relatos de esforço.

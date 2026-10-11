@@ -1,5 +1,5 @@
 ﻿# Wipe Wars - FEATURES ROADMAP (master backlog of everything Diogo approved or suggested)
-Owner granted FULL AUTONOMY (2026-10-07): build all of this without asking. New features go in NEW js files; hook minimal lines in existing files; test in the browser; commit + push; log in art_gen/JOURNAL.md.
+Owner granted FULL AUTONOMY (2026-10-07): build all of this without asking. New features go in NEW js files (add the name to LEGACY_ORDER in build/legacy-plugin.ts; new UI screens go in src/screens/ as Preact components, see top of HANDOFF.md); hook minimal lines in existing files; test in the browser; commit + push; log in art_gen/JOURNAL.md.
 
 ## Tower (DESIGN FIXED BY DIOGO)
 - Standard auto-battler tower (same battle system, floors in sequence, rewards per floor, ranking of highest floor).
