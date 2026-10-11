@@ -52,8 +52,6 @@ function openScreen(id){
 }
 
 /* ---------- home ---------- */
-const rate=()=>Math.round(ECON.idleBase+ECON.idlePerStage*save.cleared);
-function pending(){const m=Math.min(ECON.idleCapMin,(Date.now()+save.skip-save.last)/60000);return {m,g:Math.floor(m*rate())};}
 function drawHome(){
   const p=pending(),pct=p.m/ECON.idleCapMin;
   $('rw').textContent=comma(p.g);
@@ -70,11 +68,8 @@ function drawHome(){
 DRAW.home=drawHome;
 $('claim').onclick=()=>{
   const p=pending();if(p.g<1)return;
-  const n=Math.min(ECON.chestMax,Math.floor(p.m/ECON.chestEveryMin));
-  const tiers=[];for(let i=0;i<n;i++)tiers.push(stageDropTier());
-  prog('claim');save.last=Date.now();save.skip=0;
-  const out=give({gold:p.g,tiers,xp:10});drawHome();
-  showRewards('Idle Rewards',out,Math.floor(p.m/60)+'h '+Math.floor(p.m%60)+'m of progress collected');
+  const c=claimIdle();drawHome();
+  showRewards('Idle Rewards',c.out,Math.floor(p.m/60)+'h '+Math.floor(p.m%60)+'m of progress collected');
 };
 $('go').onclick=()=>openScreen('campaign');
 $('cfg').onclick=()=>openScreen('settings');
@@ -203,10 +198,10 @@ DRAW.heroes=function(){
   top.appendChild(info);card.appendChild(top);
   const lb=el('button','btn primary wide',lv>=plv()?'Level cap — raise your player level':'Level up &nbsp;'+ic('gold','s')+' '+comma(cost));
   lb.disabled=lv>=plv()||save.gold<cost;
-  lb.onclick=()=>{save.gold-=cost;save.lv[r]++;prog('lvl');persist();DRAW.heroes();syncCur();};
+  lb.onclick=()=>{levelUp(r);DRAW.heroes();syncCur();};
   card.appendChild(lb);
   const sc=starCost(r);
-  if(sc){const sb=el('button','btn wide','Star up &nbsp;'+shardsOf(r)+' / '+sc+' shards');sb.disabled=shardsOf(r)<sc;sb.onclick=()=>{save.shards[r]-=sc;save.stars[r]=starsOf(r)+1;persist();toast(H.n+' reached '+starsOf(r)+' star'+(starsOf(r)>1?'s':'')+'!');DRAW.heroes();};card.appendChild(sb);}
+  if(sc){const sb=el('button','btn wide','Star up &nbsp;'+shardsOf(r)+' / '+sc+' shards');sb.disabled=shardsOf(r)<sc;sb.onclick=()=>{starUp(r);toast(H.n+' reached '+starsOf(r)+' star'+(starsOf(r)>1?'s':'')+'!');DRAW.heroes();};card.appendChild(sb);}
   const u=ULT[r];
   card.appendChild(el('div','ultbox','<div class="ulth">Ultimate — '+u.n+'</div><div class="sub">'+u.d+' Needs '+u.mana+' mana.</div>'));
   box.appendChild(card);
@@ -218,7 +213,7 @@ DRAW.heroes=function(){
     const nx=wepStat(r,wl+1),wcost=wepCost(wl);
     const ub=el('button','btn primary wide','Upgrade weapon &nbsp;'+ic('gold','s')+' '+comma(wcost)+' &nbsp;<small>+'+Math.round((nx.atk-ws.atk)*10)/10+' ATK / +'+(nx.hp-ws.hp)+' HP</small>');
     ub.disabled=save.gold<wcost;
-    ub.onclick=()=>{if(save.gold<wcost)return;save.gold-=wcost;save.wlv[r]=wl+1;persist();sfx('reward');DRAW.heroes();syncCur();};
+    ub.onclick=()=>{if(!wepUp(r))return;sfx('reward');DRAW.heroes();syncCur();};
     wc.appendChild(ub);
   }else wc.appendChild(el('div','sub center gld','Weapon at max level'));
   box.appendChild(wc);
@@ -239,23 +234,10 @@ DRAW.heroes=function(){
   eq.appendChild(row);box.appendChild(eq);
   const note=el('div','sub dim center','Jewelry slots (ring, necklace, belt) unlock in a future update.');box.appendChild(note);
 };
-function equipBest(){
-  save.team.forEach(r=>save.eq[r]={});
-  const used=equippedIds(),order=save.team.slice();
-  SLOTS.forEach(s=>order.forEach(r=>{
-    let best=null,bs=-1;
-    save.items.forEach(i=>{
-      if(i.type!==STYPE(s)||used.has(i.id))return;
-      const sc=pwr(i)*(i.set===PREF[r]?1.5:1);
-      if(sc>bs){bs=sc;best=i;}
-    });
-    if(best){used.add(best.id);save.eq[r][s]=best.id;}
-  }));
-  persist();DRAW.heroes();toast('Best gear equipped');
-}
+function equipBest(){equipBestTeam();DRAW.heroes();toast('Best gear equipped');}
 function pickEquip(r,s){
   const used=equippedIds(),cur=itemOf(save.eq[r][s]);
-  const list=save.items.filter(i=>i.type===STYPE(s)&&!used.has(i.id)).sort((a,b)=>(pwr(b)*(b.set===PREF[r]?1.5:1))-(pwr(a)*(a.set===PREF[r]?1.5:1)));
+  const list=save.items.filter(i=>i.type===STYPE(s)&&!used.has(i.id)).sort((a,b)=>gearScore(b,r)-gearScore(a,r));
   const body=el('div','pick');
   const tip=el('div','tipbox');const act=el('div','rbtns');
   const grid=el('div','tgrid');
@@ -280,11 +262,6 @@ function pickEquip(r,s){
 
 /* ---------- bag ---------- */
 let bagFilter='all';
-function stacks(){
-  const used=equippedIds(),g={};
-  save.items.filter(i=>!used.has(i.id)).forEach(i=>{const k=[i.type,i.set,i.tier,i.star].join('|');(g[k]=g[k]||[]).push(i);});
-  return Object.values(g).sort((a,b)=>lvlOf(b[0])-lvlOf(a[0])||a[0].type.localeCompare(b[0].type));
-}
 DRAW.bag=function(){
   const box=$('bagBody');box.innerHTML='';
   const used=equippedIds();
@@ -321,21 +298,7 @@ function itemDetail(key){
   body.appendChild(row);
   openModal(body,{title:'Item',onClose:()=>{if(curScreen==='bag')DRAW.bag();}});
 }
-function fuse(a,b){
-  save.items=save.items.filter(x=>x!==a&&x!==b);
-  const n={id:save.nid++,type:a.type,set:a.set,tier:a.tier,star:a.star+1};
-  if(n.star>2){n.star=0;n.tier++;}
-  save.items.push(n);prog('fuse');save.stats.fuses++;persist();return n;
-}
-function fuseAll(){
-  let n=0;
-  for(let g=0;g<999;g++){
-    const m={};stacks().forEach(s=>{if(s.length>=2&&lvlOf(s[0])<11)m[s[0].id]=s;});
-    const k=Object.keys(m)[0];if(k===undefined)break;
-    const s=m[k];fuse(s[0],s[1]);n++;
-  }
-  DRAW.bag();toast(n?('Fused '+n+' time'+(n>1?'s':'')):'Nothing to fuse');
-}
+function fuseAll(){const n=fuseEverything();DRAW.bag();toast(n?('Fused '+n+' time'+(n>1?'s':'')):'Nothing to fuse');}
 function scrapMenu(){
   const body=el('div','pick');body.appendChild(el('div','sub center','Scrap all unequipped items of a tier for Chaos. Equipped gear is never scrapped.'));
   const row=el('div','rbtns col');
@@ -488,17 +451,6 @@ DRAW.friends=function(){
 /* ---------- shop ---------- */
 let shopTab='deals';
 const SHOPTABS=[['deals','Deals'],['chests','Chests'],['gold','Chaos'],['gems','Divine']];
-function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
-function hashStr(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
-function dealsFor(){
-  const R=mulberry(hashStr(save.shop.day+':'+save.shop.n)),P=()=>TYPES[Math.floor(R()*TYPES.length)],S=()=>Math.floor(R()*3);
-  const disc=()=>[.1,.2,.3,.4][Math.floor(R()*4)];
-  const item=(tier,cur)=>{const d=disc(),base=cur==='gold'?ECON.itemGold[tier]:ECON.itemGems[tier];return {kind:'item',type:P(),set:S(),tier,cur,disc:d,price:Math.round(base*(1-d))};};
-  const FR=mulberry(hashStr(save.shop.day+':free'));
-  const free={kind:'item',free:true,type:TYPES[Math.floor(FR()*TYPES.length)],set:Math.floor(FR()*3),tier:1,cur:'gold',price:0,disc:1};
-  const keyDeal=(new Date().getDate()%2)?{kind:'keys',keys:{b:5},cur:'gems',price:50,disc:.25}:{kind:'keys',keys:{s:1},cur:'gems',price:80,disc:.2};
-  return [free,item(0,'gold'),item(1,'gold'),item(2,'gold'),item(2,'gems'),keyDeal];
-}
 DRAW.shop=function(){
   const box=$('shopBody');box.innerHTML='';
   const tabs=el('div','tabs big');
@@ -542,18 +494,6 @@ function shopDeals(box){
     g.appendChild(c);
   });
   box.appendChild(g);
-}
-function weighted(w){let r=Math.random()*w.reduce((a,b)=>a+b,0);for(let i=0;i<w.length;i++){r-=w[i];if(r<0)return i;}return w.length-1;}
-function rollChest(c){
-  let tier=weighted(c.odds);
-  if(c.pity){
-    save.pity[c.id]++;
-    if(c.pity.leg){save.pity.gl++;if(save.pity.gl>=c.pity.leg)tier=3;}
-    if(tier<2&&save.pity[c.id]>=c.pity.rare)tier=2;
-    if(tier>=2)save.pity[c.id]=0;
-    if(tier===3&&c.pity.leg)save.pity.gl=0;
-  }
-  return tier;
 }
 function openChests(c,n,useKey){
   if(useKey){if(save.keys[c.key]<n){toast('Not enough keys');return;}save.keys[c.key]-=n;}

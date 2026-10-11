@@ -32,7 +32,7 @@ describe('legacyJs', () => {
   });
 
   it('contains every legacy file verbatim, in order', () => {
-    expect(LEGACY_ORDER).toEqual(['core', 'lang', 'art', 'battle', 'ui', 'recruit', 'cuts', 'net', 'account', 'guild', 'music', 'title', 'lab']);
+    expect(LEGACY_ORDER).toEqual(['data', 'state', 'skills', 'engine', 'dom', 'lang', 'art', 'battle', 'prep', 'ui', 'recruit', 'cuts', 'net', 'account', 'guild', 'music', 'title', 'lab']);
     expect(split(js).source).toBe(LEGACY_ORDER.map(f => read(`js/${f}.js`) + '\n').join(''));
   });
 });

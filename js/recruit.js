@@ -1,20 +1,5 @@
 /* ================= Recruit (gacha) ================= */
-const POOL=()=>HIDS.filter(k=>!HEROES[k].nopool);
-const starsOf=k=>save.stars[k]||0,shardsOf=k=>save.shards[k]||0;
-const starCost=k=>ECON.starCost[starsOf(k)];
 const starStr=n=>'<span class="sOn">'+'★'.repeat(n)+'</span><span class="sOff">'+'★'.repeat(5-n)+'</span>';
-function rollRar(){let r=Math.random(),a=0;for(let i=0;i<ECON.rarity.length;i++){a+=ECON.rarity[i].p;if(r<a)return i;}return 0;}
-function wpick(list){const w=k=>save.wish.includes(k)?2:1;let t=list.reduce((a,k)=>a+w(k),0),r=Math.random()*t;for(const k of list){r-=w(k);if(r<0)return k;}return list[list.length-1];}
-function pullOne(){
-  const pool=POOL(),locked=pool.filter(k=>!save.own[k]);
-  let id=wpick(pool);
-  if(locked.length&&save.own[id]&&save.gp.n>=ECON.pityNew-1)id=wpick(locked);
-  const isNew=!save.own[id],rar=rollRar();
-  if(isNew){save.own[id]=1;save.gp.n=0;}else if(locked.length)save.gp.n++;
-  save.gp.t++;
-  const sh=ECON.rarity[rar].sh;save.shards[id]=shardsOf(id)+sh;
-  return {id,rar,isNew,sh};
-}
 function doPull(n){
   if(save.tix<n){toast('Not enough recruit tickets');return;}
   save.tix-=n;const res=[];for(let i=0;i<n;i++)res.push(pullOne());
