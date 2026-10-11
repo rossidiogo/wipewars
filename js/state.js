@@ -51,7 +51,7 @@ function newItem(tier,type,set,star){
 }
 function stageDropTier(b){
   const r=Math.random()-(b||0),c=save.cleared;
-  return r<0.03+c*0.01?2:r<0.2+c*0.02?1:0;
+  return r<ECON.dropRare[0]+c*ECON.dropRare[1]?2:r<ECON.dropMagic[0]+c*ECON.dropMagic[1]?1:0;
 }
 function dropItem(b){return newItem(stageDropTier(b));}
 
@@ -215,7 +215,7 @@ function stageWin(n){
   const first=n>save.cleared,boss=stageIn(n)===10;
   const r={gold:stageGold(n),tiers:[stageDropTier()]};
   if(boss)r.tiers.push(stageDropTier(.15));
-  if(!first)r.xp=Math.max(1,Math.round(ECON.firstClearXp(n)*ECON.replayXp));
+  if(!first){r.xp=Math.max(1,Math.round(ECON.firstClearXp(n)*ECON.replayXp));r.gold=Math.round(r.gold*ECON.replayGold);}
   else{
     r.xp=ECON.firstClearXp(n);r.gems=boss?ECON.bossFirstClearGems:ECON.firstClearGems;r.tix=boss?ECON.bossFirstClearTix:ECON.firstClearTix;
     save.cleared=n;prog('new');

@@ -9,14 +9,15 @@ const yesterdayKey=()=>new Date(Date.now()-864e5).toDateString();
 /* ---------- ONE place for every number that affects the economy ---------- */
 const ECON={
   idleCapMin:480,                       // idle storage cap (8h)
-  idleBase:2, idlePerStage:0.9,         // gold / minute = base + perStage * stages cleared
+  idleBase:4, idlePerStage:1.0,         // gold / minute = base + perStage * stages cleared
   chestEveryMin:120, chestMax:4,        // 1 idle item per 2h, up to 4
   heroLvCost:lv=>Math.round(40*Math.pow(lv,1.6)/5)*5,
   xpNeed:l=>40*l,
   idleClaimXp:10,
-  itemGrowth:1.7,                       // stat multiplier per item level
+  itemGrowth:1.32,                      // stat multiplier per item level (12 levels: a maxed item is ~21x a fresh common)
   scrap:lvl=>Math.round(15*Math.pow(1.75,lvl)),
-  stageGoldKinds:{0:10,2:25,3:60},      // gold per monster rarity (x stage number)
+  stageGoldKinds:{0:10,2:25,3:60},
+  dropRare:[.02,.004], dropMagic:[.18,.01],   // chance of a Rare / Magic stage drop: [base, per stage cleared]      // gold per monster rarity (x stage number)
   firstClearGems:10, bossFirstClearGems:50, chapterGems:100,
   firstClearTix:1, bossFirstClearTix:3, chapterTix:5,   // recruit tickets
   ticketGems:60,                        // gem price of one recruit ticket
@@ -24,10 +25,10 @@ const ECON={
   starCost:[10,20,40,80,150],           // shards per star
   rarity:[{n:'Common',p:.60,sh:2,c:'#d8d4c8'},{n:'Rare',p:.28,sh:6,c:'#8c8cff'},{n:'Epic',p:.10,sh:15,c:'#ff8aff'},{n:'Legendary',p:.02,sh:40,c:'#ffe96a'}],
   firstClearXp:n=>50+3*n,
-  replayXp:.12,                         // replaying a cleared stage gives this share of its first-clear XP
-  monsterGrowth:1.035,                  // extra compounding monster stat growth per stage (keeps gear relevant)
-  chapHp:.35, chapAtk:.3,               // each chapter's monsters start this much stronger than the last
-  monHpLin:.25, monAtkLin:.2,           // linear monster growth per stage, on top of the compounding one
+  replayXp:.015,                        // replaying a cleared stage gives this share of its first-clear XP
+  replayGold:.25,                       // ...and this share of its Chaos: idle income, not grinding, is the main source
+  chapMul:[2.2,2.6,3.4,3.9,4.3],      // how much stronger each chapter's monsters are (health and attack)
+  monHpLin:.34, monAtkLin:.32,          // monster growth per stage of the campaign
   goldPerGem:30,                        // gold bundle price = gold / goldPerGem (min 10 gems)
   chests:[
     {id:'b',name:'Bronze Chest',blurb:'Common loot, great for fusing.',odds:[89,10,1,0],gold:500,gems:0,key:'b',pity:null},
@@ -90,12 +91,12 @@ const stageLabel=n=>(chapOf(n)+1)+'-'+stageIn(n);
 
 const HEROES={
   tank:{n:'Jack',role:'Cowboy Tank',sub:'Tank',cls:'tank',hp:220,atk:12,iv:1.2},
-  rafinha:{n:'Rafinha',role:'Energy Drink Tank',sub:'Tank',cls:'tank',hp:300,atk:9,iv:1.3,sc:1},
-  lucao:{n:'Lucão',role:'Fisherman Tank',sub:'Tank',cls:'tank',hp:210,atk:13,iv:1.2,sc:1.05},
+  rafinha:{n:'Rafinha',role:'Energy Drink Tank',sub:'Tank',cls:'tank',hp:285,atk:11,iv:1.3,sc:1},
+  lucao:{n:'Lucão',role:'Fisherman Tank',sub:'Tank',cls:'tank',hp:300,atk:14,iv:1.2,sc:1.05},
   dps:{n:'Daniel',role:'Necromancer Summoner',sub:'Ranged DPS',cls:'dps',rng:1,hp:100,atk:30,iv:1.0},
   chavoso:{n:'Chavoso',role:'Deadeye Archer',sub:'Ranged DPS',cls:'dps',rng:1,hp:90,atk:26,iv:.85},
-  copello:{n:'Copello',role:'Mango Sharpshooter',sub:'Ranged DPS',cls:'dps',rng:1,hp:95,atk:33,iv:1.15},
-  glem:{n:'Glem',role:'Tiger Druid',sub:'Melee DPS',cls:'dps',hp:175,atk:20,iv:1.1},
+  copello:{n:'Copello',role:'Mango Sharpshooter',sub:'Ranged DPS',cls:'dps',rng:1,hp:95,atk:36,iv:1.1},
+  glem:{n:'Glem',role:'Tiger Druid',sub:'Melee DPS',cls:'dps',hp:175,atk:24,iv:1.0},
   malaguti:{n:'Malaguti',role:'Street Fighter',sub:'Melee DPS',cls:'dps',hp:130,atk:26,iv:.9},
   samuel:{n:'Samuel',role:'Synthetic Assassin',sub:'Melee DPS',cls:'dps',hp:80,atk:36,iv:.8},
   rubens:{n:'Rubens',role:'Smoke Medic',sub:'Support',cls:'sup',heal:1,hp:120,atk:14,iv:1.4},
@@ -104,17 +105,17 @@ const HEROES={
 };
 const ULT={
   tank:{n:'Hold the Line',mana:40,d:'Gain a shield worth 40% of max health.'},
-  rafinha:{n:'Orc Mode',mana:50,d:'Drinks a can of Monster and turns into a huge orc for 8s: heals 30%, gains a 30% shield, +60% attack and grows 35%. His basic attacks become ground-shaking smashes.'},
-  lucao:{n:'Big Catch',mana:50,d:'Reels in a huge fish and spins like a top, whipping it into every enemy 4 times for 1x attack each, and gains a shield worth 15% of max health.'},
+  rafinha:{n:'Orc Mode',mana:45,d:'Drinks a can of Monster and turns into a huge orc for 8s: heals 30%, gains a 30% shield, +60% attack and grows 35%. His basic attacks become ground-shaking smashes.'},
+  lucao:{n:'Big Catch',mana:50,d:'Reels in a huge fish and spins like a top, whipping it into every enemy 4 times for 1.2x attack each, and gains a shield worth 40% of max health.'},
   dps:{n:'Summon Cockatiel',mana:80,d:'The cockatiel takes off from his shoulder, circles over his head, charges one enemy for 5x attack damage and flies back.'},
   chavoso:{n:'Tornado Shot',mana:70,d:'Fires a tornado of arrows: every enemy is hit twice for 1.3x attack each, and he gains Tailwind: +30% speed for 8s.'},
-  copello:{n:'Mango Barrage',mana:80,d:'Hurls a mango for 4.5x damage to one enemy, splashing 1.2x on the rest.'},
+  copello:{n:'Mango Barrage',mana:70,d:'Hurls a mango for 4.5x damage to one enemy, splashing 1.5x on the rest.'},
   glem:{n:'Tiger Form',mana:60,d:'Turns into a huge tiger for 10s: +80% attack, takes 25% less damage, heals 15%.'},
   malaguti:{n:'Combo Breaker',mana:60,d:'A 6-hit combo on one enemy; the finisher hits for 2.2x.'},
-  samuel:{n:'Root Access',mana:70,d:'He glitches out of reality and reappears behind the most dangerous enemy in the back row: a 5.5x backstab that stuns it for 2s. Passive: hits on stunned or back-row enemies deal +30% damage.'},
+  samuel:{n:'Root Access',mana:70,d:'He glitches out of reality and reappears behind the most dangerous enemy in the back row: a 5x backstab that stuns it for 2s. Passive: hits on stunned or back-row enemies deal +30% damage.'},
   rubens:{n:'Smoke Session',mana:60,d:'Takes a long drag on the joint and exhales a cloud of smoke around the whole team, healing every ally for a large amount.'},
-  ze:{n:'Fanfarra!',mana:60,d:'He plays the drum and musical notes fly up: the whole team gets +35% attack, +25% speed and +15 mana for 10s. Passive: allies hit 8% harder.'},
-  donnie:{n:'Hex of Ruin',mana:60,d:'A red pentagram circle opens under every enemy: for 10s they deal 35% less damage and take 25% more. Passive: his hits curse (+12% damage taken).'}
+  ze:{n:'Fanfarra!',mana:60,d:'He plays the drum and musical notes fly up: the whole team gets +22% attack and +20% speed for 8s, and +10 mana. Passive: allies hit 8% harder.'},
+  donnie:{n:'Hex of Ruin',mana:60,d:'A red pentagram circle opens under every enemy: for 8s they deal 20% less damage and take 15% more. Passive: his hits curse (+12% damage taken).'}
 };
 const HIDS=Object.keys(HEROES);
 /* Each hero has ONE fixed weapon (not an item): it cannot be swapped, only upgraded with Chaos. ico = placeholder emoji until real art is drawn. */
@@ -160,11 +161,11 @@ function hashStr(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt
 /* ---------- monsters and stages ---------- */
 const LANE_Y=[66,77,88];
 const KINDS={
-  tp:{n:'Toilet Paper',r:0,hp:60,atk:8,iv:1.1,key:'tp',m:1,pr:0},
-  clorox:{n:'Clorox Wipes',r:2,hp:130,atk:14,iv:1.3,key:'clorox',m:1,pr:1},
-  boss:{n:'Big Head',r:3,hp:420,atk:20,iv:1.5,key:'bh1',m:.9,pr:1},
-  bottle:{n:'Bottle',r:2,hp:130,atk:14,iv:1.3,key:'bottle',m:.8,pr:1},
-  bossx:{n:'Boss',r:3,hp:420,atk:20,iv:1.5,key:'bossx',m:.66,pr:1}
+  tp:{n:'Toilet Paper',r:0,hp:176,atk:8.8,iv:1.1,key:'tp',m:1,pr:0},
+  clorox:{n:'Clorox Wipes',r:2,hp:385,atk:15.4,iv:1.3,key:'clorox',m:1,pr:1},
+  boss:{n:'Big Head',r:3,hp:800,atk:18,iv:1.5,key:'bh1',m:.9,pr:1},
+  bottle:{n:'Bottle',r:2,hp:385,atk:15.4,iv:1.3,key:'bottle',m:.8,pr:1},
+  bossx:{n:'Boss',r:3,hp:800,atk:18,iv:1.5,key:'bossx',m:.66,pr:1}
 };
 /* themed monsters per chapter: recolored versions of the base art until real designs exist */
 const CHAPMON=[
@@ -174,7 +175,7 @@ const CHAPMON=[
   {n:['pzburnt','pzmessy','bighead4'],names:['Burnt Mini Pizza','Dropped Pizza','Big Head'],k:['pzburnt','pzmessy','bh4'],m:[1,1,1.2]},
   {n:['ch5clone','ch5deluxe','bighead5'],names:['Silicone Clone','Deluxe Clone','Big Head'],k:['ch5clone','ch5deluxe','bh5'],m:[1,1,1.35]}
 ];
-CHAPMON.forEach((c,ci)=>{if(ci===0)return;const base=['tp','bottle','bossx'];c.n.forEach((id,i)=>{const b=KINDS[base[i]];KINDS[id]=Object.assign({},b,{n:c.names[i],f:c.f&&c.f[i],key:(c.k&&c.k[i])||b.key,m:(c.m&&c.m[i])||b.m,hp:Math.round(b.hp*(1+ECON.chapHp*ci)),atk:Math.round(b.atk*(1+ECON.chapAtk*ci))});});});
+CHAPMON.forEach((c,ci)=>{if(ci===0)return;const base=['tp','bottle','bossx'];c.n.forEach((id,i)=>{const b=KINDS[base[i]];KINDS[id]=Object.assign({},b,{n:c.names[i],f:c.f&&c.f[i],key:(c.k&&c.k[i])||b.key,m:(c.m&&c.m[i])||b.m,});});});
 const RC=['#d8d4c8','#8c8cff','#ffe96a','#c8742a'],RN=['Normal','Magic','Rare','Legendary'];
 
 /* slot 0-2 = front row, 3-5 = back row; lane 0 is the far (upper) lane */
@@ -193,6 +194,6 @@ function placeMonsters(list){
   return list.map(kd=>{const pr=KINDS[kd].pr;let s=null;for(const r of [pr,1-pr]){for(const l of order){const sl=r*3+l;if(!used.has(sl)){s=sl;break;}}if(s!==null)break;}used.add(s);return s;});
 }
 /* a monster of kind kd as it appears on stage n */
-function monStats(kd,n){const k=KINDS[kd],s=n-1,g=Math.pow(ECON.monsterGrowth,s);return {hp:Math.round(k.hp*(1+ECON.monHpLin*s)*g),atk:Math.round(k.atk*(1+ECON.monAtkLin*s)*g)};}
+function monStats(kd,n){const k=KINDS[kd],s=n-1,c=ECON.chapMul[chapOf(n)];return {hp:Math.round(k.hp*(1+ECON.monHpLin*s)*c),atk:Math.round(k.atk*(1+ECON.monAtkLin*s)*c)};}
 /* the enemy line-up of a list of kinds, ready for createBattle (engine.js) */
 function monSpecs(list,n){const slots=placeMonsters(list);return list.map((kd,i)=>{const k=KINDS[kd],st=monStats(kd,n);return {kind:kd,name:k.n,hp:st.hp,atk:st.atk,iv:k.iv,slot:slots[i],rar:k.r,boss:k.r===3};});}

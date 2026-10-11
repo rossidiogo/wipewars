@@ -64,7 +64,7 @@ const KEYSTONES={
         {id:'dan_peck',n:'Pecking Order',d:'The cockatiel marks its target: it takes 25% more damage for 8s.'}],
   chavoso:[{id:'cha_pierce',n:'Piercing Arrows',d:'Basic attacks pass through and hit a second enemy for 50% damage.'},
         {id:'cha_storm',n:'Eye of the Storm',d:'Tornado Shot hits every enemy three times instead of twice.'}],
-  copello:[{id:'cop_ripe',n:'Overripe',d:'Mango Barrage splashes for 2.2x instead of 1.2x.'},
+  copello:[{id:'cop_ripe',n:'Overripe',d:'Mango Barrage splashes for 2.4x instead of 1.5x.'},
         {id:'cop_cast',n:'Heavy Cast',d:'Basic attacks have a 20% chance to stun the target for 1s.'}],
   glem:[{id:'gl_jackpot',n:'Jackpot',d:'While in Tiger Form, heals for 25% of the damage dealt.'},
         {id:'gl_wild',n:'Wild Card',d:'Tiger Form lasts 14s instead of 10s and also gives +25% speed.'}],
@@ -74,7 +74,7 @@ const KEYSTONES={
         {id:'sam_ghost',n:'Ghost Process',d:'Dodges 20% of attacks.'}],
   rubens:[{id:'rub_hotbox',n:'Hotbox',d:'Smoke Session also gives the whole team +20% attack for 8s.'},
         {id:'rub_munch',n:'Munchies',d:'His basic heals also give the target 8 mana.'}],
-  ze:[{id:'ze_encore',n:'Standing Ovation',d:'Fanfarra! lasts 14s instead of 10s and gives +25 mana instead of +15.'},
+  ze:[{id:'ze_encore',n:'Standing Ovation',d:'Fanfarra! lasts 12s instead of 8s and gives +20 mana instead of +10.'},
         {id:'ze_beat',n:'Marching Beat',d:'His passive makes allies hit 14% harder instead of 8%.'}],
   donnie:[{id:'don_doom',n:'Doom',d:'A hexed enemy that dies explodes, dealing 15% of its max Health to the others.'},
         {id:'don_ink',n:'Cursed Ink',d:'His basic curse is stronger and lasts longer: +20% damage taken for 9s.'}]

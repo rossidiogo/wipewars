@@ -6,10 +6,11 @@
 const ENG={
   Q:.05,                    // rules advance in steps of this many seconds, whatever the caller's frame rate or speed
   critMult:1.5,
-  manaPerAct:10,
+  manaPerAct:8,
+  manaPerHp:40,             // mana a hero gains for taking damage equal to its whole health bar
   eliteEvery:3,             // every Nth attack of a rare monster ignores the tank and picks any hero
-  slamEvery:9,slamWarn:1.2,slamMult:.7,     // bosses: a telegraphed slam that hits the whole team
-  enrageAt:60,enrageStep:5,enrageAdd:.2,    // long fights: monsters hit harder every step, so no battle stalls
+  slamEvery:9,slamWarn:1.2,slamMult:.6,     // bosses: a telegraphed slam that hits the whole team
+  enrageAt:75,enrageStep:5,enrageAdd:.2,    // long fights: monsters hit harder every step, so no battle stalls
   timeout:150               // a battle still running at this point is a defeat
 };
 /* seconds between an attack starting and its damage landing (projectiles take longer) */
@@ -89,7 +90,7 @@ function createBattle(heroes,mons,opt){
     t.hp-=d;if(opt.immortal&&t.side==='m'&&t.hp<1)t.hp=1;
     if(src)src.st.dmg+=dmg;t.st.taken+=dmg;
     emit('dmg',{t,n:dmg,crit,src});
-    if(t.side==='h')gainMana(t,Math.min(12,3+Math.round(dmg/t.max*30)));
+    if(t.side==='h')gainMana(t,Math.max(1,dmg/t.max*ENG.manaPerHp));
     if(src&&src.hp>0&&d>0){
       const ls=(src.m.ls||0)+(key(src,'gl_jackpot')&&has(src,'tiger')?.25:0);
       if(ls)heal(src,d*ls,src);
@@ -119,8 +120,8 @@ function createBattle(heroes,mons,opt){
     rafinha(u,p){const dur=key(u,'raf_double')?12:8,hp=key(u,'raf_double')?.45:.3;emit('ult',{u,d:.85});
       after(.85,()=>{if(u.hp<=0)return;heal(u,u.max*hp*p,u);shield(u,u.max*.3*p);addFx(u,'atk',1.6,dur);addFx(u,'grow',1.35,dur);addFx(u,'orc',1,dur);});},
     lucao(u,p){emit('ult',{u});
-      for(let i=0;i<4;i++)alive('m').forEach(m=>strike(u,m,1*p,.2+i*.23));
-      shield(u,u.max*.15*p);if(key(u,'luc_net'))alive('m').forEach(m=>addFx(m,'spd',.7,6,'net'));},
+      for(let i=0;i<4;i++)alive('m').forEach(m=>strike(u,m,1.2*p,.2+i*.23));
+      shield(u,u.max*.4*p);if(key(u,'luc_net'))alive('m').forEach(m=>addFx(m,'spd',.7,6,'net'));},
     dps(u,p){const t=pickTarget(u);if(!t)return;emit('ult',{u,t,d:.67});
       strike(u,t,5*p,.67,{then:()=>{if(key(u,'dan_peck'))addFx(t,'in',1.25,8,'peck');}});
       if(key(u,'dan_flock'))alive('m').filter(m=>m!==t).slice(0,2).forEach((m,i)=>strike(u,m,2.5*p,.8+i*.12));},
@@ -128,7 +129,7 @@ function createBattle(heroes,mons,opt){
       const vol=key(u,'cha_storm')?3:2;
       for(let v=0;v<vol;v++)ms.forEach((m,i)=>{after(.12+v*.3+i*.04,()=>{if(m.hp>0&&u.hp>0)emit('atk',{u,t:m,d:HITDELAY.chavoso,shot:true});});strike(u,m,1.3*p,.12+v*.3+i*.04+HITDELAY.chavoso);});},
     copello(u,p){const t=pickTarget(u);if(!t)return;emit('ult',{u,t});strike(u,t,4.5*p,.2);
-      alive('m').forEach(m=>{if(m!==t)strike(u,m,(key(u,'cop_ripe')?2.2:1.2)*p,.33);});},
+      alive('m').forEach(m=>{if(m!==t)strike(u,m,(key(u,'cop_ripe')?2.4:1.5)*p,.33);});},
     glem(u,p){const dur=key(u,'gl_wild')?14:10;addFx(u,'atk',1.8,dur);addFx(u,'in',.75,dur);addFx(u,'grow',1.1,dur);addFx(u,'tiger',1,dur);
       if(key(u,'gl_wild'))addFx(u,'spd',1.25,dur,'wild');heal(u,u.max*.15*p,u);emit('ult',{u});},
     malaguti(u,p){const t=pickTarget(u);if(!t)return;emit('ult',{u,t,d:.8});
@@ -139,12 +140,12 @@ function createBattle(heroes,mons,opt){
       const pickT=()=>{const a=alive('m'),back=a.filter(m=>m.row>0);return (back.length?back:a).slice().sort((x,y)=>y.atk-x.atk)[0];};
       const t=pickT();emit('ult',{u,t,d:.42});
       after(.3,()=>{if(u.hp<=0||t.hp<=0)return;addFx(t,'stun',1,2);});
-      strike(u,t,5.5*p,.42,{then:n=>{if(key(u,'sam_fork')&&t.hp<=0){const t2=pickT();if(t2)after(.15,()=>{if(u.hp>0&&t2.hp>0)damage(t2,n*.6,u,{plain:true});});}}});},
+      strike(u,t,5*p,.42,{then:n=>{if(key(u,'sam_fork')&&t.hp<=0){const t2=pickT();if(t2)after(.15,()=>{if(u.hp>0&&t2.hp>0)damage(t2,n*.6,u,{plain:true});});}}});},
     rubens(u,p){const h=(20+A(u)*2.5)*p;emit('ult',{u,d:1.65});
       after(1.65,()=>{if(u.hp<=0)return;alive('h').forEach(a=>{heal(a,h,u);if(key(u,'rub_hotbox'))addFx(a,'atk',1.2,8,'hotbox');});});},
-    ze(u,p){const dur=key(u,'ze_encore')?14:10,mana=key(u,'ze_encore')?25:15;
-      alive('h').forEach(a=>{addFx(a,'atk',1+.35*p,dur,'fan');addFx(a,'spd',1.25,dur,'fan');if(a!==u)gainMana(a,mana,true);});emit('ult',{u});},
-    donnie(u,p){const ms=alive('m');ms.forEach(m=>{addFx(m,'atk',.65,10,'hex');addFx(m,'in',1+.25*p,10,'hex');});emit('ult',{u,ms,d:10});}
+    ze(u,p){const dur=key(u,'ze_encore')?12:8,mana=key(u,'ze_encore')?20:10;
+      alive('h').forEach(a=>{addFx(a,'atk',1+.22*p,dur,'fan');addFx(a,'spd',1.2,dur,'fan');if(a!==u)gainMana(a,mana,true);});emit('ult',{u});},
+    donnie(u,p){const ms=alive('m');ms.forEach(m=>{addFx(m,'atk',.8,8,'hex');addFx(m,'in',1+.15*p,8,'hex');});emit('ult',{u,ms,d:8});}
   };
   /* casts u's ultimate if it is ready. Returns whether it did. */
   B.cast=u=>{
