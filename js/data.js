@@ -16,8 +16,8 @@ const ECON={
   idleClaimXp:10,
   itemGrowth:1.32,                      // stat multiplier per item level (12 levels: a maxed item is ~21x a fresh common)
   scrap:lvl=>Math.round(15*Math.pow(1.75,lvl)),
-  stageGoldKinds:{0:10,2:25,3:60},
-  dropRare:[.02,.004], dropMagic:[.18,.01],   // chance of a Rare / Magic stage drop: [base, per stage cleared]      // gold per monster rarity (x stage number)
+  stageGoldKinds:{0:10,2:25,3:60},      // gold per monster rarity (x stage number)
+  dropRare:[.02,.004], dropMagic:[.18,.01],   // chance of a Rare / Magic stage drop: [base, per stage cleared]
   firstClearGems:10, bossFirstClearGems:50, chapterGems:100,
   firstClearTix:1, bossFirstClearTix:3, chapterTix:5,   // recruit tickets
   ticketGems:60,                        // gem price of one recruit ticket
@@ -91,8 +91,8 @@ const stageIn=n=>(n-1)%ECON.stagesPerChapter+1;
 const stageLabel=n=>(chapOf(n)+1)+'-'+stageIn(n);
 
 const HEROES={
-  tank:{n:'Jack',role:'Cowboy Tank',sub:'Tank',cls:'tank',hp:220,atk:12,iv:1.2},
-  rafinha:{n:'Rafinha',role:'Energy Drink Tank',sub:'Tank',cls:'tank',hp:285,atk:11,iv:1.3,sc:1},
+  tank:{n:'Jack',role:'Cowboy Tank',sub:'Tank',cls:'tank',hp:245,atk:12,iv:1.2},
+  rafinha:{n:'Rafinha',role:'Energy Drink Tank',sub:'Tank',cls:'tank',hp:275,atk:11,iv:1.3,sc:1},
   lucao:{n:'Lucão',role:'Fisherman Tank',sub:'Tank',cls:'tank',hp:310,atk:14,iv:1.2,sc:1.05},
   dps:{n:'Daniel',role:'Necromancer Summoner',sub:'Ranged DPS',cls:'dps',rng:1,hp:100,atk:30,iv:1.0},
   chavoso:{n:'Chavoso',role:'Deadeye Archer',sub:'Ranged DPS',cls:'dps',rng:1,hp:90,atk:26,iv:.85},
@@ -106,7 +106,7 @@ const HEROES={
 };
 const ULT={
   tank:{n:'Hold the Line',mana:40,d:'Gain a shield worth 40% of max health.'},
-  rafinha:{n:'Orc Mode',mana:45,d:'Drinks a can of Monster and turns into a huge orc for 8s: heals 25%, gains a 25% shield, +60% attack and grows 35%. His basic attacks become ground-shaking smashes.'},
+  rafinha:{n:'Orc Mode',mana:40,d:'Drinks a can of Monster and turns into a huge orc for 8s: heals 25%, gains a 25% shield, +60% attack and grows 35%. His basic attacks become ground-shaking smashes.'},
   lucao:{n:'Big Catch',mana:50,d:'Reels in a huge fish and spins like a top, whipping it into every enemy 4 times for 1.2x attack each, and gains a shield worth 45% of max health.'},
   dps:{n:'Summon Cockatiel',mana:80,d:'The cockatiel takes off from his shoulder, circles over his head, charges one enemy for 5x attack damage and flies back.'},
   chavoso:{n:'Tornado Shot',mana:70,d:'Fires a tornado of arrows: every enemy is hit twice for 1.3x attack each, and he gains Tailwind: +30% speed for 8s.'},

@@ -121,6 +121,8 @@ declare function skKey(hero: string): string | null;
 declare function skTotal(hero: string): number;
 declare function skSpent(hero: string): number;
 declare function skFree(hero: string): number;
+/** Has free points and a node or keystone that can take one. */
+declare function skCanSpend(hero: string): boolean;
 declare function skBlock(hero: string, node: string): SkillBlock;
 declare function skKeyBlock(hero: string, keystone: string): KeystoneBlock;
 /** Each returns whether the save changed (it is persisted when it did). */

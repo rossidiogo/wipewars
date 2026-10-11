@@ -115,7 +115,7 @@ function createBattle(heroes,mons,opt){
   }
   const ULTS={
     tank(u,p){shield(u,u.max*.4*p);
-      if(key(u,'jack_showdown')){heal(u,u.max*.15*p,u);alive('m').filter(m=>m.row===0).forEach(m=>addFx(m,'stun',1,1.5));}
+      if(key(u,'jack_showdown')){heal(u,u.max*.1*p,u);alive('m').filter(m=>m.row===0).forEach(m=>addFx(m,'stun',1,1.5));}
       emit('ult',{u});},
     rafinha(u,p){const dur=key(u,'raf_double')?12:8,hp=key(u,'raf_double')?.4:.25;emit('ult',{u,d:.85});
       after(.85,()=>{if(u.hp<=0)return;heal(u,u.max*hp*p,u);shield(u,u.max*.25*p);addFx(u,'atk',1.6,dur);addFx(u,'grow',1.35,dur);addFx(u,'orc',1,dur);});},

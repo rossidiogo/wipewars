@@ -255,7 +255,7 @@ Object.assign(PT,{
 'Showdown':'Confronto','Whiplash':'Chicotada','Double Can':'Lata Dupla','Aftershock':'Réplica','Fishing Net':'Rede de Pesca','Live Bait':'Isca Viva','Flock':'Bando','Pecking Order':'Ordem do Bico',
 'Piercing Arrows':'Flechas Perfurantes','Eye of the Storm':'Olho do Furacão','Overripe':'Madura Demais','Heavy Cast':'Golpe Pesado','Jackpot':'Grande Prêmio','Wild Card':'Coringa','Counter Hit':'Contra-ataque',
 'Ghost Process':'Processo Fantasma','Munchies':'Larica','Standing Ovation':'Ovação de Pé','Marching Beat':'Batida Marcial','Doom':'Perdição','Cursed Ink':'Tinta Amaldiçoada',
-'Hold the Line also heals 15% of max Health and stuns the enemy front row for 1.5s.':'Segurar a Linha também cura 15% da vida máxima e atordoa a fileira da frente inimiga por 1,5s.',
+'Hold the Line also heals 10% of max Health and stuns the enemy front row for 1.5s.':'Segurar a Linha também cura 10% da vida máxima e atordoa a fileira da frente inimiga por 1,5s.',
 'Every 4th attack cracks the whip across every enemy for 60% damage.':'A cada 4º ataque, o chicote estala em todos os inimigos causando 60% de dano.',
 'Orc Mode lasts 12s instead of 8s and heals 40% instead of 25%.':'Modo Orc dura 12s em vez de 8s e cura 40% em vez de 25%.',
 'Orc smashes also hit every other enemy in the front row for 50% damage.':'As pancadas do orc também atingem os outros inimigos da fileira da frente, causando 50% de dano.',
@@ -312,3 +312,4 @@ Object.assign(PT,{'Drinks a can of Monster and turns into a huge orc for 8s: hea
 'The Great Rebalance':'O Grande Rebalanceamento',
 'Heroes now have skill trees, and gear and monsters were rebalanced. Every level you already earned is a skill point waiting to be spent. Here is something to get you going again.':'Os heróis agora têm árvores de habilidades, e os equipamentos e monstros foram rebalanceados. Cada nível que você já ganhou é um ponto de habilidade esperando para ser gasto. Aqui vai uma ajuda para você voltar com tudo.'});
 Object.assign(PT,{'When a hero’s <b>mana bar</b> fills up they cast their <b>ultimate</b> on their own. Want to time it yourself? Turn off <b>Auto ultimates</b> under the field and tap their portrait.':'Quando a <b>barra de mana</b> de um herói enche, ele usa a <b>ultimate</b> sozinho. Quer escolher a hora? Desligue as <b>Ultimates automáticas</b> embaixo do campo e toque no retrato dele.'});
+Object.assign(PT,{'Lab':'Laboratório','Open':'Abrir','Test heroes, monsters and ultimates, and browse the gallery':'Testar heróis, monstros, ults e ver a galeria'});

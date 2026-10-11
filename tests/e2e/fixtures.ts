@@ -23,8 +23,7 @@ export async function boot(page: Page, lang: Lang = 'en'): Promise<string[]> {
   await run(page, `save.name='Tester';save.tut=Object.fromEntries(Object.keys(TIPS).map(k=>[k,1]));save.cleared=3;save.gold=50000;save.gems=2000;persist();`);
   await page.reload();
   await page.evaluate(() => document.fonts.ready);
-  // The legacy loader only restores keys present in DEF(), and `lang` is not one of them,
-  // so the language cannot be seeded through the save; switch it after load instead.
+  // Switched after load, the way a player does it in Settings.
   if (lang !== 'en') await run(page, `setLang(${JSON.stringify(lang)})`);
   return errors;
 }

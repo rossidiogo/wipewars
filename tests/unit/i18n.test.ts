@@ -86,6 +86,10 @@ describe('Portuguese', () => {
     expect(untranslated(Object.values(tips).flat())).toEqual([]);
   });
 
+  it('translates the settings entry for the Lab', () => {
+    expect(untranslated(['Lab', 'Open', 'Test heroes, monsters and ultimates, and browse the gallery'])).toEqual([]);
+  });
+
   it('leaves English alone when the language is English', () => {
     g.run(`LANG='en'`);
     expect(pt('Skill tree')).toBe('Skill tree');

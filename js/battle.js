@@ -323,7 +323,7 @@ function winBattle(){
 /* the most useful thing the player can do after a loss, given what they have not spent yet */
 function loseAdvice(){
   if(BT&&BT.t>=ENG.timeout)return 'Time ran out. Bring more damage: level your damage dealers or upgrade their weapons.';
-  if(save.team.some(r=>skFree(r)>0))return 'You have unspent skill points. Open a hero’s skill tree and spend them.';
+  if(save.team.some(skCanSpend))return 'You have unspent skill points. Open a hero’s skill tree and spend them.';
   if(save.team.some(r=>save.lv[r]<plv()&&save.gold>=lvCost(r)))return 'You can afford to level up a hero. Do that and try again.';
   return 'Your team was wiped out. Level up your heroes or equip better gear.';
 }

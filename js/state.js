@@ -99,7 +99,7 @@ function badgeCounts(){
   const cal=calInfo().can?1:0;
   const mail=save.mail.filter(m=>!m.claimed).length;
   const shop=(!save.shop.free)?1:0;
-  const heroes=save.team.filter(r=>skFree(r)>0).length;
+  const heroes=save.team.filter(skCanSpend).length;
   return {tasks,cal,mail,shop,heroes};
 }
 function calInfo(){
@@ -116,7 +116,8 @@ if(!save.mailInit){
   save.mailInit=true;persist();
 }
 /* v3 rebalanced gear and monsters and added skill trees: a save from before that gets one thank-you mail, so losing gear power does not sting */
-if(fromVer<3&&save.cleared>0)sendMail('The Great Rebalance','Heroes now have skill trees, and gear and monsters were rebalanced. Every level you already earned is a skill point waiting to be spent. Here is something to get you going again.',{gems:300,tix:5,keys:{s:1}});
+// Written without persist(): persist() stamps the save as just modified, and a stale device would then overwrite a newer cloud save (account.js cloudNewer).
+if(fromVer<3&&save.cleared>0){save.mail.unshift({id:save.mid++,claimed:false,t:Date.now(),title:'The Great Rebalance',body:'Heroes now have skill trees, and gear and monsters were rebalanced. Every level you already earned is a skill point waiting to be spent. Here is something to get you going again.',rewards:{gems:300,tix:5,keys:{s:1}}});try{localStorage.setItem('wipewars',JSON.stringify(save));}catch(e){}}
 
 /* ---------- team and formation ---------- */
 function fixForm(){
@@ -228,9 +229,10 @@ function stageWin(n){
   return {out:give(r),first,boss};
 }
 
-/* share of k rehearsed battles the current team wins on stage n. Fixed seeds: the same team always gets the same answer. */
+/* share of k rehearsed battles the current team wins on stage n, fought the way the player has the game set (auto ultimates on or off).
+   Fixed seeds: the same team always gets the same answer. */
 function winChance(n,k){
   k=k||20;let w=0;const hs=()=>heroSpecs(save.team,save.form),ms=()=>monSpecs(stageList(n),n);
-  for(let i=0;i<k;i++)if(runBattle(hs(),ms(),{seed:i*7919+n}).win)w++;
+  for(let i=0;i<k;i++)if(runBattle(hs(),ms(),{seed:i*7919+n,auto:!!save.autoUlt,inv:!!(save.digas&&save.dgInv),oneHit:!!(save.digas&&save.dgKill),freeMana:!!(save.digas&&save.dgMana)}).win)w++;
   return w/k;
 }

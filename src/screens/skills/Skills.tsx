@@ -124,7 +124,7 @@ export function Skills() {
       {detail ?? <div class="sub dim center">Tap a skill to see what it does.</div>}
 
       <div class="rbtns">
-        <Button disabled={free < 1} onClick={() => { skAuto(hero); toast('Points assigned'); changed(); }}>Auto-assign</Button>
+        <Button disabled={!skCanSpend(hero)} onClick={() => { skAuto(hero); toast('Points assigned'); changed(); }}>Auto-assign</Button>
         <Button disabled={spent < 1} onClick={() => { skReset(hero); setPick(null); toast('Skill points reset'); changed(); }}>Reset</Button>
       </div>
       <div class="sub dim center">Heroes earn 1 skill point per level-up and 2 per star. Resetting is free.</div>

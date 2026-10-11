@@ -100,7 +100,7 @@ What changed (all in `ECON`, `KINDS`, `HEROES`, `ENG`):
 | Monsters | compounding growth | linear per stage, one multiplier per chapter (`chapMul`) |
 | Monster mix | short burst fights | more health, less attack: fights last 20-30 s |
 | Bosses | 3.2x an elite | about 2x an elite, plus the slam |
-| Heroes | Lucão unusable, supports dominant | within about 10% at equal investment |
+| Heroes | Lucão unusable, supports dominant | within 0.94-1.13 of each other at equal investment |
 
 Result: see the table in "Measured result" at the end of this file.
 
@@ -135,3 +135,21 @@ cap rises; `idlePerStage` sets Chaos. Re-run `npm run sim pace` after any change
 - The simulator's player is a greedy bot. It does not model a human forgetting to spend points
   or choosing a weak team, so real players will be somewhat slower than the table.
 - Tower, PvP and the other roadmap features.
+
+## Measured result
+
+`npm run sim pace 10 45`, median of 10 simulated players per style, final numbers of this branch:
+
+| Play style | Ch 1 | Ch 2 | Ch 3 | Ch 4 | Ch 5 | Longest wait on one stage |
+|---|---|---|---|---|---|---|
+| Casual, 2 x 10 min a day | day 2 | 7 | 12 | 22 | 30 | 3 days (worst player 5) |
+| Regular, 2 x 20 min a day | day 2 | 6 | 10 | 16 | 21 | 2 days (worst player 4) |
+| Keen, 3 x 30 min a day | day 1 | 4 | 6 | 10 | 13 | 1 day (worst player 4) |
+
+Against the written target: the whole game takes 3 weeks for the regular player and about 4 for
+the casual one, as asked. Chapter 1 takes about 60 minutes of play, not 2 hours. Holding it to
+2 hours needed a hard stop around stage 7, twenty minutes into the first session, and that was
+judged worse than a shorter first chapter. `ECON.chapMul[0]` is the dial if the owner disagrees.
+
+`npm run sim heroes` at stages 10, 30 and 50: every hero's strength index is between 0.94 and
+1.13 of the baseline team's, measured to about ±0.03.

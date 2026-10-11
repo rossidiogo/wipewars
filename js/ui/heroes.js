@@ -34,10 +34,10 @@ DRAW.heroes=function(){
   lb.disabled=lv>=plv()||save.gold<cost;
   lb.onclick=()=>{levelUp(r);DRAW.heroes();syncCur();};
   card.appendChild(lb);
-  const fp=skFree(r),kb=el('button','btn wide sktbtn'+(fp>0?' has':''),'<span>Skill tree</span>'+(fp>0?'<b class="skbdg">'+fp+'</b>':''));
+  const fp=skCanSpend(r)?skFree(r):0,kb=el('button','btn wide sktbtn'+(fp>0?' has':''),'<span>Skill tree</span>'+(fp>0?'<b class="skbdg">'+fp+'</b>':''));
   kb.onclick=()=>openScreen('skills');card.appendChild(kb);
   const sc=starCost(r);
-  if(sc){const sb=el('button','btn wide','Star up &nbsp;'+shardsOf(r)+' / '+sc+' shards');sb.disabled=shardsOf(r)<sc;sb.onclick=()=>{starUp(r);toast(H.n+' reached '+starsOf(r)+' star'+(starsOf(r)>1?'s':'')+'!');DRAW.heroes();};card.appendChild(sb);}
+  if(sc){const sb=el('button','btn wide','Star up &nbsp;'+shardsOf(r)+' / '+sc+' shards');sb.disabled=shardsOf(r)<sc;sb.onclick=()=>{starUp(r);syncCur();toast(H.n+' reached '+starsOf(r)+' star'+(starsOf(r)>1?'s':'')+'!');DRAW.heroes();};card.appendChild(sb);}
   const u=ULT[r];
   card.appendChild(el('div','ultbox','<div class="ulth">Ultimate — '+u.n+'</div><div class="sub">'+u.d+' Needs '+u.mana+' mana.</div>'));
   box.appendChild(card);

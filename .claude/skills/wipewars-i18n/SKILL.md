@@ -1,6 +1,6 @@
 ---
 name: wipewars-i18n
-description: Use whenever you add or change ANY visible text in Wipe Wars (UI labels, hero/monster/item names, tooltips, cutscene lines, tutorial lines, toasts) so it has a Portuguese translation. Load before editing js/*.js, index.html text, or adding new heroes, monsters, items, screens or art that carries text.
+description: Use whenever you add or change ANY visible text in Wipe Wars (UI labels, hero/monster/item names, tooltips, cutscene lines, tutorial lines, toasts) so it has a Portuguese translation. Load before editing js/**/*.js, src/screens, index.html text, or adding new heroes, monsters, items, screens or art that carries text.
 ---
 
 # Wipe Wars PT/EN rule
@@ -21,6 +21,9 @@ The game writes English in the code and translates to Portuguese (BR) at the DOM
 5. Prefer natural Brazilian Portuguese, informal and short, matching the game's humor; keep inside jokes.
 6. Verify: run `npm run dev` (or `npm run build` and open `dist/index.html`), switch to Portuguese in Settings > Language, open every screen you touched and look for leftover English. The `calendar` screen was not covered by the earlier crawl: check it manually.
 7. Art with baked-in text (logos, banners, signs) must be generated WITHOUT text (the generator garbles it) and have the text added in HTML/CSS so it can be translated.
+
+## The safety net
+`tests/unit/i18n.test.ts` (run by `npx vitest run`) walks every name and description in the game data (heroes, ultimates, weapons, skills, keystones, monsters, chapters, tasks, achievements, tutorial lines) and fails on any without a Portuguese entry. Text written directly in screen code is not discovered automatically: add it to the list in that test when you add it to the screen.
 
 ## Screens migrated to Preact (`src/screens/`)
 The DOM translator still does the work there, and it matches **whole text nodes**. In JSX, mixed text and values create several nodes: write `` {`${n} unclaimed`} ``, never `{n} unclaimed`, or the `RX` rule will not match. `npm run e2e` checks Mail in both languages; add the same kind of check for each screen you migrate.

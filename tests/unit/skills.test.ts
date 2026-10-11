@@ -146,4 +146,13 @@ describe('tree data', () => {
       for (const m of t.ms) expect(zeroKeys, `${cls}.${m}`).toContain(m);
     }
   });
+
+  it('does not count points a full tree cannot absorb as spendable', () => {
+    const g = fresh();
+    g.run(`save.lv.tank=21;save.stars.tank=5;skAuto('tank')`);
+    expect(g.run(`skFree('tank')`)).toBeGreaterThan(0);
+    expect(g.run(`skCanSpend('tank')`)).toBe(false);
+    g.run(`skReset('tank')`);
+    expect(g.run(`skCanSpend('tank')`)).toBe(true);
+  });
 });

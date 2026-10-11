@@ -54,7 +54,7 @@ const SKTREE={
   ]
 };
 const KEYSTONES={
-  tank:[{id:'jack_showdown',n:'Showdown',d:'Hold the Line also heals 15% of max Health and stuns the enemy front row for 1.5s.'},
+  tank:[{id:'jack_showdown',n:'Showdown',d:'Hold the Line also heals 10% of max Health and stuns the enemy front row for 1.5s.'},
         {id:'jack_whiplash',n:'Whiplash',d:'Every 4th attack cracks the whip across every enemy for 60% damage.'}],
   rafinha:[{id:'raf_double',n:'Double Can',d:'Orc Mode lasts 12s instead of 8s and heals 40% instead of 25%.'},
         {id:'raf_quake',n:'Aftershock',d:'Orc smashes also hit every other enemy in the front row for 50% damage.'}],
@@ -95,6 +95,8 @@ function skBlock(r,id){
     return skFree(r)<1?'points':'';}
   return 'locked';
 }
+/* whether the hero has points AND somewhere to put them (a full tree leaves spare points with no use) */
+function skCanSpend(r){return skFree(r)>0&&(skNodes(r).some(n=>!skBlock(r,n.id))||(!skKey(r)&&!skKeyBlock(r,KEYSTONES[r][0].id)));}
 function skBuy(r,id){if(skBlock(r,id))return false;skOf(r)[id]=skRank(r,id)+1;persist();return true;}
 function skKeyBlock(r,id){
   if(skKey(r)===id)return 'on';

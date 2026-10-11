@@ -1,7 +1,7 @@
 /* ---------- Digas mode (god mode for testing; fully reversible) ---------- */
 function digasOn(){
   if(save.digas)return;
-  save.digasBak=JSON.stringify({cleared:save.cleared,gold:save.gold,gems:save.gems,keys:save.keys,lv:save.lv,xp:save.xp,chapDone:save.chapDone});
+  save.digasBak=JSON.stringify({cleared:save.cleared,gold:save.gold,gems:save.gems,keys:save.keys,lv:save.lv,xp:save.xp,chapDone:save.chapDone,sk:save.sk||{}});
   save.digas=1;save.cleared=MAXSTAGE;
   for(let c=0;c<ECON.chapters.length;c++)save.chapDone[c]=1;
   save.gold=Math.max(save.gold,99999999);save.gems=Math.max(save.gems,999999);
@@ -15,6 +15,7 @@ function digasOn(){
 function digasOff(){
   if(!save.digas)return;
   try{const b=JSON.parse(save.digasBak);Object.assign(save,b);}catch(e){}
+  HIDS.forEach(r=>{if(skFree(r)<0)skReset(r);});   // a backup from before skill trees has no skills to restore
   const ids=new Set(save.digasItems||[]);save.items=save.items.filter(i=>!ids.has(i.id));
   Object.keys(save.eq).forEach(r=>{Object.keys(save.eq[r]).forEach(k=>{if(ids.has(save.eq[r][k]))delete save.eq[r][k];});});
   save.digas=0;save.digasBak=null;save.digasItems=[];save.dgInv=save.dgKill=save.dgMana=0;persist();
@@ -26,8 +27,8 @@ DRAW.settings=function(){
   const row=(label,btn)=>{const r=el('div','srow','<span>'+label+'</span>');r.appendChild(btn);return r;};
   const sec=t=>L.appendChild(el('div','sect',t));
   const tog=(label,get,set)=>{const b=el('button','btn sm'+(get()?' primary':''),get()?'On':'Off');b.onclick=()=>{set(!get());persist();DRAW.settings();};L.appendChild(row(label,b));};
-  sec('Laboratório');
-  const lb=el('button','btn sm primary','Abrir');lb.onclick=()=>openLab('fight');L.appendChild(row('Testar heróis, monstros, ults e ver a galeria',lb));
+  sec('Lab');
+  const lb=el('button','btn sm primary','Open');lb.onclick=()=>openLab('fight');L.appendChild(row('Test heroes, monsters and ultimates, and browse the gallery',lb));
   sec('Digas mode');
   const dg=el('button','btn sm'+(save.digas?' primary':''),save.digas?'On':'Off');
   dg.onclick=()=>{if(save.digas)digasOff();else digasOn();syncCur();toast(save.digas?'Digas mode ON: everything unlocked':'Digas mode off: progress restored');DRAW.settings();};

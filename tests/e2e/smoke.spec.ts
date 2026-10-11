@@ -164,3 +164,23 @@ for (const team of [['tank', 'rafinha', 'lucao', 'dps'], ['chavoso', 'copello', 
     expect(errors).toEqual([]);
   });
 }
+
+test('Digas mode gives back the skills bought with its levels', async ({ page }) => {
+  const errors = await boot(page);
+  await run(page, `digasOn();skAuto('tank');digasOff()`);
+  expect(await run<number>(page, `skFree('tank')`)).toBeGreaterThanOrEqual(0);
+  expect(await run<number>(page, `skSpent('tank')`)).toBe(0);
+  expect(errors).toEqual([]);
+});
+
+test('a save from before the rebalance gets one mail and is not stamped as newer than its cloud copy', async ({ page }) => {
+  const errors = await boot(page);
+  await run(page, `save.ver=2;save.mod=1000;localStorage.setItem('wipewars',JSON.stringify(save))`);
+  await page.reload();
+  expect(await run<number>(page, `save.mail.filter(m=>m.title==='The Great Rebalance').length`)).toBe(1);
+  // account.js treats the cloud copy as newer when its stamp beats save.mod: the mail must not stamp the save with "now"
+  expect(await run<number>(page, `save.mod||0`)).toBeLessThanOrEqual(1000);
+  await page.reload();
+  expect(await run<number>(page, `save.mail.filter(m=>m.title==='The Great Rebalance').length`)).toBe(1);
+  expect(errors).toEqual([]);
+});
