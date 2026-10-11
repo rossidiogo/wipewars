@@ -6,6 +6,7 @@
 - O codigo antigo continua em `js/*.js` e `css/style.css` e funciona igual: o build (`build/legacy-plugin.ts`) junta tudo na mesma ordem de antes, sem alterar nada. Arquivo JS novo do jogo antigo: adicione o nome em `LEGACY_ORDER` nesse arquivo.
 - A UI esta sendo migrada para Preact + TypeScript, tela por tela, em `src/`. Tela ja migrada: Mail (`src/screens/mail/`). As outras continuam em `js/ui.js` ate serem migradas. Regras e desenho: `docs/superpowers/specs/2026-10-11-ui-foundation-design.md`.
 - Testes: `tests/e2e/` (Playwright) abre todas as telas em EN e PT, joga uma fase e compara screenshots de cada tela com `tests/e2e/__screenshots__/`. Se mudar o visual DE PROPOSITO: `npm run build && npm run e2e -- --update-snapshots` e confira as imagens antes de commitar.
+- VISUAL NOVO (branch `ui/restyle`, 2026-10-11): estilo "dark fantasy moderno". Cores, raios e sombras sao variaveis no topo de `css/style.css` (`--surface`, `--line`, `--gold`, `--r-m`...). Use essas variaveis em CSS novo, nada de cor fixa. Texto em Inter, titulos em Cinzel. Detalhes: `docs/superpowers/specs/2026-10-11-ui-restyle-design.md`.
 - Publicacao: push na `main` roda o mesmo build no GitHub Actions e publica `dist/` no GitHub Pages.
 - Onde este arquivo citar `python build.py test.html`, `monkey.py`, `play.py` ou `multi.py`, e historico: use os comandos acima.
 
