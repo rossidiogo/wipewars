@@ -2,7 +2,7 @@
 window.LAB=null;
 const LAB_STATUS={tank:'Aprovado',dps:'Aprovado',ze:'Aprovado',donnie:'Provisório (Jacquin 87-90)',chavoso:'Provisório (Jacquin 87-90)',rafinha:'Provisório (Jacquin 87-90)',samuel:'Provisório (Jacquin 86)',glem:'Provisório (código; humano 86.3, tigre ~84-86)',rubens:'Provisório (código; Jacquin 86.3)'};
 const labSt=r=>LAB_STATUS[r]||'Placeholder - aguarda fotos/arte';
-function labForm(team){const f={},used=new Set();team.forEach(k=>{const H=HEROES[k],pref=H.cls==='tank'?[1,0,2,4,3,5]:(H.rng||H.cls==='sup')?[4,5,3,1,0,2]:[0,2,1,3,5,4];f[k]=pref.find(x=>!used.has(x));used.add(f[k]);});return f;}
+function labForm(team){const f={},used=new Set();team.forEach(k=>{f[k]=formPref(k).find(x=>!used.has(x));used.add(f[k]);});return f;}
 const labCfg={team:['tank','dps','samuel','rubens'],mons:['tp','clorox','boss'],chap:0,stg:1,god:true,immortal:true,mana:true};
 function labStart(){
   if(!labCfg.team.length||!labCfg.mons.length){toast('Escolha pelo menos 1 herói e 1 monstro');return;}

@@ -8,7 +8,8 @@
     "typecheck": "tsc",
     "test": "vitest run",
     "e2e": "playwright test",
-    "verify": "tsc && vitest run && vite build && playwright test"
+    "verify": "tsc && vitest run && vite build && playwright test",
+    "sim": "node tools/sim/run.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.64.0",

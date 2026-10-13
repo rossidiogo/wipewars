@@ -8,6 +8,6 @@ export default defineConfig({
   base: './',
   plugins: [preact(), legacyPlugin(), singleFilePlugin()],
   test: {
-    include: ['src/**/*.test.{ts,tsx}', 'build/**/*.test.ts'],
+    include: ['src/**/*.test.{ts,tsx}', 'build/**/*.test.ts', 'tests/unit/**/*.test.ts'],
   },
 });

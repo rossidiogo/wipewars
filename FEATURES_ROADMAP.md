@@ -11,6 +11,7 @@ Owner granted FULL AUTONOMY (2026-10-07): build all of this without asking. New 
 ## Online (friends, guild, ranking, cloud save)
 - Pluggable `Net` adapter (js/net.js): local mock now, Supabase/Firebase later (needs Diogo to create the free project once). Friends list + daily gifts, guild (create/join, weekly boss, 3 attacks/day, ranking), cloud save, leaderboards.
 ## Other approved ideas
-- Mascots/pets, collection codex, fishing (Lucao theme), seasonal events, boss rush, skins, guild emblems/avatar frames/stickers, more heroes/chapters, music and sound pack, balance pass (cap1 ~2h, whole game 3-4 weeks).
+- Mascots/pets, collection codex, fishing (Lucao theme), seasonal events, boss rush, skins, guild emblems/avatar frames/stickers, more heroes/chapters, music and sound pack.
+- DONE 2026-10-11 (branch feat/full-product): balance pass with a simulator (`npm run sim`), hero skill trees. See docs/superpowers/specs/2026-10-11-full-product-design.md.
 ## Systems already decided
 - Heroes have main attribute STR/DEX/INT; attribute decides the item SET (3 rare sets Bulwark/Fury/Mercy); uniques/legendaries with hybrid attributes later.
